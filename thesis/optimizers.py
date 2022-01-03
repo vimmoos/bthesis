@@ -5,6 +5,7 @@ from typing import Callable, Dict, Type
 import torch.optim as optim
 from torch import nn
 
+import thesis.ednconf.core as ec
 import thesis.utils as u
 
 
@@ -30,7 +31,7 @@ def create_optims(
     of the optimizers(defined in *kwargs*) and as value the
     instantiation of these optimizer (as instructed by the *kwargs*)
     """
-    partial_optim = {k: u.to_unary(v["optim"]) for k, v in kwargs.items()}
+    partial_optim = {k: v["optim"] for k, v in kwargs.items()}
 
     has_multi = len(kwargs.keys()) >= 2
 
@@ -88,3 +89,13 @@ class MOptims:
         """Perform step on all optimizer."""
         for k, v in self.optims.items():
             v.step()
+
+    def __enter__(
+        self,
+    ):
+        self.zero_grad()
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        self.step()
+        return False

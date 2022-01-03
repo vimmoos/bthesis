@@ -3,6 +3,7 @@ from typing import Dict, List, Tuple, Type
 
 from torch import nn
 
+import thesis.arch.utils as ua
 import thesis.utils as u
 
 
@@ -28,8 +29,8 @@ class VanillaAutoencoder(nn.Module):
         """Initialize the class."""
         kwargs = locals()
         super().__init__()
-        self.encoder = u.Sequential(**u.sel_and_rm(kwargs, "enc_"))
-        self.decoder = u.Sequential(**u.sel_and_rm(kwargs, "dec_"))
+        self.encoder = u.sapply(ua.Sequential, kwargs, "enc_")
+        self.decoder = u.sapply(ua.Sequential, kwargs, "dec_")
 
     def forward(self, x) -> Dict:
         """Make a single step of the AE.

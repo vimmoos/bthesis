@@ -5,7 +5,8 @@ from typing import Dict, List, Tuple, Type
 from torch import nn
 from torch.autograd import Variable
 
-import thesis.encoders as enc
+import thesis.arch.encoders as enc
+import thesis.arch.utils as ua
 import thesis.utils as u
 
 
@@ -47,8 +48,8 @@ class VAE(nn.Module):
         """Initialize the class."""
         kwargs = locals()
         super().__init__()
-        self.encoder = enc.VariationalEncoder(**u.sel_and_rm(kwargs, "enc_"))
-        self.decoder = u.Sequential(**u.sel_and_rm(kwargs, "dec_"))
+        self.encoder = u.sapply(enc.VariationalEncoder, kwargs, "enc_")
+        self.decoder = u.sapply(ua.Sequential, kwargs, "dec_")
 
     def forward(self, x) -> Dict:
         """Perform a single step of the VAE (x -> encoder(x) -> z -> decode(z) -> x').
@@ -60,4 +61,4 @@ class VAE(nn.Module):
         """
         latent = self.encoder(x)
         z = reparameterize(self.training, latent["mu"], latent["var"])
-        return {"out": self.decoder(z), **latent}
+        return {"out": self.decoder(z)["out"], **latent}

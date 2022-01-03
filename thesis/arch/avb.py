@@ -6,7 +6,8 @@ import torch
 from torch import nn
 from torch.autograd import Variable
 
-import thesis.encoders as enc
+import thesis.arch.encoders as enc
+import thesis.arch.utils as ua
 import thesis.utils as u
 
 
@@ -32,7 +33,7 @@ class Discriminator(nn.Module):
         """TODO."""
         super().__init__()
         layers[0] = (layers[0][0] + latent, layers[0][1])
-        self.seq = u.make_linear_seq(**u.sel_args(locals(), u.make_linear_seq))
+        self.seq = u.apply(ua.make_linear_seq, locals())
 
     def forward(self, x, z) -> Dict:
         """TODO."""
@@ -58,12 +59,13 @@ class AVB(nn.Module):
         kwargs = locals()
         super().__init__()
         self.latent = enc_layers[-1][1]
-        self.encoder = enc.AVBEncoder(**u.sel_and_rm(kwargs, "enc_"))
-        self.decoder = u.Sequential(**u.sel_and_rm(kwargs, "dec_"))
+        self.encoder = enc.AVBEncoder(
+            **u.sel_and_rm(kwargs, "enc_"), latent=self.latent
+        )
+        self.decoder = u.sapply(ua.Sequential, kwargs, "dec_")
         self.disc = Discriminator(**u.sel_and_rm(kwargs, "disc_"), latent=self.latent)
 
-    @property
-    def get_parameters(self):
+    def parameters(self):
         """TODO."""
         disc_params, ae_params = [], []
         for name, param in self.named_parameters():

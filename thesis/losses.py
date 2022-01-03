@@ -21,6 +21,13 @@ def ELBOLoss(out: Tensor, mu: Tensor, var: Tensor, x: Tensor) -> Dict:
     return {"ae": F.binary_cross_entropy(out, x) + KLD}
 
 
+__mseloss = torch.nn.MSELoss()
+
+
+def mse(out, x):
+    return {"ae": __mseloss(out, x)}
+
+
 def ELBOWithDiscLoss(
     out: Tensor, logprior: Tensor, logpost: Tensor, x: Tensor
 ) -> Dict:
@@ -48,12 +55,9 @@ def create_args_backward(**kwargs):
 
 
 def create_order(**kwargs):
-    """TODO."""
-    order = {
-        v["order"] if "order" in v.keys() else math.inf: k for k, v in kwargs.items()
-    }
-    sort = sorted(order.keys())
-    return [order[x] for x in sort]
+    """TODO. there is a bug here when two or more keys do not have an order key"""
+    order = {v.get("order", math.inf): k for k, v in kwargs.items()}
+    return [order[x] for x in sorted(order.keys())]
 
 
 class MLosses:
@@ -62,7 +66,7 @@ class MLosses:
     losses_arg: Dict[str, Dict[str, Any]]
     losses_ord: Optional[List[str]]
     current_losses: Dict[str, float]
-    cnt: int = 0
+    data_size: int = 1
 
     def __init__(self, **kwargs):
         """Initialize class."""
@@ -72,13 +76,16 @@ class MLosses:
 
     def compute_backward(self, losses):
         """Compute all the gradients using .backward and adds the losses values."""
-        self.cnt += 1
         for k in self.losses_ord:
             losses[k].backward(**self.losses_arg[k])
-            if self.cnt % 200 == 0:
-                print(
-                    f"current loss {losses[k].item()}, total : {self.current_losses[k]}"
-                )
+
+    def add_losses(self, losses):
+        """TODO."""
+        for k in self.losses_ord:
+            # if self.cnt % 200 == 0:
+            #     print(
+            #         f"current loss {losses[k].item()}, total : {self.current_losses[k]}"
+            #     )
             self.current_losses[k] += losses[k].item()
 
     def reset_losses(self):
@@ -86,8 +93,6 @@ class MLosses:
 
         Usually used after a full loop over all the data.
         """
-        print("reset")
-        self.cnt = 0
         self.current_losses = {k: 0.0 for k, _ in self.current_losses.items()}
 
     def print_losses(
@@ -95,4 +100,20 @@ class MLosses:
     ):
         """Print all losses."""
         for k, v in self.current_losses.items():
-            print(f"Loss {k}: {v/self.cnt}")
+            print(f"{self.prefix}->Loss {k}: {v/self.data_size}")
+
+    def __call__(self, prefix: str, data_size: int):
+        """TODO."""
+        self.data_size = data_size
+        self.prefix = prefix
+        return self
+
+    def __enter__(
+        self,
+    ):
+        self.reset_losses()
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        self.print_losses()
+        return False

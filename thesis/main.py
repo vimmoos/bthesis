@@ -1,50 +1,20 @@
 """TODO."""
-import torch
-import torch.nn.functional as F
-import torch.optim as optim
-from torchvision import datasets, transforms
 
-import thesis.trainers as tr
-import thesis.utils as u
-import thesis.vanilla as va
-
-ti_loss = torch.nn.MSELoss()
-trans = transforms.ToTensor()
-train = datasets.MNIST(
-    root="./data",
-    train=True,
-    download=True,
-    transform=transforms.Lambda(lambda x: trans(x).reshape(-1, 28 * 28)),
-)
+import thesis.ednconf.core as c
+import thesis.runner as r
 
 
-def mse(out, x):
-    return {"ae": ti_loss(out, x)}
-
-
-def test(n=3):
-    layers = u.gen_layers_number(28 * 28, 9, n)
-    model = va.VanillaAutoencoder(layers, [t[::-1] for t in layers][::-1])
-
-    trainer = tr.Trainer(
-        **{
-            "ae": {
-                "optim": optim.Adam,
-            },
-        }
-    )
-    train, test = u.load_data()
-
-    trainer.train(model, train, mse)
+def testaruolo(conf="test"):
+    args = c.load_and_resolve(conf)
+    for k, v in args["data"].items():
+        args[f"{k}_data"] = v
+    del args["data"]
+    r.run(**args)
 
 
 if __name__ == "__main__":
-    for x in range(3, 10):
-        print(f"========={x}=========")
-        test(x)
+    testaruolo("avb")
 
-# Loss ae: 0.01574177460173766
-# current loss 0.01603039726614952, total : 28.32065551355481
 
 # import torch
 # from torch import nn

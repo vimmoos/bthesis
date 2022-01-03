@@ -15,6 +15,7 @@ from typing import Dict, List, Tuple, Type
 import torch
 import torch.nn as nn
 
+import thesis.arch.utils as ua
 import thesis.utils as u
 
 
@@ -46,7 +47,7 @@ class VariationalEncoder(nn.Module):
     ):
         """Initialize the class."""
         super().__init__()
-        self.seq = u.make_linear_seq(layers[:-1], inter_act, inter_act)
+        self.seq = ua.make_linear_seq(layers[:-1], inter_act, inter_act)
         self.mu = nn.Linear(*layers[-1])
         self.logvar = nn.Linear(*layers[-1])
         self.final_act = final_act()
@@ -80,12 +81,14 @@ class AVBEncoder(nn.Module):
     def __init__(
         self,
         layers: List[Tuple[int, int]],
+        latent: int,
         inter_act: Type[nn.Module] = nn.ReLU,
         final_act: Type[nn.Module] = nn.Identity,
     ):
         """Initialize the class."""
         super().__init__()
-        self.seq = u.make_linear_seq(**u.sel_args(locals(), u.make_linear_seq))
+        layers[0] = (layers[0][0] + latent, layers[0][1])
+        self.seq = u.apply(ua.make_linear_seq, locals())
 
     def forward(self, x, prior) -> Dict:
         """Make a single step of the AVBE.
@@ -93,4 +96,7 @@ class AVBEncoder(nn.Module):
         Returns a dict containing the following keys:
            + out -> the output of the step
         """
+        print(x.shape)
+        print(prior.shape)
+        print(torch.cat((x, prior), dim=1).shape)
         return {"out": self.seq(torch.cat((x, prior), dim=1))}

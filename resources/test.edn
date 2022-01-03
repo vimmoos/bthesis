@@ -1,0 +1,22 @@
+{
+ :floss  :thesis.losses/mse
+ :data   #call :thesis.utils/load_data
+ :epochs 20
+ :ae     {:optim #unary :torch.optim/Adam}
+ :model
+ #ccall{:name :thesis.arch.vanilla/VanillaAutoencoder
+  :args {:enc {:layers    #call{:name :thesis.arch.utils/gen_layers_number
+                           :args {:input   (* 28 28)
+                                  :output  9
+                                  :nlayers 4}}
+               ;; :inter_act :torch.nn/ReLU
+               ;; :final_act :torch.nn/Identity
+               }
+
+         :dec {:layers    #call{:name :thesis.arch.utils/gen_layers_number
+                           :args {:input   9
+                                  :output  (* 28 28)
+                                  :nlayers 4}}
+               :inter_act :torch.nn/ReLU
+               :final_act :torch.nn/Sigmoid}}}
+ }
