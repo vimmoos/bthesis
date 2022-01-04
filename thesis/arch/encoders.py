@@ -52,7 +52,7 @@ class VariationalEncoder(nn.Module):
         self.logvar = nn.Linear(*layers[-1])
         self.final_act = final_act()
 
-    def forward(self, x) -> Dict:
+    def forward(self, x) -> Dict[str, torch.Tensor]:
         """Make a single step of the VE.
 
         Returns a dict containing the following keys:
@@ -90,13 +90,10 @@ class AVBEncoder(nn.Module):
         layers[0] = (layers[0][0] + latent, layers[0][1])
         self.seq = u.apply(ua.make_linear_seq, locals())
 
-    def forward(self, x, prior) -> Dict:
+    def forward(self, x, prior) -> Dict[str, torch.Tensor]:
         """Make a single step of the AVBE.
 
         Returns a dict containing the following keys:
            + out -> the output of the step
         """
-        print(x.shape)
-        print(prior.shape)
-        print(torch.cat((x, prior), dim=1).shape)
         return {"out": self.seq(torch.cat((x, prior), dim=1))}

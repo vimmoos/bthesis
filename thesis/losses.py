@@ -7,7 +7,9 @@ import torch.nn.functional as F
 from torch import Tensor
 
 
-def ELBOLoss(out: Tensor, mu: Tensor, var: Tensor, x: Tensor) -> Dict:
+def ELBOLoss(
+    out: Tensor, mu: Tensor, var: Tensor, x: Tensor
+) -> Dict[str, torch.Tensor]:
     """Compute the ELBO loss.
 
     *NOTE* it uses the binary cross entropy to compare out to x
@@ -30,7 +32,7 @@ def mse(out, x):
 
 def ELBOWithDiscLoss(
     out: Tensor, logprior: Tensor, logpost: Tensor, x: Tensor
-) -> Dict:
+) -> Dict[str, torch.Tensor]:
     """Compute the ELBO loss and the discriminator loss.
 
     *NOTE* it uses the binary cross entropy for both the *disc* and *ae* losses
@@ -56,8 +58,9 @@ def create_args_backward(**kwargs):
 
 def create_order(**kwargs):
     """TODO. there is a bug here when two or more keys do not have an order key"""
-    order = {v.get("order", math.inf): k for k, v in kwargs.items()}
-    return [order[x] for x in sorted(order.keys())]
+    return [
+        x[0] for x in sorted(kwargs.items(), key=lambda x: x[1].get("order", math.inf))
+    ]
 
 
 class MLosses:

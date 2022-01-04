@@ -1,6 +1,7 @@
 """Vanilla Autoencoder."""
 from typing import Dict, List, Tuple, Type
 
+import torch
 from torch import nn
 
 import thesis.arch.utils as ua
@@ -29,13 +30,18 @@ class VanillaAutoencoder(nn.Module):
         """Initialize the class."""
         kwargs = locals()
         super().__init__()
-        self.encoder = u.sapply(ua.Sequential, kwargs, "enc_")
-        self.decoder = u.sapply(ua.Sequential, kwargs, "dec_")
+        self.encoder = torch.jit.script(
+            u.sapply(ua.Sequential, kwargs, "enc_"),
+        )
+        self.decoder = torch.jit.script(
+            u.sapply(ua.Sequential, kwargs, "dec_"),
+        )
 
-    def forward(self, x) -> Dict:
+    def forward(self, x) -> Dict[str, torch.Tensor]:
         """Make a single step of the AE.
 
         Returns a dict containing the following keys:
            + *out* -> the output of decode(encode(x))
         """
-        return self.decoder(self.encoder(x)["out"])
+        latent = self.encoder(x)["out"]
+        return {"out": self.decoder(latent)["out"], "latent": latent}

@@ -19,6 +19,15 @@ def sel_args(kw: Dict[str, Any], fun: Callable) -> Dict[str, Any]:
     return {k: v for k, v in kw.items() if k in list(i.signature(fun).parameters)}
 
 
+def sel_args_l(kw: Dict[str, Any], l: list) -> Dict[str, Any]:
+    """Select only the args needed by the function from the kw."""
+    return {k: v for k, v in kw.items() if k in l}
+
+
+def get_args_name(fun: Callable):
+    return list(i.signature(fun).parameters)
+
+
 def apply(fun: Callable, kw: Dict[str, Any]):
     """TODO."""
     return fun(**sel_args(kw, fun))
@@ -32,22 +41,21 @@ def sapply(fun: Callable, kw: Dict[str, Any], prefix: str):
 def load_data():
     """TODO."""
     tensor_transform = transforms.ToTensor()
+    trans = transforms.Lambda(
+        lambda x: tensor_transform(x).reshape(-1, 28 * 28).squeeze()
+    )
 
     train = datasets.MNIST(
         root="./data",
         train=True,
         download=True,
-        transform=transforms.Lambda(
-            lambda x: tensor_transform(x).reshape(-1, 28 * 28)
-        ),
+        transform=trans,
     )
     test = datasets.MNIST(
         root="./data",
         train=False,
         download=True,
-        transform=transforms.Lambda(
-            lambda x: tensor_transform(x).reshape(-1, 28 * 28)
-        ),
+        transform=trans,
     )
 
     return {

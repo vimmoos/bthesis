@@ -1,5 +1,17 @@
 """TODO."""
 
+import os
+
+os.chdir("/home/vimmoos/thesis-folder/thesis")
+
+
+import cProfile
+import io
+import math
+import pstats
+
+import torch
+
 import thesis.ednconf.core as c
 import thesis.runner as r
 
@@ -9,64 +21,35 @@ def testaruolo(conf="test"):
     for k, v in args["data"].items():
         args[f"{k}_data"] = v
     del args["data"]
+    args["model"] = torch.jit.script(args["model"])
     r.run(**args)
+    return args
+
+
+def do_all():
+    return {
+        "avb": testaruolo("avb"),
+        "vae": testaruolo("vae"),
+        "van": testaruolo("test"),
+    }
 
 
 if __name__ == "__main__":
-    testaruolo("avb")
+    testaruolo("test")
+    # pr = cProfile.Profile()
+    # pr.enable()
+    # testaruolo("avb")
+    # pr.disable()
+    # result = io.StringIO()
+    # pstats.Stats(pr, stream=result).print_stats()
+    # result = result.getvalue()
+    # # chop the string into a csv-like buffer
+    # result = "ncalls" + result.split("ncalls")[-1]
+    # result = "\n".join(
+    #     [",".join(line.rstrip().split(None, 5)) for line in result.split("\n")]
+    # )
+    # # save it to disk
 
-
-# import torch
-# from torch import nn
-
-
-# def make_ae(encoder, decoder):
-#     return torch.nn.Sequential(encoder, decoder)
-
-
-# def make_decoder(
-#     layers,
-#     inter_act=nn.ReLU,
-#     final_act=nn.Sigmoid,
-# ):
-#     return u.make_linear_seq(layers, inter_act, final_act)
-
-
-# def make_encoder(
-#     layers,
-#     inter_act=nn.ReLU,
-#     final_act=None,
-# ):
-#     return u.make_linear_seq(layers, inter_act, final_act)
-
-
-# def train(autoencoder, data, floss, epochs=20):
-#     opt = optim.Adam(autoencoder.parameters())
-#     autoencoder.train()
-#     for epoch in range(epochs):
-#         train_loss = 0
-#         cnt = 0
-#         for x, _ in data:
-#             x = x.reshape(-1, 28 * 28)
-#             opt.zero_grad()
-#             x_hat = autoencoder(x)
-#             loss = floss(x_hat, x)
-#             loss.backward()
-#             train_loss += loss.item()
-#             if cnt % 200 == 0:
-#                 print(f"current loss {loss.item()}, total : {train_loss}")
-#             opt.step()
-#             cnt += 1
-#         print(f"epoch {epoch},\tavg loss {train_loss/len(data.dataset)}")
-#     return autoencoder
-
-
-# def testaroulo(floss=ti_loss):
-#     layers = u.gen_layers_number(28 * 28, 9, 3)
-#     autoencoder = make_ae(
-#         make_encoder(layers), make_decoder([t[::-1] for t in layers][::-1])
-#     )
-#     dtrain, dtest = u.load_data()
-#     autoencoder = train(autoencoder, dtrain, floss)
-
-#     return autoencoder, test(autoencoder, dtest, floss)
+    # with open("test.csv", "w+") as f:
+    #     # f=open(result.rsplit('.')[0]+'.csv','w')
+    #     f.write(result)

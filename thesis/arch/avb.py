@@ -11,13 +11,13 @@ import thesis.arch.utils as ua
 import thesis.utils as u
 
 
-def sample_prior(latent_size: int, x, training: bool):
+def sample_prior(latent_size: int, x: torch.Tensor, training: bool) -> torch.Tensor:
     """TODO."""
     if training:
         m = torch.zeros((x.data.shape[0], latent_size))
         std = torch.ones((x.data.shape[0], latent_size))
-        return Variable(torch.normal(m, std))
-    return Variable(torch.zeros(x.data.shape[0], latent_size))
+        return torch.normal(m, std).requires_grad_(True)
+    return torch.zeros(x.data.shape[0], latent_size).requires_grad_(True)
 
 
 class Discriminator(nn.Module):
@@ -35,7 +35,7 @@ class Discriminator(nn.Module):
         layers[0] = (layers[0][0] + latent, layers[0][1])
         self.seq = u.apply(ua.make_linear_seq, locals())
 
-    def forward(self, x, z) -> Dict:
+    def forward(self, x, z) -> Dict[str, torch.Tensor]:
         """TODO."""
         return {"out": self.seq(torch.cat((x, z), dim=1))}
 
@@ -59,12 +59,15 @@ class AVB(nn.Module):
         kwargs = locals()
         super().__init__()
         self.latent = enc_layers[-1][1]
-        self.encoder = enc.AVBEncoder(
-            **u.sel_and_rm(kwargs, "enc_"), latent=self.latent
+        self.encoder = torch.jit.script(
+            enc.AVBEncoder(**u.sel_and_rm(kwargs, "enc_"), latent=self.latent)
         )
-        self.decoder = u.sapply(ua.Sequential, kwargs, "dec_")
-        self.disc = Discriminator(**u.sel_and_rm(kwargs, "disc_"), latent=self.latent)
+        self.decoder = torch.jit.script(u.sapply(ua.Sequential, kwargs, "dec_"))
+        self.disc = torch.jit.script(
+            Discriminator(**u.sel_and_rm(kwargs, "disc_"), latent=self.latent)
+        )
 
+    @torch.jit.ignore
     def parameters(self):
         """TODO."""
         disc_params, ae_params = [], []
@@ -76,7 +79,7 @@ class AVB(nn.Module):
 
         return {"ae": ae_params, "disc": disc_params}
 
-    def forward(self, x):
+    def forward(self, x) -> Dict[str, torch.Tensor]:
         """TODO."""
         z_p = sample_prior(self.latent, x, self.training)
         z_q = self.encoder(x, z_p)["out"]
@@ -87,4 +90,5 @@ class AVB(nn.Module):
             "out": recon_x,
             "logprior": log_d_prior,
             "logpost": log_d_posterior,
+            "latent": z_q,
         }

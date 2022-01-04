@@ -9,7 +9,7 @@ import thesis.utils as u
 from thesis import losses
 
 
-@torch.inference_mode()
+@torch.no_grad()
 def test(mlosses: losses.MLosses, model: nn.Module, data, floss):
     """TODO."""
     model.eval()
@@ -21,14 +21,22 @@ def test(mlosses: losses.MLosses, model: nn.Module, data, floss):
 
 
 # @torch.enable_grad()
-def train(mlosses: losses.MLosses, mopts: opt.MOptims, model: nn.Module, data, floss):
+# @torch.jit.script
+def train(
+    mlosses: losses.MLosses,
+    mopts: opt.MOptims,
+    model: nn.Module,
+    data,
+    floss,
+    floss_args,
+):
     """TODO."""
     model.train()
     with mlosses("TRAINING ", len(data.dataset)) as loss:
         for x, _ in data:
             with mopts:
                 out = model(x)
-                ls = floss(**u.sel_args(out, floss), x=x)
+                ls = floss(**u.sel_args_l(out, floss_args), x=x)
                 loss.compute_backward(ls)
                 loss.add_losses(ls)
 
@@ -41,8 +49,13 @@ def run(
     epochs: int = 20,
     **kwargs
 ):
+    floss_args = u.get_args_name(floss)
+    floss = torch.jit.script(floss)
+    # mlosses = torch.jit.script(losses.MLosses(kwargs))
     mlosses = losses.MLosses(**kwargs)
+    # mopts = torch.jit.script(opt.MOptims(**kwargs))
     mopts = opt.MOptims(**kwargs)
+
     mopts.ignite(model)
     train_arg = {
         **u.sel_args(locals(), train),
@@ -55,5 +68,5 @@ def run(
     for ep in range(epochs):
         train(**train_arg)
         # dump train losses
-        test(**test_arg)
+        # test(**test_arg)
         # dump test losses

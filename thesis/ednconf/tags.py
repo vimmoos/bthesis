@@ -8,11 +8,7 @@ import edn_format as edn
 import thesis.ednconf.eval as ev
 
 
-def compress_dict(d: dict):
-    return {f"{k}_{k1}": v1 for k, v in d.items() for k1, v1 in v.items()}
-
-
-def _to(d: Dict[str, Any], dict_or_fun: Union[Dict[str, Any], Callable]):
+def _to(d: Dict[str, Any], dict_or_fun: Union[Dict[str, Callable], Callable]):
     """Given a dict or a function returns a ?-function.
 
     The map should have at least *name* and *args* (all the other keys
@@ -88,6 +84,10 @@ def to_called(
     )
 
 
+def compress_dict(d: dict):
+    return {f"{k}_{k1}": v1 for k, v in d.items() for k1, v1 in v.items()}
+
+
 def rcompress(d):
     while all([isinstance(v, Mapping) for v in d.values()]):
         d = compress_dict(d)
@@ -103,6 +103,7 @@ def to_called_compressed(
             "list": lambda f, args: f(*args),
             "dict": lambda f, args: f(**rcompress(args)),
             "fun": lambda f: f(),
+            "keyword": lambda f: ev.clojure_eval(f)(),
         },
         dict_or_fun,
     )

@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Tuple, Type
 
+import torch
 from torch import nn
 from torch.autograd import Variable
 
@@ -48,10 +49,14 @@ class VAE(nn.Module):
         """Initialize the class."""
         kwargs = locals()
         super().__init__()
-        self.encoder = u.sapply(enc.VariationalEncoder, kwargs, "enc_")
-        self.decoder = u.sapply(ua.Sequential, kwargs, "dec_")
+        self.encoder = torch.jit.script(
+            u.sapply(enc.VariationalEncoder, kwargs, "enc_")
+        )
+        self.decoder = torch.jit.script(
+            u.sapply(ua.Sequential, kwargs, "dec_"),
+        )
 
-    def forward(self, x) -> Dict:
+    def forward(self, x) -> Dict[str, torch.Tensor]:
         """Perform a single step of the VAE (x -> encoder(x) -> z -> decode(z) -> x').
 
         Returns a map containing the following keys:

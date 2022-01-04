@@ -1,6 +1,7 @@
 """TODO."""
 from typing import Dict, List, Tuple, Type
 
+import torch
 from torch import nn
 
 import thesis.utils as u
@@ -49,7 +50,7 @@ def make_linear_seq(
     ][:-1]
     if final_act:
         linears.append(final_act())
-    return nn.Sequential(*linears)
+    return torch.jit.script(nn.Sequential(*linears))
 
 
 class Sequential(nn.Module):
@@ -77,7 +78,7 @@ class Sequential(nn.Module):
         super().__init__()
         self.seq = make_linear_seq(**u.sel_args(locals(), make_linear_seq))
 
-    def forward(self, x) -> Dict:
+    def forward(self, x) -> Dict[str, torch.Tensor]:
         """Make a single step.
 
         Return a dict containing only *out*.
