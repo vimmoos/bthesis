@@ -2,27 +2,28 @@
 
 import os
 
+import torch
+
+import thesis.runner as r
+from thesis.ednconf import load_and_resolve
+from thesis.logger import TBLogger
+
 os.chdir("/home/vimmoos/thesis-folder/thesis")
 
 
-import cProfile
-import io
-import math
-import pstats
-
-import torch
-
-import thesis.ednconf.core as c
-import thesis.runner as r
-
-
 def testaruolo(conf="test"):
-    args = c.load_and_resolve(conf)
+    args = load_and_resolve(conf)
     for k, v in args["data"].items():
         args[f"{k}_data"] = v
     del args["data"]
-    args["model"] = torch.jit.script(args["model"])
-    r.run(**args)
+    if conf == "avb":
+        args["model"] = torch.jit.script(args["model"])
+    else:
+        args["model"] = torch.jit.trace(
+            args["model"], next(iter(args["train_data"]))[0], strict=False
+        )
+    with TBLogger("testaroulo"):
+        r.run(**args)
     return args
 
 
@@ -35,7 +36,11 @@ def do_all():
 
 
 if __name__ == "__main__":
-    testaruolo("test")
+    for _ in range(10):
+        do_all()
+    # args = testaruolo("test")
+    # testaruolo("avb")
+    # do_all()
     # pr = cProfile.Profile()
     # pr.enable()
     # testaruolo("avb")

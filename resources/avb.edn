@@ -1,7 +1,7 @@
 {
  :floss  :thesis.losses/ELBOWithDiscLoss
  :data   #call :thesis.utils/load_data
- :epochs 5
+ :epochs 30
  :ae     {:optim #unary :torch.optim/Adam
           :backward {:retain_graph true}
           :order 1}

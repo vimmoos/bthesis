@@ -4,7 +4,6 @@ from typing import Dict, List, Tuple, Type
 
 import torch
 from torch import nn
-from torch.autograd import Variable
 
 import thesis.arch.encoders as enc
 import thesis.arch.utils as ua

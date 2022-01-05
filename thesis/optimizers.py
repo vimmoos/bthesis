@@ -5,9 +5,6 @@ from typing import Callable, Dict, Type
 import torch.optim as optim
 from torch import nn
 
-import thesis.ednconf.core as ec
-import thesis.utils as u
-
 
 def create_optims(
     **kwargs,

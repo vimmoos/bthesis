@@ -5,20 +5,24 @@ from typing import Dict, List, Tuple, Type
 import torch
 from torch import nn
 from torch.autograd import Variable
+from torch.distributions import Normal
 
 import thesis.arch.encoders as enc
 import thesis.arch.utils as ua
 import thesis.utils as u
 
 
-def reparameterize(training: bool, mu: Variable, logvar: Variable) -> Variable:
+# @torch.jit.script
+def reparameterize(
+    training: bool, mu: torch.Tensor, logvar: torch.Tensor
+) -> torch.Tensor:
     """Perform the reparameterisation trick (needed for differentiating the sampling operations).
 
     Stochastic if *training* is True else returns the mean (*mu*)
     """
     if training:
         std = logvar.mul(0.5).exp_()
-        eps = Variable(std.data.new(std.size()).normal_())
+        eps = Variable(std.data.new(std.size()).normal_(), requires_grad=True)
         return eps.mul(std).add_(mu)
     # Potentially take a random sample? ofc mu has the highest
     # chance of beeing selected
@@ -65,5 +69,14 @@ class VAE(nn.Module):
            + var -> the log variance of the lantent dist
         """
         latent = self.encoder(x)
-        z = reparameterize(self.training, latent["mu"], latent["var"])
-        return {"out": self.decoder(z)["out"], **latent}
+
+        # z = reparameterize(self.training, latent["mu"], latent["var"])
+        # print(latent["mu"], flush=True)
+        # print(latent["var"], flush=True)
+        std = latent["var"].mul(0.5).exp_()
+        z = Normal(latent["mu"], std).rsample()
+        return {
+            "out": self.decoder(z)["out"],
+            "mu": latent["mu"],
+            "var": latent["var"],
+        }

@@ -1,7 +1,7 @@
 {
  :floss  :thesis.losses/ELBOLoss
  :data   #call :thesis.utils/load_data
- :epochs 20
+ :epochs 30
  :ae     {:optim #unary :torch.optim/Adam}
  :model
  #ccall{:name :thesis.arch.vae/VAE
