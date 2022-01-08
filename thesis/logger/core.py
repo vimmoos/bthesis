@@ -1,9 +1,10 @@
 """TODO."""
+from typing import Dict, List
 
 LOGGER = None
-LOGGERS_MAP = {}
-DEFAULT_LOGGER = "DEFAULT"
-NO_OP_LOGGER = "NOOP"
+LOGGERS_MAP: Dict = {}
+DEFAULT_LOGGER: str = "DEFAULT"
+NO_OP_LOGGER: str = "NOOP"
 # AVAilable Functions
 
 
@@ -17,6 +18,12 @@ def add_scalars(who, what, when):
     """TODO."""
     global LOGGER
     return LOGGER.add_scalars(who=who, what=what, when=when)
+
+
+def flush():
+    """TODO."""
+    global LOGGER
+    return LOGGER.flush()
 
 
 # UTILS

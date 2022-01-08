@@ -8,17 +8,17 @@
  :disc {:optim #unary :torch.optim/Adam
         :backward {:retain_graph true}}
  :model
- #ccall{:name :thesis.arch.avb/AVB
-        :args {:enc  {:layers #call{:name :thesis.arch.utils/gen_layers_number
+ #ccall{:name :thesis.arch/AVB
+        :args {:enc  {:layers #call{:name :thesis.arch/gen_layers_number
                                     :args {:input   (* 28 28)
                                            :output  2
                                            :nlayers 4}}}
-               :disc {:layers #call {:name :thesis.arch.utils/gen_layers_number
+               :disc {:layers #call {:name :thesis.arch/gen_layers_number
                                      :args {:input   (* 28 28)
                                             :output  1
                                             :nlayers 4}}}
 
-               :dec {:layers #call{:name :thesis.arch.utils/gen_layers_number
+               :dec {:layers #call{:name :thesis.arch/gen_layers_number
                                    :args {:input   2
                                           :output  (* 28 28)
                                           :nlayers 4}}}}}}

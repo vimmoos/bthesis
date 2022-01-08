@@ -6,7 +6,7 @@ import torch
 
 import thesis.runner as r
 from thesis.ednconf import load_and_resolve
-from thesis.logger import TBLogger
+from thesis.logger import CsvLogger
 
 os.chdir("/home/vimmoos/thesis-folder/thesis")
 
@@ -22,17 +22,25 @@ def testaruolo(conf="test"):
         args["model"] = torch.jit.trace(
             args["model"], next(iter(args["train_data"]))[0], strict=False
         )
-    with TBLogger("testaroulo"):
-        r.run(**args)
+    r.run(**args)
     return args
 
 
 def do_all():
-    return {
-        "avb": testaruolo("avb"),
-        "vae": testaruolo("vae"),
-        "van": testaruolo("test"),
-    }
+    # ret = {}
+    with CsvLogger(
+        {
+            "AVB": ["prefix", "loss_ae", "loss_disc"],
+            "VAE": ["prefix", "loss_ae"],
+            "VanillaAutoencoder": ["prefix", "loss_ae"],
+        },
+    ):
+        ret = {
+            "avb": testaruolo("avb"),
+            "vae": testaruolo("vae"),
+            "van": testaruolo("test"),
+        }
+    return ret
 
 
 if __name__ == "__main__":

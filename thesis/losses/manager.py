@@ -2,7 +2,7 @@
 import math
 from typing import Any, Dict, List, Optional
 
-from thesis.logger import add_scalars
+from thesis.logger import add_scalars, flush
 
 
 def create_args_backward(**kwargs):
@@ -23,17 +23,19 @@ class MLosses:
     losses_arg: Dict[str, Dict[str, Any]]
     losses_ord: Optional[List[str]]
     current_losses: Dict[str, float]
-    model_name: str
     epoch: int = 0
     batch_size: int = 1
     episode: int = 1
+    _dumping_dict: Dict[str, Any]
+    model_name: str
 
-    def __init__(self, model_name="test", **kwargs):
+    def __init__(self, loss_name="loss", model_name="test", **kwargs):
         """Initialize class."""
         self.model_name = model_name
         self.losses_arg = create_args_backward(**kwargs)
         self.losses_ord = create_order(**kwargs)
         self.current_losses = {k: 0.0 for k in self.losses_ord}
+        self._dumping_dict = {"model": model_name, "loss": loss_name}
 
     def compute_backward(self, losses):
         """Compute all the gradients using .backward and adds the losses values."""
@@ -44,15 +46,20 @@ class MLosses:
         """TODO."""
         for k in self.losses_ord:
             self.current_losses[k] += losses[k].item()
-            if self.episode % 100 == 0:
-                add_scalars(
-                    f"{self.model_name}/loss/{k}",
-                    {
-                        self.prefix: self.current_losses[k]
+
+        if self.episode % 100 == 0:
+            add_scalars(
+                self.model_name,
+                {
+                    "prefix": self.prefix,
+                    **{
+                        f"loss_{k}": self.current_losses[k]
                         / (self.episode * self.batch_size)
+                        for k in self.losses_ord
                     },
-                    (self.epoch * self.data_size + self.episode) / self.data_size,
-                )
+                },
+                (self.epoch * self.data_size + self.episode) / self.data_size,
+            )
 
         self.episode += 1
 
@@ -76,10 +83,5 @@ class MLosses:
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         """Print all losses."""
-        for k, v in self.current_losses.items():
-            add_scalars(
-                f"{self.model_name}/lossAvg/{k}",
-                {self.prefix: v / (self.batch_size * self.episode)},
-                self.epoch,
-            )
+        flush()
         return False

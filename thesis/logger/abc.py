@@ -8,6 +8,7 @@ class ABCLogger(ABC):
     """TODO."""
 
     name: str = ""
+    __PREV_LOGGER = None
 
     def __init__(self, name=""):
         """TODO."""
@@ -24,6 +25,11 @@ class ABCLogger(ABC):
         """TODO."""
         pass
 
+    @abstractmethod
+    def flush(self):
+        """TODO."""
+        pass
+
     def __enter__(self):
         """TODO."""
         self.__PREV_LOGGER = set_logger(self)
@@ -31,5 +37,6 @@ class ABCLogger(ABC):
 
     def __exit__(self, exc_type, exc_value, exc_traceback):
         """TODO."""
-        set_logger(self.__PREV_LOGGER)
+        if self.__PREV_LOGGER:
+            set_logger(self.__PREV_LOGGER)
         return False

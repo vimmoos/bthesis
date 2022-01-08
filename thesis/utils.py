@@ -19,9 +19,9 @@ def sel_args(kw: Dict[str, Any], fun: Callable) -> Dict[str, Any]:
     return {k: v for k, v in kw.items() if k in list(i.signature(fun).parameters)}
 
 
-def sel_args_l(kw: Dict[str, Any], l: list) -> Dict[str, Any]:
+def sel_args_l(kw: Dict[str, Any], llargs: list) -> Dict[str, Any]:
     """Select only the args needed by the function from the kw."""
-    return {k: v for k, v in kw.items() if k in l}
+    return {k: v for k, v in kw.items() if k in llargs}
 
 
 def get_args_name(fun: Callable):
