@@ -4,8 +4,8 @@
  :epochs 30
  :ae     {:optim #unary :torch.optim/Adam}
  :model
- #ccall{:name :thesis.arch.vanilla/VanillaAutoencoder
-  :args {:enc {:layers    #call{:name :thesis.arch.utils/gen_layers_number
+ #ccall{:name :thesis.arch/VanillaAutoencoder
+  :args {:enc {:layers    #call{:name :thesis.arch/gen_layers_number
                            :args {:input   (* 28 28)
                                   :output  2
                                   :nlayers 4}}
@@ -13,7 +13,7 @@
                ;; :final_act :torch.nn/Identity
                }
 
-         :dec {:layers    #call{:name :thesis.arch.utils/gen_layers_number
+         :dec {:layers    #call{:name :thesis.arch/gen_layers_number
                            :args {:input   2
                                   :output  (* 28 28)
                                   :nlayers 4}}

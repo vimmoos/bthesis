@@ -25,7 +25,7 @@ class CsvLogger(PrinterLogger, ABCLogger):
             for fname, headers in names_and_headers.items()
         }
         for fname, content in self.data.items():
-            if override or not os.path.exists(f"{name}/{fname}"):
+            if override or not os.path.exists(f"{name}/{fname}.csv"):
                 print("write")
                 with open(f"{name}/{fname}.csv", "w") as f:
                     writer = csv.writer(f)

@@ -4,8 +4,8 @@ from typing import Callable
 import torch
 from torch import nn
 
-import thesis.losses as losses
-import thesis.optimizers as opt
+import thesis.runner.loss_manager as losses
+import thesis.runner.optimizers as opt
 import thesis.utils as u
 from thesis.logger import log
 
@@ -44,6 +44,9 @@ def train(
                 ls = floss(**u.sel_args_l(out, floss_args), x=x)
                 loss.compute_backward(ls)
                 loss.add_losses(ls)
+
+
+# def validate():
 
 
 def run(

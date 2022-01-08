@@ -26,16 +26,14 @@ class MLosses:
     epoch: int = 0
     batch_size: int = 1
     episode: int = 1
-    _dumping_dict: Dict[str, Any]
     model_name: str
 
-    def __init__(self, loss_name="loss", model_name="test", **kwargs):
+    def __init__(self, model_name="test", **kwargs):
         """Initialize class."""
         self.model_name = model_name
         self.losses_arg = create_args_backward(**kwargs)
         self.losses_ord = create_order(**kwargs)
         self.current_losses = {k: 0.0 for k in self.losses_ord}
-        self._dumping_dict = {"model": model_name, "loss": loss_name}
 
     def compute_backward(self, losses):
         """Compute all the gradients using .backward and adds the losses values."""
