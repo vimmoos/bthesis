@@ -1,88 +1,93 @@
 """TODO."""
-from typing import Callable
+from typing import List
 
 import torch
 from torch import nn
+from torch.utils.data.dataloader import DataLoader
 
-import thesis.runner.loss_manager as losses
-import thesis.runner.optimizers as opt
-import thesis.utils as u
 from thesis.logger import log
+from thesis.losses.manager import MLoss
+from thesis.runner.stats import Stats
 
 
 @torch.no_grad()
 def test(
-    mlosses: losses.MLosses,
+    mloss: MLoss,
     model: nn.Module,
-    test_data,
-    floss,
-    floss_args,
+    stats: Stats,
+    test_data: DataLoader,
 ):
     """TODO."""
     model.eval()
-    with mlosses("TESTING", test_data) as loss:
+    with stats("TESTING", test_data, mloss) as add:
         for x, _ in test_data:
             out = model(x)
-            ls = floss(**u.sel_args_l(out, floss_args), x=x)
-            loss.add_losses(ls)
+            add(mloss(target=x, outs=out))
 
 
 def train(
-    mlosses: losses.MLosses,
-    mopts: opt.MOptims,
+    mloss: MLoss,
     model: nn.Module,
-    train_data,
-    floss,
-    floss_args,
+    stats: Stats,
+    train_data: DataLoader,
 ):
     """TODO."""
     model.train()
-    with mlosses("TRAINING", train_data) as loss:
+    with stats("TRAINING", train_data, mloss) as add:
         for x, _ in train_data:
-            with mopts:
+            with mloss.moptims:
                 out = model(x)
-                ls = floss(**u.sel_args_l(out, floss_args), x=x)
-                loss.compute_backward(ls)
-                loss.add_losses(ls)
+                add(mloss(target=x, outs=out))
+                mloss.compute_backward()
 
 
-# def validate():
+def validation(
+    mloss: MLoss,
+    model: nn.Module,
+    stats: Stats,
+    test_data: DataLoader,
+):
+    with stats("VALIDATE", test_data, mloss) as add:
+        for x, _ in test_data:
+            out = model(x)
+            add(mloss(target=x, outs=out))
 
 
 def run(
     model: nn.Module,
-    floss: Callable,
-    train_data,
-    test_data,
-    epochs: int = 20,
-    model_name: str = None,
-    **kwargs,
+    mloss: MLoss,
+    stats: Stats,
+    train_data: DataLoader,
+    test_data: DataLoader,
+    epochs: int,
+    validate: List[MLoss],
 ):
-    floss_args = u.get_args_name(floss)
-    floss = torch.jit.script(floss)
-    # mlosses = torch.jit.script(losses.MLosses(kwargs))
-    mlosses = losses.MLosses(
-        **kwargs,
-        model_name=model_name
-        if model_name
-        else getattr(model, "original_name", "test"),
-    )
 
-    # mopts = torch.jit.script(opt.MOptims(**kwargs))
-    mopts = opt.MOptims(**kwargs)
-
-    mopts.ignite(model)
-    train_arg = u.sel_args(locals(), train)
-    test_arg = u.sel_args(locals(), test)
-    log(model_name)
+    mloss.ignite(model)
+    log(stats.model_name)
     for ep in range(epochs):
         log(ep, end=" ", flush=True)
-        mlosses.epoch = ep
+        # mlosses.epoch = ep
         log("TRAINING", end=" ", flush=True)
-        train(**train_arg)
-        log("DONE", end=" ", flush=True)
-        # dump train losses
-        log("TESTING", end=" ", flush=True)
-        test(**test_arg)
+        train(
+            mloss=mloss,
+            model=model,
+            train_data=train_data,
+            stats=stats,
+        )
+        log("DONE TESTING", end=" ", flush=True)
+        test(
+            mloss=mloss,
+            model=model,
+            test_data=test_data,
+            stats=stats,
+        )
         log("DONE")
-        # dump test losses
+    for loss in validate:
+        log("VALIDATE", end=" ", flush=True)
+        validation(
+            mloss=loss,
+            model=model,
+            test_data=test_data,
+            stats=stats,
+        )

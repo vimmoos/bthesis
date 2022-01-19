@@ -1,0 +1,6 @@
+{
+ :call  :thesis.ednconf.tags/to_called
+ :unary :thesis.ednconf.tags/to_unary
+ :p     :thesis.ednconf.tags/to_partialed
+ :ccall :thesis.ednconf.tags/to_called_compressed
+ }

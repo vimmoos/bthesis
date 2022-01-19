@@ -8,6 +8,7 @@ import thesis.arch.utils as ua
 import thesis.utils as u
 
 
+@u.with_hparams
 class VanillaAutoencoder(nn.Module):
     """Vanilla AE.
 

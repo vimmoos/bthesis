@@ -25,7 +25,26 @@ def sel_args_l(kw: Dict[str, Any], llargs: list) -> Dict[str, Any]:
 
 
 def get_args_name(fun: Callable):
+    """TODO."""
     return list(i.signature(fun).parameters)
+
+
+def with_hparams(cl):
+    """TODO."""
+
+    def wrapper(**kwargs):
+        return cl(**kwargs), {
+            **{
+                name: value.default.__name__
+                if isinstance(value.default, type)
+                else value.default
+                for name, value in i.signature(cl.__init__).parameters.items()
+                if value.default is not i._empty
+            },
+            **kwargs,
+        }
+
+    return wrapper
 
 
 def apply(fun: Callable, kw: Dict[str, Any]):

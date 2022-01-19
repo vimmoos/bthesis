@@ -1,8 +1,10 @@
 """TODO."""
-from .func import ELBOLoss, ELBOWithDiscLoss, mse
+from .func import ELBOLoss, ELBOWithDiscLoss, MSELoss
+from .manager import MLoss
 
 __all__ = [
     "ELBOLoss",
     "ELBOWithDiscLoss",
-    "mse",
+    "MLoss",
+    "MSELoss",
 ]

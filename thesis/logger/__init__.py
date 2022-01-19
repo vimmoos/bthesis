@@ -1,5 +1,5 @@
 """TODO."""
-from .core import add_scalars, flush, log, logger
+from .core import add_scalars, flush, log, logger, no_logger
 from .csv import CsvLogger
 from .std import Loggers, NamedLogger, NoOpLogger, StdLogger
 from .tensorboard import TBLogger
@@ -9,6 +9,7 @@ __all__ = [
     "log",
     "flush",
     "logger",
+    "no_logger",
     "Loggers",
     "CsvLogger",
     "NamedLogger",

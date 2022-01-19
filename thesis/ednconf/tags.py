@@ -20,7 +20,7 @@ def _to(d: Dict[str, Any], dict_or_fun: Union[Dict[str, Callable], Callable]):
     as a unary-function.
     """
     if isinstance(dict_or_fun, Mapping):
-        edict = ev.clojure_dict_eval(dict_or_fun)
+        edict = ev.clojure_eval(dict_or_fun)
         f, args = itemgetter("name", "args")(edict)
         return d["dict"](f, args) if isinstance(args, Mapping) else d["list"](f, args)
     if isinstance(dict_or_fun, edn.Keyword):
@@ -84,13 +84,10 @@ def to_called(
     )
 
 
-def compress_dict(d: dict):
-    return {f"{k}_{k1}": v1 for k, v in d.items() for k1, v1 in v.items()}
-
-
 def rcompress(d):
+    """Flatten a dictionary (while merging keys)."""
     while all([isinstance(v, Mapping) for v in d.values()]):
-        d = compress_dict(d)
+        d = {f"{k}_{k1}": v1 for k, v in d.items() for k1, v1 in v.items()}
     return d
 
 

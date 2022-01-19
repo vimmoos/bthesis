@@ -1,26 +1,20 @@
 """TODO."""
 
-import inspect as i
-
 import edn_format as edn
 
 import thesis.ednconf.eval as e
-import thesis.ednconf.tags as t
 
-tags = [
-    ("call", t.to_called),
-    ("unary", t.to_unary),
-    ("p", t.to_partialed),
-    ("ccall", t.to_called_compressed),
-]
 
-for name, f in tags:
-    edn.add_tag(name, f)
+def load(filename: str, basefolder: str):
+    """Load an edn file with the reader macro defined in tags.edn."""
+    with open("./thesis/ednconf/tags.edn", "r") as f:
+        tags = e.clojure_eval(edn.loads("".join(f.readlines())))
+        for name, f in tags.items():
+            edn.add_tag(name, f)
+    with open(f"./{basefolder}/{filename}.edn", "r") as f:
+        return edn.loads("".join(f.readlines()))
 
 
 def load_and_resolve(filename: str, basefolder: str = "resources"):
-    """TODO."""
-    conf = ""
-    with open(f"./{basefolder}/{filename}.edn", "r") as f:
-        conf = "".join(f.readlines())
-    return e.clojure_dict_eval(edn.loads(conf))
+    """Load and resolve an edn file."""
+    return e.clojure_eval(load(filename, basefolder))

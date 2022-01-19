@@ -34,7 +34,9 @@ class CsvLogger(PrinterLogger, ABCLogger):
     def add_scalars(self, who, what, when):
         """TODO."""
         for header in self.data[who]:
-            self.data[who][header].append(what[header] if header != "idx" else when)
+            self.data[who][header].append(
+                what.get(header, "NA") if header != "idx" else when
+            )
 
     def flush(self):
         for fname, data in self.data.items():

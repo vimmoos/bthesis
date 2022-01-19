@@ -1,4 +1,4 @@
 """TODO."""
-from .core import load_and_resolve, tags
+from .core import load, load_and_resolve
 
-__all__ = ["tags", "load_and_resolve"]
+__all__ = ["load", "load_and_resolve"]

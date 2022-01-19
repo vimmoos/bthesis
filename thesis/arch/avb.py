@@ -39,6 +39,7 @@ class Discriminator(nn.Module):
         return {"out": self.seq(torch.cat((x, z), dim=1))}
 
 
+@u.with_hparams
 class AVB(nn.Module):
     """TODO."""
 

@@ -16,8 +16,9 @@ import thesis.utils as u
 def reparameterize(
     training: bool, mu: torch.Tensor, logvar: torch.Tensor
 ) -> torch.Tensor:
-    """Perform the reparameterisation trick (needed for differentiating the sampling operations).
+    """DEPRECATED USE torch.distributions.Normal instead.
 
+    Perform the reparameterisation trick (needed for differentiating the sampling operations).
     Stochastic if *training* is True else returns the mean (*mu*)
     """
     if training:
@@ -29,6 +30,7 @@ def reparameterize(
     return mu
 
 
+@u.with_hparams
 class VAE(nn.Module):
     """Variational AutoEncoder Module.
 
