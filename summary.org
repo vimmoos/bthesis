@@ -1,0 +1,396 @@
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
+#+TITLE: Bachelor Thesis Dimensionality Reduction
+#+AUTHOR: Massimiliano Falzari (s3459101)
+* Project scope
+  The project aim to build an autoencoder for dimensionality
+  reduction. In particular, this will be used to hopefully enhance the
+  performance of a DRL algorithm for opensim-rl simulation.
+  In this project different type of Autoencoders will be tested.
+  
+* Autoencoders
+** DONE Vanilla
+CLOSED: [2022-01-21 Fri 15:24]
+    The vanilla autoencoder is the classical one. Composed by an
+    encoder and a decoder without any kind of constriction.
+** DONE VAE
+CLOSED: [2022-01-21 Fri 15:24]
+    The Variational autoencoder is a modified version of a vanilla AE
+    which forces the distribution of the latent space to be a
+    gaussian.
+** DONE AVB
+CLOSED: [2022-01-21 Fri 15:24]
+    Adversarial Variational Bayes is a relatively new ideas which
+    exploits some Bayesian concept to force a particular latent space
+    distribution. All is done in an adversarial environment.
+** HOLD B-VAE?
+
+* Ideas for Hyperparameters
+  Since we will have to fit quite a lot of hyperparameters we tried to come
+  up with some cleaver ideas to remove some  of these
+  hyperparameters.
+
+** Number of neurons per layer
+
+  The first hyperparameters we would like to remove is the number of
+  neurons per layer. Since we are doing an autoencoder and therefore
+  we are trying to find a compression function *f* we can assume that
+  the number of neurons per layer is defined by some kind of function
+  *h* that given the number of layers *N*, the numeber of dimension of
+  the input *I* and the final number of dimension of the latent space
+  *Z* returns the number of neurons for a specific layer.
+  This function can be either linear or non-linear. The first
+  intuition is that if *h* is linear it should be somewhat easier to
+  learn a good compression function *f*. However, until now, we do not
+  have any mathematical backgroud for this intuition! We need to do
+  more research!
+
+  The first possible implementation of this function is defined as
+  follows: (*n* is the index of the layer for which we are trying to
+  find the number of neurons)
+
+  $$n_1 = I$$
+  $$n_N = Z$$
+  $$n_i = n_{i+1}*\lambda$$
+  From these equations we can find out the equation which define the
+  value of \lambda quite intuitevely.
+  $$ \lambda = \sqrt[N-1]{\frac{I}{Z}} $$
+  Now we can derive the number of layers given the
+  number of neurons for the first and last layer
+  $$ n_i = n_N * \prod_{x=1}^{N-i}  \lambda $$
+  $$ n_i= n_N * \lambda^{N-1}$$
+  Substitute \lambda with the prievious found equation.
+  $$ n_i = n_N *  \left(\sqrt[N-1]{\frac{I}{Z}}\right)^ {N-i} $$
+  $$ n_i = n_N * \left(\frac{I}{Z}\right)^{\frac{N-i}{N-1}} $$
+  $$ n_i = Z * \left(\frac{I}{Z}\right)^{\frac{N-i}{N-1}} $$
+  
+* Git
+[[https://github.com/vbotics/rug-opensim-rl][vbotics repo]] 
+
+FIXME add thesis code repo
+* INPROGRESS Code Documentation
+Visit this file to see the current documentation
+#+begin_warning
+*WORK IN PROGRESS* the documentation is in progress and it can be
+ potentially not up to date
+#+end_warning
+[[file:thesis/docs/build/html/index.html]]
+* TODOS
+** Code
+*** DONE Vanilla Autoencoder
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE VAE
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE AVB
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE logging
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE tensorboard
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE data loader
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE cross validation
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE parse config
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE writer
+CLOSED: [2022-01-21 Fri 15:26]
+**** Csv writer
+**** tensorboard writer
+*** DONE validate with different loss
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE Create config parser module
+CLOSED: [2022-01-21 Fri 15:26]
+*** HOLD Dict -> nametuple
+*** INPROGRESS Graph module
+*** HOLD Collect Data from simulation
+** Paper
+*** INPROGRESS Review all papers
+*** INPROGRESS Why we use autoencoders
+
+* Professor
+  + Raffealla carloni
+  + SkypeID rafficar
+  + BlueJeans https://bluejeans.com/821650990  id number = 821650990
+  
+* Other Students
+  + c.m.sreedhara@student.rug.nl
+  + B.N.Ogum@student.rug.nl -> Master student for dim red
+  + Chadan
+
+* DONE Init Presentation
+CLOSED: [2022-01-21 Fri 15:26]
+[[file:orgs/init_pres.pdf]]
+[[file:orgs/init_pres.org]]
+
+* Lines of Thoughts
+** Autoencoder
+An Autoencoder is a special network architecture which approximate two
+different function *encode* and *decode* such as:
+$$decode(encode(\hat{X})) = \hat{X}$$
+#+begin_info
+*Note*  most of the the time is not an \equal but an \approx
+#+end_info
+
+The network is therefore composed by two different sub networks. An
+Encoder which can be defined as:
+$$encode \rightarrow \mathbb{R}^n \times \mathbb{R}^m $$
+And a Decoder which can be defined as: 
+$$decode \rightarrow \mathbb{R}^m \times \mathbb{R}^n $$
+
+There two constraint to this two function. The first one is that
+*decode* must be the inverse of the *encode*. The second one is that 
+$$ m << n $$
+#+begin_info
+*NOTE* when the second constraint is sudisfacted, the autoencoder is
+ cosidered an undercomplete autoencoder. However, every time we will
+ use the autoencoder word we will refer to undercomplete autoencoder.
+#+end_info
+The second constraint is an architectural one, meanwhile the first one
+is a functional constraint which will be achived after the network is
+trained.
+
+The error function is therefore a reconstruction error or distance
+measure between the input and outuput.
+
+The layer between the Encoder and the Decoder express what is usually
+knonw as *Latent space* which dimensionality is $\mathbb{R}^m$.
+
+We will from now on refer to the *Latent space* as $\hat{z}$.
+For clarity we can rewrite the above formulas as:
+$$encode(\hat{X}) = \hat{z}$$
+$$decode(\hat{z}) \approx \hat{X}$$
+#+CAPTION: The Autoencoder Structure
+#+attr_html:  :width 600em
+[[file:orgs/autoencoder.png]]
+As Wang stated [fn:ae_dimred]
+#+begin_verse
+Auto-encoder can be seen as a way to transform representation.
+#+end_verse
+
+** TODO PCA
+find a linear subspace with lower dimension than the initial dataset
+while trying to maintain most of the variability
+** TODO LDA
+linear approach
+** TODO LLE
+non-linear approach 
+** TODO Isomap
+non linear generalization of classical multidimensional scaling
+
+* PAPERS
+** INPROGRESS Dimensionality reduction
+
+*** Common knowledge resources
++ [[https://www.analyticsvidhya.com/blog/2021/06/dimensionality-reduction-using-autoencoders-in-python/][autoencoder dim red python]]
++ [[https://towardsdatascience.com/11-dimensionality-reduction-techniques-you-should-know-in-2021-dcb9500d388b][dimredtechniques]]
++ [[https://iq.opengenus.org/applications-of-autoencoders/][applications autoencoders]]
++ [[https://towardsdatascience.com/how-to-mitigate-overfitting-with-dimensionality-reduction-555b755b3d66][reduce overfitting dim red]]
+
+*** INPROGRESS Autoencoders:
+**** TODO Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
+[fn:avb]
+[[file:background/mescheder2017avb.pdf]]
+
+***** Summary
+
+***** Opinions
+
+***** Resources
+[[https://chrisorm.github.io/AVB-pyt.html]]
+
+**** TODO Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction[fn:gen_ae]
+[fn:gen_ae]
+[[file:background/Wang_Generalized_Autoencoder_A_2014_CVPR_paper.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO Auto-Encoding Variational Bayes [fn:original_vae]
+[fn:original_vae]
+[[file:background/Auto-Encoding_Variational_Bayer.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
+[fn:infovae]
+[[file:background/infovae.pdf]]
+***** Summary
+
+*** INPROGRESS Dimensionality reduction:
+**** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
+CLOSED: [2022-01-21 Fri 15:27]
+[fn:ae_dimred]
+[[file:background/Autoencoder_based_dimensionality_reduction.pdf]]
+
+
+*Contributions*
+#+begin_verse
+We start from auto-encoder and focus on its ability to reduce
+the dimensionality, trying to understand the difference between
+auto-encoder and state-of-the-art dimensionality reduction
+methods. The results show that auto-encoder indeed learn
+something different from other methods.
+#+end_verse
+
+#+begin_verse
+We preliminarily investigate the influence of the number of
+hidden layer nodes on the performance of auto-encoder on
+MNIST and Olivetti face datasets. The results reveal its possible
+relation with the intrinsic dimensionality.
+#+end_verse
+***** Summary
+Shows comparison of Autoencoder and other dimensionality reduction
+methods (e.g. PCA,LLE) Notable results: Autoencoder different than
+other dimensionality reduction. Potentially detect repetitive
+structures. Dimensionality of the *Latent space* is best when it
+maches the intrinsic dimensionality of the dataset.
+
+***** Opinions
+This clearly shows how Autoencoder can be essentially different and
+more usefull than other dimensionality reduction methods. This
+consolidate the choice of using autoencoders in the thesis.
+
+**** DONE Dimensionality Reduction of SDSS Spectra with Variational Autoencoders [fn:dimred_vae]
+CLOSED: [2022-01-21 Fri 16:40]
+[fn:dimred_vae]
+[[file:background/dim_red_vae.pdf]]
+
+***** Summary
+Show how AEs were already used in astrony for different dimensionality
+reduction/classification task with success. Moreover, it aims to
+address the limitation of PCA using VAE. Results show how on this
+dataset (SDSS sloan digital sky survey) the autoencoder outperforms
+PCA in particular with low dimension latent space(or component for
+PCA)
+They mainly use InfoVAE[fn:infovae],a variant of the VAE, focused on trying to
+disentangle (e.i. force mapping different inputs to disjoint distribution ) the different latent space dimensions.
+
+**** DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis [fn:dimred_comp]
+[fn:dimred_comp]
+[[file:background/dim_red_comparison.pdf]]
+It was *DISCARDED* because it contains too specific content and the
+comparison between algorithms has multiple steps and variables which
+are highly specific to the task. Therefore I do not think it should be
+used.
+**** TODO A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis [fn:dimred_vae_rna]
+[fn:dimred_vae_rna]
+[[file:background/VAE_dim_red_RNA_sequencing.pdf]]
+
+***** Summary
+
+***** Opinions
+*** AE + RL: 
+**** TODO The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
+[fn:dreaming_vae]
+[[file:background/dreaming_autoencoder.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton [fn:ae_saferl]
+[fn:ae_saferl]
+[[file:background/AutoEncoder-based_Safe_Reinforcement_Learning_for_Power_Augmentation_in_a_Lower-limb_Exoskeleton.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
+[fn:robot_skill_dae]
+[[file:background/robot_skill_learning_in_latent_space.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
+[fn:dvrl]
+[[file:background/dvrl.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
+[fn:varl]
+[[file:background/Wang2021_Article_VARLAVariationalAutoencoder-ba.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
+[fn:dae_efficient_rl]
+[[file:background/deep_ae+rl.pdf]]
+
+***** Summary
+
+***** Opinions
+
+**** TODO DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
+[fn:darla]
+[[file:background/DARLA.pdf]]
+
+***** Summary
+
+***** Opinions
+
+***** Resources
+[[http://proceedings.mlr.press/v70/higgins17a.html]]
+
+
+
+** Old ideas
+
+*** DONE Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation [fn:drl_human_locomotion]
+CLOSED: [2022-01-21 Fri 15:27]
+[fn:drl_human_locomotion]
+[[file:background/oldideas/Deep_reiforcement_learning_for_modeling_human_locomotion_in_neuromechanical_sim.pdf]]
+
+**** Summary
+review paper, it introduces in general the topic. it illustrate
+    previous methodology and then it moves on Deep Rl. It talks about
+    Learn to Move competition and the different techniques used in
+    that competition. Finally some future directions.
+    
+**** Opinions
+    This paper is really interesting in particular the part about
+    Learn to Move and future directions.
+    
+**** Ideas
+    It suggest imitation learning and hierarchical learning
+    
+** Old work
+
+*** Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization [fn:ppg]
+[fn:ppg]
+[[file:background/oldwork/PPG.pdf]]
+
+*** Deep reinforcement learning for physics-based musculoskeletal model of a transfemoral amputee with a prothesis walking on uneven terrain [fn:uneven_terrain]
+[fn:uneven_terrain]
+[[file:background/oldwork/Uneventerrain.pdf]]
+
+*** Deep reinforcement learning for physics-based musculoskeletal simulations of healthy subjects and transfemoral protheses' users during normal walking [fn:init_thesis]
+[fn:init_thesis]
+[[file:background/oldwork/initThesis.pdf]]
+[[file:background/oldwork/initThesis2.pdf]]
+
+*** Learning to walk: Phasic Policy Gradient for healthy and impaired musculoskeletal models [fn:ppg_carloni]
+[fn:ppg_carloni]
+[[file:background/oldwork/PPG_carloni.pdf]]
+
+*** Evaluating Deep Reinforcement Learning Algorithms for Physics-Based Musculoskeletal Transfemoral Model with a Prosthetic Leg Performing Ground-Level Walking [fn:shikha]
+[fn:shikha]
+[[file:background/oldwork/shikha.pdf]]
+
+*** Deep Reinforcement Learning for Physics-based Musculoskeletal Simulations of Transfemoral Prosthesis' Users during the Transition between Normal Walking and Stairs Ascending [fn:stairs]
+[fn:stairs]
+[[file:background/oldwork/stairs.pdf]]
+
+*** Testing For Generality Of A Proximal Policy Optimiser For Advanced Human Locomotion Beyond Walking [fn:generality_ppo]
+[fn:generality_ppo]
+[[file:background/oldwork/generality.pdf]]

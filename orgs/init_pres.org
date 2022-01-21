@@ -1,0 +1,61 @@
+#+options: toc:nil
+#+latex_header: \mode<beamer>{\usetheme{Madrid}}
+#+TITLE: Dimensionality Reduction
+#+AUTHOR: M. Falzari
+#+BEAMER_FRAME_LEVEL: 1
+* How?
+** Linear
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_act: <1->
+:END:
++ LDA (Linear discriminant analysis)
++ PCA (Principal component analysis)
+** Non linear
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_act: <2->
+:END:
++ LLE (Locally linear embedding)
++ Isomap 
++ Autoencoder
+* Why autoencoders?
+** [#B]
++ Autoencoder != other methods
++ Potentially detect repetitive structures
++ \ref{wang2016auto} \ref{lin2020deep}
+
+* Autoencoder
+ [[./autoencoder.png]]
+* Variational inference
+** Bayesian and Variational inference
++ find a posterior p(Z|X) such that X = observation and Z latent
+  variables.
++ (many times) intractable since p(X) is unknown
++ Variational inference try to find a surrogate posterior given a
+  family of distributions
++ Usually KL(Kullback-Leibler) divergence is used to define how
+  "close" the surrogate is to the desired posterior.
+
+  
+* Variational Autoencoder
+[[./variational_autoencoder.png]]
+* Adversarial Variational Bayes
+** [#B]
++ fully implicit latent distribution
++ problematic because KL_div is intractable
++ use a discriminator in an adversarial manner to approximate the prior
+  
+* MNIST Example AE
+[[./van.png]]
+* MNIST Example VAE
+[[./vae.png]]
+* MNIST Example AVB
+[[./avb.png]]
+* Training
++ \ref{higgins2017darla} and others, propose to perform a separate
+  phase for training the AE "offline"
++ Online 
+  
+* Reference
+[[./refs.bib]]
