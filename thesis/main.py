@@ -151,6 +151,14 @@ def plot_latent(model, data, name="test", num_batches=100):
     plt.cla()
 
 
+def testatitiruolo():
+    for x in range(10):
+        res = do_all()
+        plot_latent(res["avb"]["model"], res["avb"]["test_data"], f"avb{x}")
+        plot_latent_vae(res["vae"]["model"], res["vae"]["test_data"], f"vae{x}")
+        plot_latent_vanilla(res["van"]["model"], res["van"]["test_data"], f"van{x}")
+
+
 if __name__ == "__main__":
     # for _ in range(10):
     #     do_all()
