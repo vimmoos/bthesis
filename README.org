@@ -1,0 +1,20 @@
+* Dimensionality Reduction Thesis
+** Folder structure:
++ background/
+  Contains all the background literature which will be used to back up
+  all the design decision. 
++ old_implementation/
+  Contains old implementation of autoencoders and it is used as
+  scratch to test and have some first implementation ideas.
++ orgs/
+  Contains some org files (e.g. such as presentations, ideas etc.) 
++ resources/
+  Contains the resources for all the orgs file (e.g. images,pdfs etc.)
++ summary.org and summary.html
+  This is the main file of the repo. It is used to keep track of
+  everything that was done and all the todos. It is also used to
+  generate an html which is easily accessible for non-emacs users
++ thesis/
+  It is a git submodule which contains the actual code of the
+  project. See [[https://github.com/vimmoos/autoencoders][code repo]]  for more info about it.
+
