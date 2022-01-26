@@ -1,28 +1,93 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
 #+TITLE: Bachelor Thesis Dimensionality Reduction
 #+AUTHOR: Massimiliano Falzari (s3459101)
-* Project scope
+#+EMAIL:     m.falzari@student.rug.nl
+#+KEYWORDS:  autoencoder,dimensionality reduction,latent space
+#+LANGUAGE:  en
+* Overview
+** Project scope
   The project aim to build an autoencoder for dimensionality
   reduction. In particular, this will be used to hopefully enhance the
   performance of a DRL algorithm for opensim-rl simulation.
   In this project different type of Autoencoders will be tested.
-  
-* Autoencoders
-** DONE Vanilla
-CLOSED: [2022-01-21 Fri 15:24]
-    The vanilla autoencoder is the classical one. Composed by an
-    encoder and a decoder without any kind of constriction.
-** DONE VAE
-CLOSED: [2022-01-21 Fri 15:24]
-    The Variational autoencoder is a modified version of a vanilla AE
-    which forces the distribution of the latent space to be a
-    gaussian.
-** DONE AVB
-CLOSED: [2022-01-21 Fri 15:24]
-    Adversarial Variational Bayes is a relatively new ideas which
-    exploits some Bayesian concept to force a particular latent space
-    distribution. All is done in an adversarial environment.
-** HOLD B-VAE?
+
+** Index:
+*** [[*Lines of Thoughts][Lines of Thoughts]]
+A kinda of overview on what the thesis is about (e.i. Autoencoders and
+dimensionality reduction)
+*** [[*Papers][Papers]]
+A list of all the background literature found. For each of paper there
+is a short description of the aims and  the results.
+*** [[*Autoencoders][Autoencoders]]
+Contains a list of implemented and not autoencoders
+*** [[*Ideas for Hyperparameters][Ideas for Hyperparameters]]
+Contains some ideas for the hyperparameters fitting and some maybe
+clever ideas
+*** [[*Code][Code]]
+Contains the git repo and the link for the code documentation
+*** [[*Todos][Todos]]
+Contains a list of different type of Todo
+*** [[*Presentations][Presentations]]
+Contains all the presentations done or in progress
+*** [[*Contacts][Contacts]]
+Self explanatory
+* Lines of Thoughts
+** Autoencoder
+An Autoencoder is a special network architecture which approximate two
+different function *encode* and *decode* such as:
+$$decode(encode(\hat{X})) = \hat{X}$$
+#+begin_info
+*Note*  most of the the time is not an \equal but an \approx
+#+end_info
+
+The network is therefore composed by two different sub networks. An
+Encoder which can be defined as:
+$$encode \rightarrow \mathbb{R}^n \times \mathbb{R}^m $$
+And a Decoder which can be defined as:
+$$decode \rightarrow \mathbb{R}^m \times \mathbb{R}^n $$
+
+There two constraint to this two function. The first one is that
+*decode* must be approximately the inverse of the *encode*[fn:ae_saferl]. The second one is that
+$$ m << n $$
+#+begin_info
+*NOTE* when the second constraint is sudisfacted, the autoencoder is
+ cosidered an undercomplete autoencoder. However, every time we will
+ use the autoencoder word we will refer to undercomplete autoencoder.
+#+end_info
+The second constraint is an architectural one, meanwhile the first one
+is a functional constraint which will be achived after the network is
+trained.
+
+The error function is therefore a reconstruction error or distance
+measure between the input and outuput.
+
+The layer between the Encoder and the Decoder express what is usually
+knonw as *Latent space* which dimensionality is $\mathbb{R}^m$.
+
+We will from now on refer to the *Latent space* as $\hat{z}$.
+For clarity we can rewrite the above formulas as:
+$$encode(\hat{X}) = \hat{z}$$
+$$decode(\hat{z}) \approx \hat{X}$$
+#+CAPTION: The Autoencoder Structure
+#+attr_html:  :width 600em
+[[file:resources/autoencoder.png]]
+As Wang stated [fn:ae_dimred]
+#+begin_verse
+Auto-encoder can be seen as a way to transform representation.
+#+end_verse
+
+** TODO PCA
+find a linear subspace with lower dimension than the initial dataset
+while trying to maintain most of the variability
+*** Assumptions
++ Linear dimensions
++ approximately normally distributed data
+** TODO LDA
+linear approach
+** TODO LLE
+non-linear approach
+** TODO Isomap
+non linear generalization of classical multidimensional scaling
 
 * Ideas for Hyperparameters
   Since we will have to fit quite a lot of hyperparameters we tried to come
@@ -62,122 +127,27 @@ CLOSED: [2022-01-21 Fri 15:24]
   $$ n_i = n_N *  \left(\sqrt[N-1]{\frac{I}{Z}}\right)^ {N-i} $$
   $$ n_i = n_N * \left(\frac{I}{Z}\right)^{\frac{N-i}{N-1}} $$
   $$ n_i = Z * \left(\frac{I}{Z}\right)^{\frac{N-i}{N-1}} $$
-  
-* Git
-[[https://github.com/vbotics/rug-opensim-rl][vbotics repo]] 
 
-FIXME add thesis code repo
-* INPROGRESS Code Documentation
-Visit this file to see the current documentation
-#+begin_warning
-*WORK IN PROGRESS* the documentation is in progress and it can be
- potentially not up to date
-#+end_warning
-[[file:thesis/docs/build/html/index.html]]
-* TODOS
-** Code
-*** DONE Vanilla Autoencoder
-CLOSED: [2022-01-21 Fri 15:25]
-*** DONE VAE
-CLOSED: [2022-01-21 Fri 15:25]
-*** DONE AVB
-CLOSED: [2022-01-21 Fri 15:25]
-*** DONE logging
-CLOSED: [2022-01-21 Fri 15:25]
-*** DONE tensorboard
-CLOSED: [2022-01-21 Fri 15:25]
-*** DONE data loader
-CLOSED: [2022-01-21 Fri 15:26]
-*** DONE cross validation
-CLOSED: [2022-01-21 Fri 15:26]
-*** DONE parse config
-CLOSED: [2022-01-21 Fri 15:26]
-*** DONE writer
-CLOSED: [2022-01-21 Fri 15:26]
-**** Csv writer
-**** tensorboard writer
-*** DONE validate with different loss
-CLOSED: [2022-01-21 Fri 15:26]
-*** DONE Create config parser module
-CLOSED: [2022-01-21 Fri 15:26]
-*** HOLD Dict -> nametuple
-*** INPROGRESS Graph module
-*** HOLD Collect Data from simulation
-** Paper
-*** INPROGRESS Review all papers
-*** INPROGRESS Why we use autoencoders
+* Autoencoders
+** DONE Vanilla
+CLOSED: [2022-01-21 Fri 15:24]
+    The vanilla autoencoder is the classical one. Composed by an
+    encoder and a decoder without any kind of constriction.
+** DONE VAE
+CLOSED: [2022-01-21 Fri 15:24]
+    The Variational autoencoder is a modified version of a vanilla AE
+    which forces the distribution of the latent space to be a
+    gaussian.
+** DONE AVB
+CLOSED: [2022-01-21 Fri 15:24]
+    Adversarial Variational Bayes is a relatively new ideas which
+    exploits some Bayesian concept to force a particular latent space
+    distribution. All is done in an adversarial environment.
+** HOLD B-VAE
 
-* Professor
-  + Raffealla carloni
-  + SkypeID rafficar
-  + BlueJeans https://bluejeans.com/821650990  id number = 821650990
-  
-* Other Students
-  + c.m.sreedhara@student.rug.nl
-  + B.N.Ogum@student.rug.nl -> Master student for dim red
-  + Chadan
+** HOLD InfoVae
 
-* DONE Init Presentation
-CLOSED: [2022-01-21 Fri 15:26]
-[[file:orgs/init_pres.pdf]]
-[[file:orgs/init_pres.org]]
-
-* Lines of Thoughts
-** Autoencoder
-An Autoencoder is a special network architecture which approximate two
-different function *encode* and *decode* such as:
-$$decode(encode(\hat{X})) = \hat{X}$$
-#+begin_info
-*Note*  most of the the time is not an \equal but an \approx
-#+end_info
-
-The network is therefore composed by two different sub networks. An
-Encoder which can be defined as:
-$$encode \rightarrow \mathbb{R}^n \times \mathbb{R}^m $$
-And a Decoder which can be defined as: 
-$$decode \rightarrow \mathbb{R}^m \times \mathbb{R}^n $$
-
-There two constraint to this two function. The first one is that
-*decode* must be the inverse of the *encode*. The second one is that 
-$$ m << n $$
-#+begin_info
-*NOTE* when the second constraint is sudisfacted, the autoencoder is
- cosidered an undercomplete autoencoder. However, every time we will
- use the autoencoder word we will refer to undercomplete autoencoder.
-#+end_info
-The second constraint is an architectural one, meanwhile the first one
-is a functional constraint which will be achived after the network is
-trained.
-
-The error function is therefore a reconstruction error or distance
-measure between the input and outuput.
-
-The layer between the Encoder and the Decoder express what is usually
-knonw as *Latent space* which dimensionality is $\mathbb{R}^m$.
-
-We will from now on refer to the *Latent space* as $\hat{z}$.
-For clarity we can rewrite the above formulas as:
-$$encode(\hat{X}) = \hat{z}$$
-$$decode(\hat{z}) \approx \hat{X}$$
-#+CAPTION: The Autoencoder Structure
-#+attr_html:  :width 600em
-[[file:orgs/autoencoder.png]]
-As Wang stated [fn:ae_dimred]
-#+begin_verse
-Auto-encoder can be seen as a way to transform representation.
-#+end_verse
-
-** TODO PCA
-find a linear subspace with lower dimension than the initial dataset
-while trying to maintain most of the variability
-** TODO LDA
-linear approach
-** TODO LLE
-non-linear approach 
-** TODO Isomap
-non linear generalization of classical multidimensional scaling
-
-* PAPERS
+* Papers
 ** INPROGRESS Dimensionality reduction
 
 *** Common knowledge resources
@@ -217,6 +187,16 @@ non linear generalization of classical multidimensional scaling
 **** TODO InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
 [fn:infovae]
 [[file:background/infovae.pdf]]
+***** Summary
+
+**** TODO Adversarial Autoencoders [fn:aae]
+[fn:aae]
+[[file:background/AdversarialAutoencoder.pdf]]
+
+
+#+CAPTION: Adversarial Autoencoder structure
+#+attr_html:  :width 600em
+[[file:resources/AAE.png]]
 ***** Summary
 
 *** INPROGRESS Dimensionality reduction:
@@ -271,21 +251,76 @@ disentangle (e.i. force mapping different inputs to disjoint distribution ) the 
 **** DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis [fn:dimred_comp]
 [fn:dimred_comp]
 [[file:background/dim_red_comparison.pdf]]
+
+
 It was *DISCARDED* because it contains too specific content and the
 comparison between algorithms has multiple steps and variables which
 are highly specific to the task. Therefore I do not think it should be
 used.
-**** TODO A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis [fn:dimred_vae_rna]
+**** DONE A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis [fn:dimred_vae_rna]
+CLOSED: [2022-01-23 Sun 15:49]
 [fn:dimred_vae_rna]
 [[file:background/VAE_dim_red_RNA_sequencing.pdf]]
 
+
+#+CAPTION: Adversarial Variational Autoencoder with dual matching
+#+attr_html:  :width 600em
+[[file:resources/The-novel-architecture-of-an-Adversarial-Variational-AutoEncoder-with-Dual-Matching.png]]
+
 ***** Summary
+It introduces a novel Adversarial autoencoder architecture named
+AVE-DM (Adversarial Variational autoencoder with dual matching )
+The main difference between this new architecture and the prievious
+proposed Adversarial autoencoders[fn:aae] is that it has 2
+discriminator (hence the name dual matching).
+Main Results: Shows how AVE-DM outperforms other state-of-the-art
+methods such us PCA, UMAP (Uniform Manifold Approximation and
+Projection),
+t-SNE (T-distributed sochastic neighbor embedding ) etc.
+Note: The interesting part of the data is that it have dropout event
+(the reason for it is quite technical and specific to RNA
+sequencing). This dropout event are zero expression measurament that
+can be either biological or technical. This phenomenon result in poor
+results for methods such us PCA or t-SNE.
+*** INPROGRESS AE + RL:
+**** DONE VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
+CLOSED: [2022-01-23 Sun 16:30]
+[fn:varl]
+[[file:background/Wang2021_Article_VARLAVariationalAutoencoder-ba.pdf]]
+
+
+*Quotes*
+#+begin_verse
+It inherits the idea of variational inference to use a distribution to approximate the posterior distribution[fn:original_vae]. The
+diference is that VAE considers the posterior distribution
+of all data simultaneously and approximates each posterior
+distribution with distribution, minimizing KL divergence.
+#+end_verse
+
+
+#+begin_verse
+It has many advantages,
+including fast training, stability, and so on, so it has a wide
+range of theoretical models and industry applications.
+#+end_verse
+
+***** Summary
+Introduces a new variational framework  for combinatorial optimization
+(e.g. TSP). Introduces Variational inference and VAE. Propose VARL
+(Variational autoencoder-based reinforcement learning) which exploits
+variational inference ideas to learn efiiciently and effectively a
+solution in a graph-based framework.
 
 ***** Opinions
-*** AE + RL: 
-**** TODO The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
-[fn:dreaming_vae]
-[[file:background/dreaming_autoencoder.pdf]]
+The main down side is that the VARL architecture seems to be quite
+complex and specific for combinatorial optimization. That said, it
+also shows how variational inference can be effectively used in
+combination with reinforcement learning (in the paper REINFOCE was
+specifically used.)
+
+**** TODO Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
+[fn:robot_skill_dae]
+[[file:background/robot_skill_learning_in_latent_space.pdf]]
 
 ***** Summary
 
@@ -296,12 +331,14 @@ used.
 [[file:background/AutoEncoder-based_Safe_Reinforcement_Learning_for_Power_Augmentation_in_a_Lower-limb_Exoskeleton.pdf]]
 
 ***** Summary
+***** Note
+data for AE training limited collection of real-world activities
+use euclidean distance to train
+generate data with GPR
 
-***** Opinions
-
-**** TODO Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
-[fn:robot_skill_dae]
-[[file:background/robot_skill_learning_in_latent_space.pdf]]
+**** TODO The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
+[fn:dreaming_vae]
+[[file:background/dreaming_autoencoder.pdf]]
 
 ***** Summary
 
@@ -310,14 +347,6 @@ used.
 **** TODO Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
 [fn:dvrl]
 [[file:background/dvrl.pdf]]
-
-***** Summary
-
-***** Opinions
-
-**** TODO VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
-[fn:varl]
-[[file:background/Wang2021_Article_VARLAVariationalAutoencoder-ba.pdf]]
 
 ***** Summary
 
@@ -356,14 +385,14 @@ review paper, it introduces in general the topic. it illustrate
     previous methodology and then it moves on Deep Rl. It talks about
     Learn to Move competition and the different techniques used in
     that competition. Finally some future directions.
-    
+
 **** Opinions
     This paper is really interesting in particular the part about
     Learn to Move and future directions.
-    
+
 **** Ideas
     It suggest imitation learning and hierarchical learning
-    
+
 ** Old work
 
 *** Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization [fn:ppg]
@@ -394,3 +423,68 @@ review paper, it introduces in general the topic. it illustrate
 *** Testing For Generality Of A Proximal Policy Optimiser For Advanced Human Locomotion Beyond Walking [fn:generality_ppo]
 [fn:generality_ppo]
 [[file:background/oldwork/generality.pdf]]
+
+* Presentations
+** First one
+#+BEGIN_EXPORT html
+<iframe src="resources/init_pres.pdf" width="100%" style="height:50em" align="center"> </iframe>
+#+END_EXPORT
+
+* INPROGRESS Code
+Visit this file to see the current documentation
+#+begin_warning
+*WORK IN PROGRESS*  FIXME the documentation is in progress and it can be
+ potentially not up to date
+#+end_warning
+[[file:thesis/docs/build/html/index.html]]
+
+** REPOS
+[[https://github.com/vbotics/rug-opensim-rl][vbotics repo]]
+
+[[https://github.com/vimmoos/autoencoders][autoencoders code repo]]
+
+[[https://github.com/vimmoos/thesis][thesis repo]]
+* Contacts
+** Massimiliano Falzari
+m.falzari@student.rug.nl
+** Professor
+  + Raffealla carloni
+  + SkypeID rafficar
+  + BlueJeans https://bluejeans.com/821650990  id number = 821650990
+** Other Students
+  + c.m.sreedhara@student.rug.nl
+  + B.N.Ogum@student.rug.nl -> Master student for dim red
+  + Chadan
+
+* Todos
+** Code
+*** DONE Vanilla Autoencoder
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE VAE
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE AVB
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE logging
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE tensorboard
+CLOSED: [2022-01-21 Fri 15:25]
+*** DONE data loader
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE cross validation
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE parse config
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE writer
+CLOSED: [2022-01-21 Fri 15:26]
+**** Csv writer
+**** tensorboard writer
+*** DONE validate with different loss
+CLOSED: [2022-01-21 Fri 15:26]
+*** DONE Create config parser module
+CLOSED: [2022-01-21 Fri 15:26]
+*** HOLD Dict -> nametuple
+*** INPROGRESS Graph module
+*** HOLD Collect Data from simulation
+** Paper
+*** INPROGRESS Review all papers
+*** HOLD Why we use autoencoders

@@ -17,7 +17,7 @@
 :BEAMER_act: <2->
 :END:
 + LLE (Locally linear embedding)
-+ Isomap 
++ Isomap
 + Autoencoder
 * Why autoencoders?
 ** [#B]
@@ -26,7 +26,7 @@
 + \ref{wang2016auto} \ref{lin2020deep}
 
 * Autoencoder
- [[./autoencoder.png]]
+ [[../resources/autoencoder.png]]
 * Variational inference
 ** Bayesian and Variational inference
 + find a posterior p(Z|X) such that X = observation and Z latent
@@ -37,25 +37,25 @@
 + Usually KL(Kullback-Leibler) divergence is used to define how
   "close" the surrogate is to the desired posterior.
 
-  
+
 * Variational Autoencoder
-[[./variational_autoencoder.png]]
+[[../resources/variational_autoencoder.png]]
 * Adversarial Variational Bayes
 ** [#B]
 + fully implicit latent distribution
 + problematic because KL_div is intractable
 + use a discriminator in an adversarial manner to approximate the prior
-  
+
 * MNIST Example AE
-[[./van.png]]
+[[../resources/van.png]]
 * MNIST Example VAE
-[[./vae.png]]
+[[../resources/vae.png]]
 * MNIST Example AVB
-[[./avb.png]]
+[[../resources/avb.png]]
 * Training
 + \ref{higgins2017darla} and others, propose to perform a separate
   phase for training the AE "offline"
-+ Online 
-  
++ Online
+
 * Reference
 [[./refs.bib]]
