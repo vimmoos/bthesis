@@ -130,7 +130,7 @@ non linear generalization of classical multidimensional scaling
 
 * ML Pipeline
 #+BEGIN_EXPORT html
-<iframe src="resources/ML-pipeline.pdf" width="100%" style="height:50em" align="center"> </iframe>
+<iframe src="./resources/ML-pipeline.pdf" width="100%" style="height:50em" align="center"> </iframe>
 #+END_EXPORT
 * Autoencoders
 ** DONE Vanilla
