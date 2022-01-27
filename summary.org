@@ -128,6 +128,10 @@ non linear generalization of classical multidimensional scaling
   $$ n_i = n_N * \left(\frac{I}{Z}\right)^{\frac{N-i}{N-1}} $$
   $$ n_i = Z * \left(\frac{I}{Z}\right)^{\frac{N-i}{N-1}} $$
 
+* ML Pipeline
+#+BEGIN_EXPORT html
+<iframe src="resources/ML-pipeline.pdf" width="100%" style="height:50em" align="center"> </iframe>
+#+END_EXPORT
 * Autoencoders
 ** DONE Vanilla
 CLOSED: [2022-01-21 Fri 15:24]
