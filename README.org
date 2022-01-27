@@ -1,4 +1,7 @@
 * Dimensionality Reduction Thesis
+** Usage:
+Clone the repository and then open the file summary.html in your
+favorite browser
 ** Folder structure:
 + =background/=
   
