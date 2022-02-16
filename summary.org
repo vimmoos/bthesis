@@ -327,6 +327,21 @@ specifically used.)
 [[file:background/robot_skill_learning_in_latent_space.pdf]]
 
 ***** Summary
+      + Gaussian Process Regression (GPR) for statistical learning
+      + Shows that Autoencoder-based latent space is more effective
+        than PCA-based latent space
+
+      + Tanh as hidden activation function and linear for output
+      + Interesting enough the AE with only Linear activation function
+        still performs better than PCA (researcher stated that maybe
+        it's due to the fact that AE latent space dimensions do not
+        have to be orthogonal (interesting!))
+      + RL converges faster and it is more stable in latent space with
+        respect to DMP space (this is true for both PCA and AE)
+      + Moreover RL+AE outperforms RL+PCA! researcher stated that this
+        is probably due to the non linearity in AE
+      + In particular during the introduction sections it has a lot of
+        good references which are worth looking into.
 
 ***** Opinions
 
