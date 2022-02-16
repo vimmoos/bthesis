@@ -397,14 +397,23 @@ specifically used.)
        be done if we want to use this approch.
       + Contains some usefull references
 
-**** TODO On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
+**** DONE On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
+     CLOSED: [2022-02-16 Wed 15:38]
 [fn:dae_efficient_rl]
 [[file:background/deep_ae+rl.pdf]]
 
 ***** Summary
-
-***** Opinions
-
+      + Shows how using AE-based latent space reduce the time of
+        convergence. Moreover, it also produce more vaiable policies
+        faster.
+      + The main downsite with respect to the thesis is that a big
+        part of this advantage is due to the fact that images were the
+        input to the AE. Of course, this is the main reason why the
+        vanilla RL performs drastically worst than the one with the
+        Convolutional AE.
+      + However, seems another good source of information which again
+        shows that AE-based latent space increase the RL performance
+        and decrease the time of convergence.
 **** TODO DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
 [fn:darla]
 [[file:background/DARLA.pdf]]
