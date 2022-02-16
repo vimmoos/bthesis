@@ -322,7 +322,8 @@ also shows how variational inference can be effectively used in
 combination with reinforcement learning (in the paper REINFOCE was
 specifically used.)
 
-**** TODO Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
+**** DONE Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
+     CLOSED: [2022-02-16 Wed 11:18]
 [fn:robot_skill_dae]
 [[file:background/robot_skill_learning_in_latent_space.pdf]]
 
