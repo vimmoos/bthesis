@@ -346,15 +346,20 @@ specifically used.)
 
 ***** Opinions
 
-**** TODO AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton [fn:ae_saferl]
+**** DONE AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton [fn:ae_saferl]
+     CLOSED: [2022-02-16 Wed 13:19]
 [fn:ae_saferl]
 [[file:background/AutoEncoder-based_Safe_Reinforcement_Learning_for_Power_Augmentation_in_a_Lower-limb_Exoskeleton.pdf]]
 
 ***** Summary
-***** Note
-data for AE training limited collection of real-world activities
-use euclidean distance to train
-generate data with GPR
+      + GPR used to generate data given few real-world examples.
+      + AE both for action and state space reduction.
+      + Action and states are DMP
+      + MSE as loss function
+      + This paper also shows that AE-based latent space make the RL
+        learning process faster,safe and more stable.
+      + Note: in this paper HMI (Human-Machine Interaction) was a
+        central role in the optimization process.
 
 **** TODO The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
 [fn:dreaming_vae]
