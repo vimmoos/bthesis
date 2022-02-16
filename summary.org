@@ -361,13 +361,24 @@ specifically used.)
       + Note: in this paper HMI (Human-Machine Interaction) was a
         central role in the optimization process.
 
-**** TODO The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
+**** DONE The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
+     CLOSED: [2022-02-16 Wed 13:50]
 [fn:dreaming_vae]
 [[file:background/dreaming_autoencoder.pdf]]
 
 ***** Summary
+      + *NOTE* Gaussian distributed policy for initial state-space
+        exploration
+      + Introduces DVAE architecture
+      + Main aims is to model environments with sparse rewards in
+        order to perform offline RL.
+      + Main problems: if the exploration in the real environment is
+        constly. Then this techinique does not behave as the
+        environments in the unexplored states.
+      + Quite interesting, however, not fitting for highly complex and
+        continuos environments where exploration is costly and/or
+        risky
 
-***** Opinions
 
 **** TODO Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
 [fn:dvrl]
