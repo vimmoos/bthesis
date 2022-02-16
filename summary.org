@@ -379,14 +379,23 @@ specifically used.)
         continuos environments where exploration is costly and/or
         risky
 
-
-**** TODO Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
+**** DONE Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
+     CLOSED: [2022-02-16 Wed 14:56]
 [fn:dvrl]
 [[file:background/dvrl.pdf]]
 
 ***** Summary
-
-***** Opinions
+      + Defines a new RL method with AE
+      + Interesting is that a new method for approximating the ELBO is
+        introduced. Using MC methods.
+      + *NOTE* Interesting part is that latent space mapping and policy are
+        learned toghether. However, policy is update more frequently
+        then the latent space. Which stabilize the learning process.
+      + Only test in "trivial" environment (Though most of them are
+        continuos)
+      + Quite interesting, seems too complex and more reasearch most
+       be done if we want to use this approch.
+      + Contains some usefull references
 
 **** TODO On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
 [fn:dae_efficient_rl]
