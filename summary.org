@@ -162,9 +162,10 @@ CLOSED: [2022-01-21 Fri 15:24]
 + [[https://towardsdatascience.com/how-to-mitigate-overfitting-with-dimensionality-reduction-555b755b3d66][reduce overfitting dim red]]
 
 *** INPROGRESS Autoencoders:
-**** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework [fn:b-vae]
+**** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
      CLOSED: [2022-02-18 Fri 12:58]
-    [[file:background/beta_vae_learning_basic_visual.pdf]]
+     [fn:b-vae]
+     [[file:background/beta_vae_learning_basic_visual.pdf]]
 
 
 ***** Summary
@@ -198,13 +199,19 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 ***** Opinions
 
-**** TODO Auto-Encoding Variational Bayes [fn:original_vae]
+**** DONE Auto-Encoding Variational Bayes [fn:original_vae]
+     CLOSED: [2022-02-18 Fri 14:00]
 [fn:original_vae]
 [[file:background/Auto-Encoding_Variational_Bayer.pdf]]
 
 ***** Summary
-
-***** Opinions
+      + Paper which introduce the theory behind VAE
+      + Variational inference
+      + Highly teoretical and matematically
+      + *Crucial* to understand what,how and why we will want
+        something like a VAE
+***** Resources
+      [[https://www.youtube.com/watch?v=HxQ94L8n0vU&t=31s][Variational Inference intuitions and derivations]]
 
 **** TODO InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
 [fn:infovae]
@@ -575,4 +582,5 @@ CLOSED: [2022-01-21 Fri 15:26]
 *** HOLD Collect Data from simulation
 ** Paper
 *** INPROGRESS Review all papers
-*** HOLD Why we use autoencoders
+*** DONE Why we use autoencoders
+    CLOSED: [2022-02-18 Fri 13:56]
