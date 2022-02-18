@@ -162,6 +162,23 @@ CLOSED: [2022-01-21 Fri 15:24]
 + [[https://towardsdatascience.com/how-to-mitigate-overfitting-with-dimensionality-reduction-555b755b3d66][reduce overfitting dim red]]
 
 *** INPROGRESS Autoencoders:
+**** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework [fn:b-vae]
+     CLOSED: [2022-02-18 Fri 12:58]
+    [[file:background/beta_vae_learning_basic_visual.pdf]]
+
+
+***** Summary
+      + introduces \beta-VAE
+      + shows how to achive better disentangled representations
+      + introduces a new hyperparameter (\beta) which forces the
+        posterior to be closer to the isotropic unit Gaussian (prior)
+      + Introduces a new metric for measuring the disentanglement
+        (independece + interpretability)
+      + reconstruction error should not be used to discriminate
+        between AE (or at least it should be the only factor) see
+        conclusions
+      + Interesting references (usefull for thesis)
+
 **** TODO Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
 [fn:avb]
 [[file:background/mescheder2017avb.pdf]]
