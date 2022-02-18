@@ -192,6 +192,7 @@ CLOSED: [2022-01-21 Fri 15:24]
 [[https://chrisorm.github.io/AVB-pyt.html]]
 
 **** DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction[fn:gen_ae]
+     CLOSED: [2022-02-18 Fri 15:03]
 [fn:gen_ae]
 [[file:background/Wang_Generalized_Autoencoder_A_2014_CVPR_paper.pdf]]
 
@@ -227,10 +228,30 @@ CLOSED: [2022-01-21 Fri 15:24]
 [[file:background/AdversarialAutoencoder.pdf]]
 
 
-#+CAPTION: Adversarial Autoencoder structure
-#+attr_html:  :width 600em
-[[file:resources/AAE.png]]
+     #+CAPTION: Adversarial Autoencoder structure
+     #+attr_html:  :width 600em
+     [[file:resources/AAE.png]]
+
 ***** Summary
+      + introduces formally the AAE
+      + The main difference between VAE and AAE is that the KL term
+        (or cross entropy) is replaced with a discriminator network
+	to force and adversarial learning process
+      + Moreover, in constrast to VAE, we do not need to have a
+        functional form of the posterior distribution we want to
+        force. We just need to be able to sample from it.
+      + The objective of the AE is to both minimize the reconstruction
+        error and to fool as best as possible the discriminator.
+      + The discriminator is used to discriminate between the wanted
+        posterior and the actual latent space distribution
+
+      + Quite interesting however, does not look like it focus on
+        disentangled representations but on the reconstruction error
+        which maybe is not suitable if the main point is to use it
+        within an RL framework. However, it can be interesting to test
+        it.
+
+
 
 *** INPROGRESS Dimensionality reduction:
 **** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
