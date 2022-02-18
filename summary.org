@@ -186,7 +186,6 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 ***** Summary
 
-***** Opinions
 
 ***** Resources
 [[https://chrisorm.github.io/AVB-pyt.html]]
@@ -223,7 +222,8 @@ CLOSED: [2022-01-21 Fri 15:24]
 [[file:background/infovae.pdf]]
 ***** Summary
 
-**** TODO Adversarial Autoencoders [fn:aae]
+**** DONE Adversarial Autoencoders [fn:aae]
+     CLOSED: [2022-02-18 Fri 15:28]
 [fn:aae]
 [[file:background/AdversarialAutoencoder.pdf]]
 
