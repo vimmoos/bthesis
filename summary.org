@@ -148,6 +148,7 @@ CLOSED: [2022-01-21 Fri 15:24]
     exploits some Bayesian concept to force a particular latent space
     distribution. All is done in an adversarial environment.
 ** HOLD B-VAE
+   Quite interesting if focus is on transfer learning and disentangled representations
 
 ** HOLD InfoVae
 
@@ -414,13 +415,29 @@ specifically used.)
       + However, seems another good source of information which again
         shows that AE-based latent space increase the RL performance
         and decrease the time of convergence.
-**** TODO DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
+**** DONE DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
+     CLOSED: [2022-02-18 Fri 09:42]
 [fn:darla]
 [[file:background/DARLA.pdf]]
 
 ***** Summary
-
-***** Opinions
+      + REALLY INTERESTING PAPER!
+      + formally shows how to do zero-shot transfer on MDPs
+      + introduces this new concept DARLA (DisentAngle Rapresentation
+        Learning Agent)
+      + 3 steps:
+	+ Learn to see (Train the AE with some fixed policy )
+	  *Crucial* the distribution of data collected in this phase
+          must be as variagate as possible in order to train the AE
+          appropriately.
+	+ Learn to act
+	  Train the RL agent on the source domain using the latent
+          space of the AE
+	+ Transfer
+	  Test the RL agent on the target domain without anymore
+          fine-tuning
+      + Uses \beta-VAE which aims to force the learning of a
+        disentangled representation
 
 ***** Resources
 [[http://proceedings.mlr.press/v70/higgins17a.html]]
