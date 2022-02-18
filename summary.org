@@ -191,13 +191,17 @@ CLOSED: [2022-01-21 Fri 15:24]
 ***** Resources
 [[https://chrisorm.github.io/AVB-pyt.html]]
 
-**** TODO Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction[fn:gen_ae]
+**** DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction[fn:gen_ae]
 [fn:gen_ae]
 [[file:background/Wang_Generalized_Autoencoder_A_2014_CVPR_paper.pdf]]
 
 ***** Summary
-
-***** Opinions
+      + Interesting approach to dimensionality reduction which tries
+        to focus on the main downfall of the AE
+      + However, does not look like anymore progress was done in this
+        direction
+      + Therefore seems to be a bit too much to try for the thesis
+      + That's why it was *DISCARDED*
 
 **** DONE Auto-Encoding Variational Bayes [fn:original_vae]
      CLOSED: [2022-02-18 Fri 14:00]
