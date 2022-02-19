@@ -279,6 +279,31 @@ CLOSED: [2022-01-21 Fri 15:24]
         it.
 
 
+**** DONE Understanding disentagling in \beta-VAE [fn:understand_bvae]
+     CLOSED: [2022-02-19 Sat 15:53]
+     [fn:understand_bvae]
+     [[file:background/understand_beta-VAE.pdf]]
+
+***** Summary
+      + Give some intuitions on why \beta-VAE achive disentaglement
+      + Show some more formal derivations on the why
+      + Introduces a modification on the "standard" \beta-VAE
+      + Quite interesting, however, also here there seems to not be
+        any research on the applications with RL
+
+**** TODO Learning representations by maximizing mutual information in variational autoencoders [fn:infomax_vae]
+     [fn:infomax_vae]
+     [[file:background/infomax-vae.pdf]]
+
+***** Summary
+
+**** HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models [fn:lagrangian_vae]
+     [fn:lagrangian_vae]
+     [[file:background/lagrangian-vae.pdf]]
+
+***** Summary
+      + Quite advanced mathematically maybe for the future research
+
 
 *** INPROGRESS Dimensionality reduction:
 **** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
