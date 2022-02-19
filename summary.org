@@ -185,6 +185,15 @@ CLOSED: [2022-01-21 Fri 15:24]
 [[file:background/mescheder2017avb.pdf]]
 
 ***** Summary
+      + Introduces AVB
+      + Adversarial procedure
+      + focuses on giving better flexibility to the normal VAE
+        procedure
+      + Quite interesting approach however,does not focuses on
+        disentagling the representation so, even tho, it achieve on
+        average better results than a normal VAE maybe it is not
+        suitable in a RL framework. Testing is need to asses the
+        performance.
 
 
 ***** Resources
