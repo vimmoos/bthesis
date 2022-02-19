@@ -160,12 +160,13 @@ CLOSED: [2022-01-21 Fri 15:24]
 + [[https://towardsdatascience.com/11-dimensionality-reduction-techniques-you-should-know-in-2021-dcb9500d388b][dimredtechniques]]
 + [[https://iq.opengenus.org/applications-of-autoencoders/][applications autoencoders]]
 + [[https://towardsdatascience.com/how-to-mitigate-overfitting-with-dimensionality-reduction-555b755b3d66][reduce overfitting dim red]]
++ [[https://github.com/amir-abdi/disentanglement-pytorch][disentaglement pytorch autoencoders]] 
 
 *** INPROGRESS Autoencoders:
 **** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
      CLOSED: [2022-02-18 Fri 12:58]
-     [fn:b-vae]
-     [[file:background/beta_vae_learning_basic_visual.pdf]]
+[fn:b-vae]
+[[file:background/beta_vae_learning_basic_visual.pdf]]
 
 
 ***** Summary
@@ -281,8 +282,8 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 **** DONE Understanding disentagling in \beta-VAE [fn:understand_bvae]
      CLOSED: [2022-02-19 Sat 15:53]
-     [fn:understand_bvae]
-     [[file:background/understand_beta-VAE.pdf]]
+[fn:understand_bvae]
+[[file:background/understand_beta-VAE.pdf]]
 
 ***** Summary
       + Give some intuitions on why \beta-VAE achive disentaglement
@@ -293,8 +294,8 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 **** DONE Learning representations by maximizing mutual information in variational autoencoders [fn:infomax_vae]
      CLOSED: [2022-02-19 Sat 16:22]
-     [fn:infomax_vae]
-     [[file:background/infomax-vae.pdf]]
+[fn:infomax_vae]
+[[file:background/infomax-vae.pdf]]
 
 ***** Summary
       + Quite interesting new architecture (similar approach
@@ -305,8 +306,8 @@ CLOSED: [2022-01-21 Fri 15:24]
       + for future research!
 
 **** HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models [fn:lagrangian_vae]
-     [fn:lagrangian_vae]
-     [[file:background/lagrangian-vae.pdf]]
+[fn:lagrangian_vae]
+[[file:background/lagrangian-vae.pdf]]
 
 ***** Summary
       + Quite advanced mathematically maybe for the future research
