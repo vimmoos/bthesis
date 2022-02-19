@@ -180,7 +180,8 @@ CLOSED: [2022-01-21 Fri 15:24]
         conclusions
       + Interesting references (usefull for thesis)
 
-**** TODO Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
+**** DONE Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
+     CLOSED: [2022-02-19 Sat 11:37]
 [fn:avb]
 [[file:background/mescheder2017avb.pdf]]
 
@@ -226,10 +227,27 @@ CLOSED: [2022-01-21 Fri 15:24]
 ***** Resources
       [[https://www.youtube.com/watch?v=HxQ94L8n0vU&t=31s][Variational Inference intuitions and derivations]]
 
-**** TODO InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
+**** DONE InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
+     CLOSED: [2022-02-19 Sat 14:15]
 [fn:infovae]
 [[file:background/infovae.pdf]]
 ***** Summary
+      + Shows crucial down fall of the ELBO objective.
+      + Introduces a new objective.
+      + Quite interesting cause it tries to balance the mutual
+        information between the X and Z while trying to force the
+        posterior distribution to a family of distribution
+        (e.g. Guassian)
+      + It is a generalization of the \beta-VAE, VAE and Adversarial
+        AE
+      + Also shows how it is possible to change the divergence metric
+        in this new objective function (the only requirement is that
+        it must be a strict divergence metric (i.e. D(p,q) = 0 iff
+        p(x) = q(x)))
+      + This new objective also focuses on learning disentagled
+        representations
+      + REALLY INTERESTING in particular in an RL framework since
+        it parametrize both mutual information and disentaglement.
 
 **** DONE Adversarial Autoencoders [fn:aae]
      CLOSED: [2022-02-18 Fri 15:28]
