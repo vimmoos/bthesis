@@ -543,6 +543,18 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 *** DONE Dimensionality reduction:
     CLOSED: [2022-02-21 Mon 09:49]
+**** DONE Towards a Definition of Disentangled Representations [fn:def_disrep]
+     [fn:def_disrep]
+     [[file:background/disentangledrepresentation.pdf]]
+
+***** Summary
+      + Gives a formal definition of what a Disentangled
+        representation is
+      + *Really crucial paper*
+      + Idea based on symmetry transformations (like in physics)
+      + Mainly based on group theory
+      + Really good references (Look at the underlined ones)
+
 **** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
 CLOSED: [2022-01-21 Fri 15:27]
 [fn:ae_dimred]
