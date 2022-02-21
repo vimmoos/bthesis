@@ -8,7 +8,8 @@
 ** Project scope
   The project aim to build an autoencoder for dimensionality
   reduction. In particular, this will be used to hopefully enhance the
-  performance of a DRL algorithm for opensim-rl simulation.
+  performance of a DRL algorithm for opensim-rl simulation and to
+  enhance the ability to generalize in different environment.
   In this project different type of Autoencoders will be tested.
 
 ** Index:
@@ -195,7 +196,8 @@ Auto-encoder can be seen as a way to transform representation.
 
 
 
-** Intermezzo
+** DONE Intermezzo
+   CLOSED: [2022-02-21 Mon 12:56]
    So, we have rapidly been through classical and non dimensionality
    reduction technique. The main focus of this thesis, though, is to
    perform what is usually refered as Representation Learning.
