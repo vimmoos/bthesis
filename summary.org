@@ -305,6 +305,27 @@ Auto-encoder can be seen as a way to transform representation.
 ** TODO Variational Autoencoder
 ** TODO \beta-VAE
 ** TODO Info VAE
+** INPROGRESS Random thought
+   Based on [fn:def_disrep] why not training the AE and RL toghether.
+   an idea can be to mix the two objective toghether by a sum (for a
+   trivial case)
+   other ideas can be to scale the objective of the AE based on time
+   another idea can be to scale the objective of the AE based on how
+   "good" the current representation is. For example we can use on of
+   the disentanglement metrics described in the papers .
+   Another interesting ideas is to use some metric of the
+   representation to guide the exploration policy of the RL
+   agent. Something like: There are points/ areas of the latent space
+   which we did not explore yet or that maybe we have a low "bias" (we
+   just encounter those states just few times)
+
+   Seems that active perception is quite crucial to learn a good and
+   usefull representation of the world! and more importantly to learn
+   the invariant of the world.
+   Maybe this has something to do with active learning and GFlow net
+   by Benjo! More investigation is needed.
+
+
 
 * Ideas for Hyperparameters
   Since we will have to fit quite a lot of hyperparameters we tried to come
@@ -554,6 +575,7 @@ CLOSED: [2022-01-21 Fri 15:24]
       + Idea based on symmetry transformations (like in physics)
       + Mainly based on group theory
       + Really good references (Look at the underlined ones)
+      + Interesting idea about active perception!
 
 **** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
 CLOSED: [2022-01-21 Fri 15:27]
