@@ -32,7 +32,43 @@ Contains all the presentations done or in progress
 *** [[*Contacts][Contacts]]
 Self explanatory
 * Lines of Thoughts
-** Autoencoder
+** DONE Dimensionality Reduction
+   CLOSED: [2022-02-21 Mon 10:41]
+   The concept of dimensionality reduction is quite
+   straigthforward. The idea is to reduce the number of
+   dimensions/features while retaining maximum information.
+   Even thought the definition is quite simple being able to perform
+   such transformation is not trivial.
+
+   Ideally, the reasons for performing such proceses are:(*Note* this
+   list is not complete but gives a general overview)
+   + Avoid the curse of dimensionality
+   + Reducing potential overfitting of further processing
+   + Reducing computation time of further processing
+   + Reducing storage space
+   + Plotting
+   + Noise removal
+   + Removing Correlated features
+   + Removing redundant features
+
+   There are several methods that are able to perform this
+   transformation. They are usually divided in 2 category:
+   + Linear methods
+   + Non-Linear methods
+
+   Of course there can also be other type of categorizations
+   (e.g. feature selection, feature extraction,Neural,Manifold based,Local methods etc.)
+   In the following sections we will present roughly 2 approaches  per
+   category.
+
+   #+begin_info
+   *NOTE* we will only focus on unsupervised methods since they are
+   the most suitable for real-life situation where having labeled data
+   is hard and expensive.
+   #+end_info
+
+** DONE Autoencoder
+   CLOSED: [2022-02-21 Mon 10:41]
 An Autoencoder is a special network architecture which approximate two
 different function *encode* and *decode* such as:
 $$decode(encode(\hat{X})) = \hat{X}$$
@@ -76,18 +112,197 @@ As Wang stated [fn:ae_dimred]
 Auto-encoder can be seen as a way to transform representation.
 #+end_verse
 
-** TODO PCA
-find a linear subspace with lower dimension than the initial dataset
-while trying to maintain most of the variability
+** DONE PCA
+   CLOSED: [2022-02-21 Mon 10:41]
+   Principal Component Analysis(PCA) is a linear technique. It is
+   probably one of the most used methods because of its reliability
+   and explainability.
+   Conceptually, PCA find the directions of maximum variance in the
+   data and project it into a new space with fewer dimension than the
+   data
+
+   The crucial point of PCA is to find the Principal Component of the
+   data which are therefore completely uncorrelated while maintaining
+   most of hte variability of the data. *Note* The Principal
+   Components are selected based on the explained variance.
 *** Assumptions
-+ Linear dimensions
-+ approximately normally distributed data
-** TODO LDA
-linear approach
-** TODO LLE
-non-linear approach
-** TODO Isomap
-non linear generalization of classical multidimensional scaling
+    + Linear dimensions (i.e. the variables in the dataset must combine in a linear manner)
+    + approximately normally distributed data
+** DONE LDA
+   CLOSED: [2022-02-21 Mon 11:10]
+   Linear Discriminant Analysis (LDA) is a linear method.
+   In a nutshell, we want to find a new subspace to project the data
+   in order to maximize classes separability.
+
+   The idea to measure such separability is to maximize the difference
+   between the mean of each class while minimizing the spread within
+   the class.
+
+   The main disadvange is that LDA have good performance only if the
+   dataset is Normally distributed.
+*** Assumptions
+    + Normally distributed data
+    + Linear combination of features
+** DONE LLE
+   CLOSED: [2022-02-21 Mon 11:25]
+   Locally Linear Embedding (LLE) is a non-linear methods.
+   Conceptually it aims to discover the underline non-linear structure
+   of the data set while preserving the distance within local
+   neighborhoods.
+
+   *TODO* add image lle.jpg
+
+   This techinique is a 3 steps procedure:
+   1. Uses a KNN approach to find the k nearest neighbors of every
+      data point.
+   2. Approximates each data vecotr as a weighted linear combination
+      of its k-nearest neighbors. (*Note* all data point which are not
+      in a particular neighborhoods have 0 weight)
+   3. Computes the wieghts that best reconstruct the vectors from its
+      neighbors
+*** Assumptions
+    + Euclidean distance to compute k-nearest neighbors
+    + Quite sensible to outliers and noise
+** DONE Isomap
+   CLOSED: [2022-02-21 Mon 11:39]
+   Isometric Mapping (Isomap) is a non-linear methods which belong to
+   the category of Manifold Learning.
+
+   Ideally it is quite similar to LLE, however, the crucial objective
+   of this mapping is to maintain a geodesic distance between two
+   points.
+
+   #+begin_info
+   *Note* Geodesic is the shortest path between two points on the
+    surface itself. This is why Isomap is considered a Manifold
+    Learning method
+   #+end_info
+
+   This techinique is also defined by a 3 steps process:
+   1. Construct a neighborhoods graph (equivalent to the first step of
+      LLE)
+   2. Compute shortest path between points (using either Dijkstra's or
+      Floyd-Warshall algorithm)
+   3. Construct a d-dimensional embedding by a partial eigenvalue
+      decomposition (i.e. taking the d largest eigenvalues of the
+      kernel)
+
+*** Assumptions
+    + Computational intensive
+    + Euclidean distance for k-nearest neighbors
+
+
+
+
+
+** Intermezzo
+   So, we have rapidly been through classical and non dimensionality
+   reduction technique. The main focus of this thesis, though, is to
+   perform what is usually refered as Representation Learning.
+
+   Of course, it is quite trivial to see how Representation Learning
+   and Dimensionality reduction are strictly related.
+
+   Indeed, a representation usually has fewer dimension than the
+   original input. A good representation also should maintain the
+   most important information/features of the input space.
+
+   Therefore, the two branch are strictly related. However, it is
+   important to notice that a good Dimensionality reduction method
+   does not always produce a good representation (by good we mean that
+   it has all the important features needed to learn a mapping between
+   states and actions)
+
+   For this reason, this thesis will mainly focus on Autoencoders
+   technique to perform dimensionality reduction since they give a
+   good tradeoff between process flexibility  and accuracy.
+
+   It is also crucial to notice that the literature indicate that
+   usually Autoencoders-based latent space (or embeddings) outperforms
+   other dimensionality reduction technique when the latent space is
+   used as input in an RL-based framework
+   *TODO* add references.
+
+   Before jumping into more advanced Autoencoders-based techinique we
+   will brefly introduce MDPs Generalization.
+   This is another important point in the thesis since, the two main
+   objective of constructing low dimensional latent space for an RL
+   algorithm are:
+   + Faster and more stable convergence
+   + Better Generalization property
+
+   The first point seems quite intuitive. Having a low dimensional
+   state space should results in a faster and more stable convergence
+   since the RL algorithm needs to  learn a mapping from a low dimensional
+   state space to action which should be easier than learning a mapping from
+   a high dimensional state space to action.
+
+   Another intersting point made in (DARLA paper) is that all Deep
+   Reinforcement Learning (DRL) algorithm implicitly learns a first
+   mapping from high dimensional state space to low dimensional state
+   space and then the maps this low dimensional state space to
+   action.
+   Therefore, by performing dimensionality reduction we take away the
+   concern of learning a good representation from the RL algorithm
+   which therefore will only focus on learning a mapping from state to
+   action directly.
+
+   Other valueable property of doing such a process are described in
+   the next chapter.
+
+** DONE MDPs Generalization
+   CLOSED: [2022-02-21 Mon 12:11]
+   For formal description of this concept look up at (DARLA reference)
+   The idea though is quite intuitive. Let assume that we have a
+   =natural world= from which we are able to sample MDPs. The crucial
+   characteristic of these MDPs is that they all do have the same
+   action space but they have differences between the state spaces.
+   However, since we are sampling these MDPs from the same =natural
+   world= these state spaces must have some structural similiarity
+   (i.e. isomorphisms)
+
+   Therefore, in order to have good generalization property, we need
+   to construct a good representation which aims to represent the
+   state space of the =natural world=. In order to do so, we cannot
+   leave this concern to an DRL methods for the following reason.
+   Since DRL is maximizing some objective, it make sense that the best
+   representation is the most MDP-entangled one and therfore is the
+   one that is guided by the learning process to learn. (For reference see
+   DARLA) Therefore, if we do not move this concern outside the DRL we
+   will have poor generalization cability.
+
+   Here, Dimensionality reduction methods such as Autoencoders comes
+   to rescue. Since they do not maximize the same objective as the DRL
+   we can guide the process of learning a representation as we
+   please.
+   Moreover, we will discover in the nexts chapters how it is crucial
+   to aims for disentagled representation.
+
+   The main downfall of moving the concern of learning a
+   representation outside DRL is that we need to becarefull of the
+   what kind of dataset we use to train the autoencoders. It is
+   crucial that the dataset has big variability and covers most of the
+   "visible" state space. This is because, a lot of autoencoders
+   architecture have weird/undefined behaviour in point of the space
+   not explored during training which is not desirable.
+
+   Other potential downfalls are:
+   + Increase overall computation time (not always true though)
+   + Risk of losing important information for the DRL algorithm
+   + Non-trivial definition of AE-hyperparameters
+
+   Since usually the AE objective is centered on the reconstruction
+   error it is not trivial to focus on learning usefull representations
+   as opposed to learning representations which are based on the
+   ability of the decoder to achive better reconstruction errors.
+   Therefore, tradeoff must be made in order to achive usefull
+   representations for RL
+
+** TODO Disentagled Representations
+** TODO Adversarial Autoencoder
+** TODO Variational Autoencoder
+** TODO \beta-VAE
+** TODO Info VAE
 
 * Ideas for Hyperparameters
   Since we will have to fit quite a lot of hyperparameters we tried to come
@@ -153,16 +368,18 @@ CLOSED: [2022-01-21 Fri 15:24]
 ** HOLD InfoVae
 
 * Papers
-** INPROGRESS Dimensionality reduction
+** DONE Dimensionality reduction
+   CLOSED: [2022-02-21 Mon 09:49]
 
 *** Common knowledge resources
 + [[https://www.analyticsvidhya.com/blog/2021/06/dimensionality-reduction-using-autoencoders-in-python/][autoencoder dim red python]]
 + [[https://towardsdatascience.com/11-dimensionality-reduction-techniques-you-should-know-in-2021-dcb9500d388b][dimredtechniques]]
 + [[https://iq.opengenus.org/applications-of-autoencoders/][applications autoencoders]]
 + [[https://towardsdatascience.com/how-to-mitigate-overfitting-with-dimensionality-reduction-555b755b3d66][reduce overfitting dim red]]
-+ [[https://github.com/amir-abdi/disentanglement-pytorch][disentaglement pytorch autoencoders]] 
++ [[https://github.com/amir-abdi/disentanglement-pytorch][disentaglement pytorch autoencoders]]
 
-*** INPROGRESS Autoencoders:
+*** DONE Autoencoders:
+    CLOSED: [2022-02-21 Mon 09:49]
 **** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
      CLOSED: [2022-02-18 Fri 12:58]
 [fn:b-vae]
@@ -312,8 +529,18 @@ CLOSED: [2022-01-21 Fri 15:24]
 ***** Summary
       + Quite advanced mathematically maybe for the future research
 
+**** HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models [fn:casualvae]
+     [fn:casualvae]
+     [[file:background/CasualVAE.pdf]]
 
-*** INPROGRESS Dimensionality reduction:
+***** Summary
+      + The concept of causuality seems pretty interesting in
+        particular with respect to phisics and real environments,
+        however, left for future research
+
+
+*** DONE Dimensionality reduction:
+    CLOSED: [2022-02-21 Mon 09:49]
 **** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
 CLOSED: [2022-01-21 Fri 15:27]
 [fn:ae_dimred]
@@ -396,7 +623,8 @@ Note: The interesting part of the data is that it have dropout event
 sequencing). This dropout event are zero expression measurament that
 can be either biological or technical. This phenomenon result in poor
 results for methods such us PCA or t-SNE.
-*** INPROGRESS AE + RL:
+*** DONE AE + RL:
+    CLOSED: [2022-02-21 Mon 09:49]
 **** DONE VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
 CLOSED: [2022-01-23 Sun 16:30]
 [fn:varl]
@@ -561,19 +789,19 @@ CLOSED: [2022-01-21 Fri 15:27]
 [[file:background/oldideas/Deep_reiforcement_learning_for_modeling_human_locomotion_in_neuromechanical_sim.pdf]]
 
 **** Summary
-review paper, it introduces in general the topic. it illustrate
-    previous methodology and then it moves on Deep Rl. It talks about
-    Learn to Move competition and the different techniques used in
-    that competition. Finally some future directions.
+     review paper, it introduces in general the topic. it illustrate
+     previous methodology and then it moves on Deep Rl. It talks about
+     Learn to Move competition and the different techniques used in
+     that competition. Finally some future directions.
 
 **** Opinions
-    This paper is really interesting in particular the part about
-    Learn to Move and future directions.
+     This paper is really interesting in particular the part about
+     Learn to Move and future directions.
 
 **** Ideas
-    It suggest imitation learning and hierarchical learning
+     It suggest imitation learning and hierarchical learning
 
-** Old work
+** TODO Old work
 
 *** Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization [fn:ppg]
 [fn:ppg]
