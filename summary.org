@@ -306,7 +306,7 @@ Auto-encoder can be seen as a way to transform representation.
 ** TODO \beta-VAE
 ** TODO Info VAE
 ** INPROGRESS Random thought
-   Based on [fn:def_disrep] why not training the AE and RL toghether.
+   Based on (towards ) why not training the AE and RL toghether.
    an idea can be to mix the two objective toghether by a sum (for a
    trivial case)
    other ideas can be to scale the objective of the AE based on time
@@ -552,8 +552,7 @@ CLOSED: [2022-01-21 Fri 15:24]
 ***** Summary
       + Quite advanced mathematically maybe for the future research
 
-**** HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models [fn:casualvae]
-     [fn:casualvae]
+**** HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models 
      [[file:background/CasualVAE.pdf]]
 
 ***** Summary
@@ -564,11 +563,10 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 *** DONE Dimensionality reduction:
     CLOSED: [2022-02-21 Mon 09:49]
-**** DONE Towards a Definition of Disentangled Representations [fn:def_disrep]
-     [fn:def_disrep]
-     [[file:background/disentangledrepresentation.pdf]]
+*** DONE Towards a Definition of Disentangled Representations
+[[file:background/disentangledrepresentation.pdf]]
 
-***** Summary
+**** Summary
       + Gives a formal definition of what a Disentangled
         representation is
       + *Really crucial paper*
