@@ -33,8 +33,7 @@ Contains all the presentations done or in progress
 *** [[*Contacts][Contacts]]
 Self explanatory
 * Lines of Thoughts
-** DONE Dimensionality Reduction
-   CLOSED: [2022-02-21 Mon 10:41]
+** Dimensionality Reduction
    The concept of dimensionality reduction is quite
    straigthforward. The idea is to reduce the number of
    dimensions/features while retaining maximum information.
@@ -68,53 +67,51 @@ Self explanatory
    is hard and expensive.
    #+end_info
 
-** DONE Autoencoder
-   CLOSED: [2022-02-21 Mon 10:41]
-An Autoencoder is a special network architecture which approximate two
-different function *encode* and *decode* such as:
-$$decode(encode(\hat{X})) = \hat{X}$$
-#+begin_info
-*Note*  most of the the time is not an \equal but an \approx
-#+end_info
+** Autoencoder
+   An Autoencoder is a special network architecture which approximate two
+   different function *encode* and *decode* such as:
+   $$decode(encode(\hat{X})) = \hat{X}$$
+   #+begin_info
+   *Note*  most of the the time is not an \equal but an \approx
+   #+end_info
 
-The network is therefore composed by two different sub networks. An
-Encoder which can be defined as:
-$$encode \rightarrow \mathbb{R}^n \times \mathbb{R}^m $$
-And a Decoder which can be defined as:
-$$decode \rightarrow \mathbb{R}^m \times \mathbb{R}^n $$
+   The network is therefore composed by two different sub networks. An
+   Encoder which can be defined as:
+   $$encode \rightarrow \mathbb{R}^n \times \mathbb{R}^m $$
+   And a Decoder which can be defined as:
+   $$decode \rightarrow \mathbb{R}^m \times \mathbb{R}^n $$
 
-There two constraint to this two function. The first one is that
-*decode* must be approximately the inverse of the *encode*[fn:ae_saferl]. The second one is that
-$$ m << n $$
-#+begin_info
-*NOTE* when the second constraint is sudisfacted, the autoencoder is
- cosidered an undercomplete autoencoder. However, every time we will
- use the autoencoder word we will refer to undercomplete autoencoder.
-#+end_info
-The second constraint is an architectural one, meanwhile the first one
-is a functional constraint which will be achived after the network is
-trained.
+   There two constraint to this two function. The first one is that
+   *decode* must be approximately the inverse of the *encode*[fn:ae_saferl]. The second one is that
+   $$ m << n $$
+   #+begin_info
+   *NOTE* when the second constraint is sudisfacted, the autoencoder is
+   cosidered an undercomplete autoencoder. However, every time we will
+   use the autoencoder word we will refer to undercomplete autoencoder.
+   #+end_info
+   The second constraint is an architectural one, meanwhile the first one
+   is a functional constraint which will be achived after the network is
+   trained.
 
-The error function is therefore a reconstruction error or distance
-measure between the input and outuput.
+   The error function is therefore a reconstruction error or distance
+   measure between the input and outuput.
 
-The layer between the Encoder and the Decoder express what is usually
-knonw as *Latent space* which dimensionality is $\mathbb{R}^m$.
+   The layer between the Encoder and the Decoder express what is usually
+   knonw as *Latent space* which dimensionality is $\mathbb{R}^m$.
 
-We will from now on refer to the *Latent space* as $\hat{z}$.
-For clarity we can rewrite the above formulas as:
-$$encode(\hat{X}) = \hat{z}$$
-$$decode(\hat{z}) \approx \hat{X}$$
-#+CAPTION: The Autoencoder Structure
-#+attr_html:  :width 600em
-[[file:resources/autoencoder.png]]
-As Wang stated [fn:ae_dimred]
-#+begin_verse
-Auto-encoder can be seen as a way to transform representation.
-#+end_verse
+   We will from now on refer to the *Latent space* as $\hat{z}$.
+   For clarity we can rewrite the above formulas as:
+   $$encode(\hat{X}) = \hat{z}$$
+   $$decode(\hat{z}) \approx \hat{X}$$
+   #+CAPTION: The Autoencoder Structure
+   #+attr_html:  :width 600em
+   [[file:resources/autoencoder.png]]
+   As Wang stated [fn:ae_dimred]
+   #+begin_verse
+   Auto-encoder can be seen as a way to transform representation.
+   #+end_verse
 
-** DONE PCA
-   CLOSED: [2022-02-21 Mon 10:41]
+** PCA
    Principal Component Analysis(PCA) is a linear technique. It is
    probably one of the most used methods because of its reliability
    and explainability.
@@ -129,8 +126,7 @@ Auto-encoder can be seen as a way to transform representation.
 *** Assumptions
     + Linear dimensions (i.e. the variables in the dataset must combine in a linear manner)
     + approximately normally distributed data
-** DONE LDA
-   CLOSED: [2022-02-21 Mon 11:10]
+** LDA
    Linear Discriminant Analysis (LDA) is a linear method.
    In a nutshell, we want to find a new subspace to project the data
    in order to maximize classes separability.
@@ -144,8 +140,7 @@ Auto-encoder can be seen as a way to transform representation.
 *** Assumptions
     + Normally distributed data
     + Linear combination of features
-** DONE LLE
-   CLOSED: [2022-02-21 Mon 11:25]
+** LLE
    Locally Linear Embedding (LLE) is a non-linear methods.
    Conceptually it aims to discover the underline non-linear structure
    of the data set while preserving the distance within local
@@ -164,8 +159,7 @@ Auto-encoder can be seen as a way to transform representation.
 *** Assumptions
     + Euclidean distance to compute k-nearest neighbors
     + Quite sensible to outliers and noise
-** DONE Isomap
-   CLOSED: [2022-02-21 Mon 11:39]
+** Isomap
    Isometric Mapping (Isomap) is a non-linear methods which belong to
    the category of Manifold Learning.
 
@@ -196,8 +190,7 @@ Auto-encoder can be seen as a way to transform representation.
 
 
 
-** DONE Intermezzo
-   CLOSED: [2022-02-21 Mon 12:56]
+** Intermezzo
    So, we have rapidly been through classical and non dimensionality
    reduction technique. The main focus of this thesis, though, is to
    perform what is usually refered as Representation Learning.
@@ -252,8 +245,7 @@ Auto-encoder can be seen as a way to transform representation.
    Other valueable property of doing such a process are described in
    the next chapter.
 
-** DONE MDPs Generalization
-   CLOSED: [2022-02-21 Mon 12:11]
+** MDPs Generalization
    For formal description of this concept look up at (DARLA reference)
    The idea though is quite intuitive. Let assume that we have a
    =natural world= from which we are able to sample MDPs. The crucial
@@ -325,8 +317,6 @@ Auto-encoder can be seen as a way to transform representation.
    Maybe this has something to do with active learning and GFlow net
    by Benjo! More investigation is needed.
 
-
-
 * Ideas for Hyperparameters
   Since we will have to fit quite a lot of hyperparameters we tried to come
   up with some cleaver ideas to remove some  of these
@@ -391,25 +381,22 @@ CLOSED: [2022-01-21 Fri 15:24]
 ** HOLD InfoVae
 
 * Papers
-** DONE Dimensionality reduction
-   CLOSED: [2022-02-21 Mon 09:49]
-
-*** Common knowledge resources
+** Common knowledge resources
 + [[https://www.analyticsvidhya.com/blog/2021/06/dimensionality-reduction-using-autoencoders-in-python/][autoencoder dim red python]]
 + [[https://towardsdatascience.com/11-dimensionality-reduction-techniques-you-should-know-in-2021-dcb9500d388b][dimredtechniques]]
 + [[https://iq.opengenus.org/applications-of-autoencoders/][applications autoencoders]]
 + [[https://towardsdatascience.com/how-to-mitigate-overfitting-with-dimensionality-reduction-555b755b3d66][reduce overfitting dim red]]
 + [[https://github.com/amir-abdi/disentanglement-pytorch][disentaglement pytorch autoencoders]]
 
-*** DONE Autoencoders:
+** DONE Autoencoders:
     CLOSED: [2022-02-21 Mon 09:49]
-**** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
+*** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
      CLOSED: [2022-02-18 Fri 12:58]
 [fn:b-vae]
 [[file:background/beta_vae_learning_basic_visual.pdf]]
 
 
-***** Summary
+**** Summary
       + introduces \beta-VAE
       + shows how to achive better disentangled representations
       + introduces a new hyperparameter (\beta) which forces the
@@ -419,14 +406,13 @@ CLOSED: [2022-01-21 Fri 15:24]
       + reconstruction error should not be used to discriminate
         between AE (or at least it should be the only factor) see
         conclusions
-      + Interesting references (usefull for thesis)
-
-**** DONE Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
+      + Interesting references (usef
+*** DONE Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
      CLOSED: [2022-02-19 Sat 11:37]
 [fn:avb]
 [[file:background/mescheder2017avb.pdf]]
 
-***** Summary
+**** Summary
       + Introduces AVB
       + Adversarial procedure
       + focuses on giving better flexibility to the normal VAE
@@ -438,41 +424,42 @@ CLOSED: [2022-01-21 Fri 15:24]
         performance.
 
 
-***** Resources
-[[https://chrisorm.github.io/AVB-pyt.html]]
-
-**** DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction[fn:gen_ae]
+**** Resources
+[[https://chrisorm.github.
+*** DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction[fn:gen_ae]
      CLOSED: [2022-02-18 Fri 15:03]
 [fn:gen_ae]
 [[file:background/Wang_Generalized_Autoencoder_A_2014_CVPR_paper.pdf]]
 
-***** Summary
+**** Summary
       + Interesting approach to dimensionality reduction which tries
         to focus on the main downfall of the AE
       + However, does not look like anymore progress was done in this
         direction
       + Therefore seems to be a bit too much to try for the thesis
-      + That's why it was *DISCARDED*
+      + That's why it was *
+*** DONE Tutorial on Variational Autoencoders
 
-**** DONE Auto-Encoding Variational Bayes [fn:original_vae]
+   [[file:background/VAE_tutorial.pdf]]
+
+*** DONE Auto-Encoding Variational Bayes [fn:original_vae]
      CLOSED: [2022-02-18 Fri 14:00]
 [fn:original_vae]
 [[file:background/Auto-Encoding_Variational_Bayer.pdf]]
 
-***** Summary
+**** Summary
       + Paper which introduce the theory behind VAE
       + Variational inference
       + Highly teoretical and matematically
       + *Crucial* to understand what,how and why we will want
         something like a VAE
-***** Resources
-      [[https://www.youtube.com/watch?v=HxQ94L8n0vU&t=31s][Variational Inference intuitions and derivations]]
-
-**** DONE InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
+**** Resources
+      [[https://www.youtube.com/watch?v=HxQ94L8n0vU&t=31s][Variational Inference intuitions and de
+*** DONE InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
      CLOSED: [2022-02-19 Sat 14:15]
 [fn:infovae]
 [[file:background/infovae.pdf]]
-***** Summary
+**** Summary
       + Shows crucial down fall of the ELBO objective.
       + Introduces a new objective.
       + Quite interesting cause it tries to balance the mutual
@@ -488,9 +475,8 @@ CLOSED: [2022-01-21 Fri 15:24]
       + This new objective also focuses on learning disentagled
         representations
       + REALLY INTERESTING in particular in an RL framework since
-        it parametrize both mutual information and disentaglement.
-
-**** DONE Adversarial Autoencoders [fn:aae]
+        it parametrize both mutual information
+*** DONE Adversarial Autoencoders [fn:aae]
      CLOSED: [2022-02-18 Fri 15:28]
 [fn:aae]
 [[file:background/AdversarialAutoencoder.pdf]]
@@ -500,7 +486,7 @@ CLOSED: [2022-01-21 Fri 15:24]
      #+attr_html:  :width 600em
      [[file:resources/AAE.png]]
 
-***** Summary
+**** Summary
       + introduces formally the AAE
       + The main difference between VAE and AAE is that the KL term
         (or cross entropy) is replaced with a discriminator network
@@ -516,66 +502,35 @@ CLOSED: [2022-01-21 Fri 15:24]
       + Quite interesting however, does not look like it focus on
         disentangled representations but on the reconstruction error
         which maybe is not suitable if the main point is to use it
-        within an RL framework. However, it can be interesting to test
-        it.
-
-
-**** DONE Understanding disentagling in \beta-VAE [fn:understand_bvae]
-     CLOSED: [2022-02-19 Sat 15:53]
-[fn:understand_bvae]
-[[file:background/understand_beta-VAE.pdf]]
-
-***** Summary
-      + Give some intuitions on why \beta-VAE achive disentaglement
-      + Show some more formal derivations on the why
-      + Introduces a modification on the "standard" \beta-VAE
-      + Quite interesting, however, also here there seems to not be
-        any research on the applications with RL
-
-**** DONE Learning representations by maximizing mutual information in variational autoencoders [fn:infomax_vae]
+        within an RL framework. However, it can be intere
+*** DONE Learning representations by maximizing mutual information in variational autoencoders [fn:infomax_vae]
      CLOSED: [2022-02-19 Sat 16:22]
 [fn:infomax_vae]
 [[file:background/infomax-vae.pdf]]
 
-***** Summary
+**** Summary
       + Quite interesting new architecture (similar approach
         to [fn:infovae])
       + Again mark the fact that ELBO and KL aims to decrease the
         mutual information between the input and the latent
         representation which can results in quite bad representations
-      + for future research!
-
-**** HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models [fn:lagrangian_vae]
+      + for future
+*** HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models [fn:lagrangian_vae]
 [fn:lagrangian_vae]
 [[file:background/lagrangian-vae.pdf]]
 
-***** Summary
-      + Quite advanced mathematically maybe for the future research
-
-**** HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models 
+**** Summary
+      + Quite advanced mathematically maybe for the future rese
+*** HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models
      [[file:background/CasualVAE.pdf]]
 
-***** Summary
+**** Summary
       + The concept of causuality seems pretty interesting in
         particular with respect to phisics and real environments,
-        however, left for future research
-
-
-*** DONE Dimensionality reduction:
+        however, left for future res
+** DONE Dimensionality reduction:
     CLOSED: [2022-02-21 Mon 09:49]
-*** DONE Towards a Definition of Disentangled Representations
-[[file:background/disentangledrepresentation.pdf]]
-
-**** Summary
-      + Gives a formal definition of what a Disentangled
-        representation is
-      + *Really crucial paper*
-      + Idea based on symmetry transformations (like in physics)
-      + Mainly based on group theory
-      + Really good references (Look at the underlined ones)
-      + Interesting idea about active perception!
-
-**** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
+*** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
 CLOSED: [2022-01-21 Fri 15:27]
 [fn:ae_dimred]
 [[file:background/Autoencoder_based_dimensionality_reduction.pdf]]
@@ -596,24 +551,23 @@ hidden layer nodes on the performance of auto-encoder on
 MNIST and Olivetti face datasets. The results reveal its possible
 relation with the intrinsic dimensionality.
 #+end_verse
-***** Summary
+**** Summary
 Shows comparison of Autoencoder and other dimensionality reduction
 methods (e.g. PCA,LLE) Notable results: Autoencoder different than
 other dimensionality reduction. Potentially detect repetitive
 structures. Dimensionality of the *Latent space* is best when it
 maches the intrinsic dimensionality of the dataset.
 
-***** Opinions
+**** Opinions
 This clearly shows how Autoencoder can be essentially different and
 more usefull than other dimensionality reduction methods. This
-consolidate the choice of using autoencoders in the thesis.
-
-**** DONE Dimensionality Reduction of SDSS Spectra with Variational Autoencoders [fn:dimred_vae]
+consolidate the choice of usi
+*** DONE Dimensionality Reduction of SDSS Spectra with Variational Autoencoders [fn:dimred_vae]
 CLOSED: [2022-01-21 Fri 16:40]
 [fn:dimred_vae]
 [[file:background/dim_red_vae.pdf]]
 
-***** Summary
+**** Summary
 Show how AEs were already used in astrony for different dimensionality
 reduction/classification task with success. Moreover, it aims to
 address the limitation of PCA using VAE. Results show how on this
@@ -621,19 +575,17 @@ dataset (SDSS sloan digital sky survey) the autoencoder outperforms
 PCA in particular with low dimension latent space(or component for
 PCA)
 They mainly use InfoVAE[fn:infovae],a variant of the VAE, focused on trying to
-disentangle (e.i. force mapping different inputs to disjoint distribution ) the different latent space dimensions.
-
-**** DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis [fn:dimred_comp]
+disentangle (e.i. force mapping different inputs to disjoint distribution ) the different latent space
+*** DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis [fn:dimred_comp]
 [fn:dimred_comp]
 [[file:background/dim_red_comparison.pdf]]
 
 
 It was *DISCARDED* because it contains too specific content and the
 comparison between algorithms has multiple steps and variables which
-are highly specific to the task. Therefore I do not think it should be
-used.
-**** DONE A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis [fn:dimred_vae_rna]
-CLOSED: [2022-01-23 Sun 15:49]
+are highly specific to the task. Therefore I do not think it should b
+*** DONE A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis [fn:dimred_vae_rna]
+    CLOSED: [2022-01-23 Sun 15:49]
 [fn:dimred_vae_rna]
 [[file:background/VAE_dim_red_RNA_sequencing.pdf]]
 
@@ -642,7 +594,7 @@ CLOSED: [2022-01-23 Sun 15:49]
 #+attr_html:  :width 600em
 [[file:resources/The-novel-architecture-of-an-Adversarial-Variational-AutoEncoder-with-Dual-Matching.png]]
 
-***** Summary
+**** Summary
 It introduces a novel Adversarial autoencoder architecture named
 AVE-DM (Adversarial Variational autoencoder with dual matching )
 The main difference between this new architecture and the prievious
@@ -656,10 +608,48 @@ Note: The interesting part of the data is that it have dropout event
 (the reason for it is quite technical and specific to RNA
 sequencing). This dropout event are zero expression measurament that
 can be either biological or technical. This phenomenon result in poor
-results for methods such us PCA or t-SNE.
-*** DONE AE + RL:
+results
+** TODO Disentagled representation
+*** DONE Understanding disentagling in \beta-VAE [fn:understand_bvae]
+     CLOSED: [2022-02-19 Sat 15:53]
+[fn:understand_bvae]
+[[file:background/understand_beta-VAE.pdf]]
+
+**** Summary
+      + Give some intuitions on why \beta-VAE achive disentaglement
+      + Show some more formal derivations on the why
+      + Introduces a modification on the "standard" \beta-VAE
+      + Quite interesting, however, also here there seems to not be
+        any research on the application
+*** DONE Towards a Definition of Disentangled Representations
+[[file:background/disentangledrepresentation.pdf]]
+
+**** Summary
+      + Gives a formal definition of what a Disentangled
+        representation is
+      + *Really crucial paper*
+      + Idea based on symmetry transformations (like in physics)
+      + Mainly based on group theory
+      + Really good references (Look at the underlined ones)
+      + Interesting idea about active perception!
+
+*** TODO Are Disentagled representations helpful for Abstract Visual Reasoning?
+
+    [[file:background/Dis_usefull.pdf]]
+*** DISCARDED On the binding Problem in Artificial Neural Networks
+
+   [[file:background/bindingproblem.pdf]]
+
+   Really interesting paper about the binding problems. It does talk
+   about representation learning and disentagled representations
+   however, it goes way beyond the scope of this thesis talking about
+   hierarchical representations, object detection and classification
+   etc.
+   *Really interesting for future research!*
+
+** DONE AE + RL:
     CLOSED: [2022-02-21 Mon 09:49]
-**** DONE VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
+*** DONE VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
 CLOSED: [2022-01-23 Sun 16:30]
 [fn:varl]
 [[file:background/Wang2021_Article_VARLAVariationalAutoencoder-ba.pdf]]
@@ -680,26 +670,24 @@ including fast training, stability, and so on, so it has a wide
 range of theoretical models and industry applications.
 #+end_verse
 
-***** Summary
+**** Summary
 Introduces a new variational framework  for combinatorial optimization
 (e.g. TSP). Introduces Variational inference and VAE. Propose VARL
 (Variational autoencoder-based reinforcement learning) which exploits
 variational inference ideas to learn efiiciently and effectively a
 solution in a graph-based framework.
 
-***** Opinions
+**** Opinions
 The main down side is that the VARL architecture seems to be quite
 complex and specific for combinatorial optimization. That said, it
 also shows how variational inference can be effectively used in
-combination with reinforcement learning (in the paper REINFOCE was
-specifically used.)
-
-**** DONE Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
+combination with reinforcement learning (in the paper R
+*** DONE Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
      CLOSED: [2022-02-16 Wed 11:18]
 [fn:robot_skill_dae]
 [[file:background/robot_skill_learning_in_latent_space.pdf]]
 
-***** Summary
+**** Summary
       + Gaussian Process Regression (GPR) for statistical learning
       + Shows that Autoencoder-based latent space is more effective
         than PCA-based latent space
@@ -714,16 +702,13 @@ specifically used.)
       + Moreover RL+AE outperforms RL+PCA! researcher stated that this
         is probably due to the non linearity in AE
       + In particular during the introduction sections it has a lot of
-        good references which are worth looking into.
-
-***** Opinions
-
-**** DONE AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton [fn:ae_saferl]
+        good references which are worth looking in
+*** DONE AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton [fn:ae_saferl]
      CLOSED: [2022-02-16 Wed 13:19]
 [fn:ae_saferl]
 [[file:background/AutoEncoder-based_Safe_Reinforcement_Learning_for_Power_Augmentation_in_a_Lower-limb_Exoskeleton.pdf]]
 
-***** Summary
+**** Summary
       + GPR used to generate data given few real-world examples.
       + AE both for action and state space reduction.
       + Action and states are DMP
@@ -731,14 +716,13 @@ specifically used.)
       + This paper also shows that AE-based latent space make the RL
         learning process faster,safe and more stable.
       + Note: in this paper HMI (Human-Machine Interaction) was a
-        central role in the optimization process.
-
-**** DONE The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
+        central role in the optimizat
+*** DONE The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
      CLOSED: [2022-02-16 Wed 13:50]
 [fn:dreaming_vae]
 [[file:background/dreaming_autoencoder.pdf]]
 
-***** Summary
+**** Summary
       + *NOTE* Gaussian distributed policy for initial state-space
         exploration
       + Introduces DVAE architecture
@@ -749,14 +733,12 @@ specifically used.)
         environments in the unexplored states.
       + Quite interesting, however, not fitting for highly complex and
         continuos environments where exploration is costly and/or
-        risky
-
-**** DONE Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
+*** DONE Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
      CLOSED: [2022-02-16 Wed 14:56]
 [fn:dvrl]
 [[file:background/dvrl.pdf]]
 
-***** Summary
+**** Summary
       + Defines a new RL method with AE
       + Interesting is that a new method for approximating the ELBO is
         introduced. Using MC methods.
@@ -767,14 +749,13 @@ specifically used.)
         continuos)
       + Quite interesting, seems too complex and more reasearch most
        be done if we want to use this approch.
-      + Contains some usefull references
-
-**** DONE On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
+      + Contains some use
+*** DONE On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
      CLOSED: [2022-02-16 Wed 15:38]
 [fn:dae_efficient_rl]
 [[file:background/deep_ae+rl.pdf]]
 
-***** Summary
+**** Summary
       + Shows how using AE-based latent space reduce the time of
         convergence. Moreover, it also produce more vaiable policies
         faster.
@@ -785,13 +766,13 @@ specifically used.)
         Convolutional AE.
       + However, seems another good source of information which again
         shows that AE-based latent space increase the RL performance
-        and decrease the time of convergence.
-**** DONE DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
+        and decrease the time
+*** DONE DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
      CLOSED: [2022-02-18 Fri 09:42]
 [fn:darla]
 [[file:background/DARLA.pdf]]
 
-***** Summary
+**** Summary
       + REALLY INTERESTING PAPER!
       + formally shows how to do zero-shot transfer on MDPs
       + introduces this new concept DARLA (DisentAngle Rapresentation
@@ -810,11 +791,8 @@ specifically used.)
       + Uses \beta-VAE which aims to force the learning of a
         disentangled representation
 
-***** Resources
-[[http://proceedings.mlr.press/v70/higgins17a.html]]
-
-
-
+**** Resources
+[[http://proceedings.mlr.pres
 ** Old ideas
 
 *** DONE Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation [fn:drl_human_locomotion]
@@ -833,8 +811,7 @@ CLOSED: [2022-01-21 Fri 15:27]
      Learn to Move and future directions.
 
 **** Ideas
-     It suggest imitation learning and hierarchical learning
-
+     It suggest imitation learning and hierarchical
 ** TODO Old work
 
 *** Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization [fn:ppg]
@@ -929,5 +906,6 @@ CLOSED: [2022-01-21 Fri 15:26]
 *** HOLD Collect Data from simulation
 ** Paper
 *** INPROGRESS Review all papers
+*** TODO restructure paper summaries
 *** DONE Why we use autoencoders
     CLOSED: [2022-02-18 Fri 13:56]
