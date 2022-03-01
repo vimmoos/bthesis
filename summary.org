@@ -34,14 +34,14 @@ Contains all the presentations done or in progress
 Self explanatory
 * Lines of Thoughts
 ** Dimensionality Reduction
-   The concept of dimensionality reduction is quite
-   straigthforward. The idea is to reduce the number of
-   dimensions/features while retaining maximum information.
-   Even thought the definition is quite simple being able to perform
-   such transformation is not trivial.
+The concept of dimensionality reduction is quite
+straigthforward. The idea is to reduce the number of
+dimensions/features while retaining maximum information.
+Even thought the definition is quite simple being able to perform
+such transformation is not trivial.
 
-   Ideally, the reasons for performing such proceses are:(*Note* this
-   list is not complete but gives a general overview)
+Ideally, the reasons for performing such proceses are:(*Note* this
+list is not complete but gives a general overview)
    + Avoid the curse of dimensionality
    + Reducing potential overfitting of further processing
    + Reducing computation time of further processing
@@ -51,15 +51,15 @@ Self explanatory
    + Removing Correlated features
    + Removing redundant features
 
-   There are several methods that are able to perform this
-   transformation. They are usually divided in 2 category:
+There are several methods that are able to perform this
+transformation. They are usually divided in 2 category:
    + Linear methods
    + Non-Linear methods
 
-   Of course there can also be other type of categorizations
-   (e.g. feature selection, feature extraction,Neural,Manifold based,Local methods etc.)
-   In the following sections we will present roughly 2 approaches  per
-   category.
+Of course there can also be other type of categorizations
+(e.g. feature selection, feature extraction,Neural,Manifold based,Local methods etc.)
+In the following sections we will present roughly 2 approaches  per
+category.
 
    #+begin_info
    *NOTE* we will only focus on unsupervised methods since they are
@@ -141,14 +141,16 @@ Self explanatory
     + Normally distributed data
     + Linear combination of features
 ** LLE
-   Locally Linear Embedding (LLE) is a non-linear methods.
-   Conceptually it aims to discover the underline non-linear structure
-   of the data set while preserving the distance within local
-   neighborhoods.
+Locally Linear Embedding (LLE) is a non-linear methods.
+Conceptually it aims to discover the underline non-linear structure
+of the data set while preserving the distance within local
+neighborhoods.
 
-   *TODO* add image lle.jpg
+#+CAPTION: The Autoencoder Structure
+#+attr_html:  :width 600em
+[[file:resources/lle.jpg]]
 
-   This techinique is a 3 steps procedure:
+This techinique is a 3 steps procedure:
    1. Uses a KNN approach to find the k nearest neighbors of every
       data point.
    2. Approximates each data vecotr as a weighted linear combination
@@ -191,110 +193,200 @@ Self explanatory
 
 
 ** Intermezzo
-   So, we have rapidly been through classical and non dimensionality
-   reduction technique. The main focus of this thesis, though, is to
-   perform what is usually refered as Representation Learning.
+So, we have rapidly been through classical and non dimensionality
+reduction technique. The main focus of this thesis, though, is to
+perform what is usually refered as Representation Learning.
 
-   Of course, it is quite trivial to see how Representation Learning
-   and Dimensionality reduction are strictly related.
+Of course, it is quite trivial to see how Representation Learning
+and Dimensionality reduction are strictly related.
 
-   Indeed, a representation usually has fewer dimension than the
-   original input. A good representation also should maintain the
-   most important information/features of the input space.
+Indeed, a representation usually has fewer dimension than the
+original input. A good representation also should maintain the
+most important information/features of the input space.
 
-   Therefore, the two branch are strictly related. However, it is
-   important to notice that a good Dimensionality reduction method
-   does not always produce a good representation (by good we mean that
-   it has all the important features needed to learn a mapping between
-   states and actions)
+Therefore, the two branch are strictly related. However, it is
+important to notice that a good Dimensionality reduction method
+does not always produce a good representation (by good we mean that
+it has all the important features needed to learn a mapping between
+states and actions)
 
-   For this reason, this thesis will mainly focus on Autoencoders
-   technique to perform dimensionality reduction since they give a
-   good tradeoff between process flexibility  and accuracy.
+For this reason, this thesis will mainly focus on Autoencoders
+technique to perform dimensionality reduction since they give a
+good tradeoff between process flexibility  and
+accuracy. (for reference: [fn:ae_dimred][fn:dimred_vae][fn:dimred_vae_rna])
 
-   It is also crucial to notice that the literature indicate that
-   usually Autoencoders-based latent space (or embeddings) outperforms
-   other dimensionality reduction technique when the latent space is
-   used as input in an RL-based framework
-   *TODO* add references.
+It is also crucial to notice that the literature indicate that
+usually Autoencoders-based latent space (or embeddings) outperforms
+other dimensionality reduction technique when the latent space is
+used as input in an RL-based
+framework (for
+reference : [fn:darla] [fn:varl] [fn:robot_skill_dae] [fn:dae_efficient_rl] [fn:dvrl] [fn:dreaming_vae])
 
-   Before jumping into more advanced Autoencoders-based techinique we
-   will brefly introduce MDPs Generalization.
-   This is another important point in the thesis since, the two main
-   objective of constructing low dimensional latent space for an RL
-   algorithm are:
+Before jumping into more advanced Autoencoders-based techinique we
+will brefly introduce MDPs Generalization.
+This is another important point in the thesis since, the two main
+objective of constructing low dimensional latent space for an RL
+algorithm are:
    + Faster and more stable convergence
    + Better Generalization property
 
-   The first point seems quite intuitive. Having a low dimensional
-   state space should results in a faster and more stable convergence
-   since the RL algorithm needs to  learn a mapping from a low dimensional
-   state space to action which should be easier than learning a mapping from
-   a high dimensional state space to action.
+The first point seems quite intuitive. Having a low dimensional
+state space should results in a faster and more stable convergence
+since the RL algorithm needs to  learn a mapping from a low dimensional
+state space to action which should be easier than learning a mapping from
+a high dimensional state space to action.
 
-   Another intersting point made in (DARLA paper) is that all Deep
-   Reinforcement Learning (DRL) algorithm implicitly learns a first
-   mapping from high dimensional state space to low dimensional state
-   space and then the maps this low dimensional state space to
-   action.
-   Therefore, by performing dimensionality reduction we take away the
-   concern of learning a good representation from the RL algorithm
-   which therefore will only focus on learning a mapping from state to
-   action directly.
+Another intersting point made in [fn:darla] is that all Deep
+Reinforcement Learning (DRL) algorithm implicitly learns a first
+mapping from high dimensional state space to low dimensional state
+space and then the maps this low dimensional state space to
+action.
+Therefore, by performing dimensionality reduction we take away the
+concern of learning a good representation from the DRL algorithm
+which therefore will only focus on learning a mapping from state to
+action directly.
 
-   Other valueable property of doing such a process are described in
-   the next chapter.
+Other valueable property of doing such a process are described in
+the next chapter.
 
 ** MDPs Generalization
-   For formal description of this concept look up at (DARLA reference)
-   The idea though is quite intuitive. Let assume that we have a
-   =natural world= from which we are able to sample MDPs. The crucial
-   characteristic of these MDPs is that they all do have the same
-   action space but they have differences between the state spaces.
-   However, since we are sampling these MDPs from the same =natural
-   world= these state spaces must have some structural similiarity
-   (i.e. isomorphisms)
+For formal description of this concept look up at [fn:darla] (section 2.2)
+The idea though is quite intuitive. Let assume that we have a
+=natural world= from which we are able to sample MDPs. The crucial
+characteristic of these MDPs is that they all do have the same
+action space but they have differences between the state spaces.
+However, since we are sampling these MDPs from the same =natural
+world= these state spaces must have some structural similiarity
+(i.e. isomorphisms)
 
-   Therefore, in order to have good generalization property, we need
-   to construct a good representation which aims to represent the
-   state space of the =natural world=. In order to do so, we cannot
-   leave this concern to an DRL methods for the following reason.
-   Since DRL is maximizing some objective, it make sense that the best
-   representation is the most MDP-entangled one and therfore is the
-   one that is guided by the learning process to learn. (For reference see
-   DARLA) Therefore, if we do not move this concern outside the DRL we
-   will have poor generalization cability.
+Therefore, in order to have good generalization property, we need
+to construct a good representation which aims to represent the
+state space of the =natural world=. In order to do so, we cannot
+leave this concern to an DRL methods for the following reason.
 
-   Here, Dimensionality reduction methods such as Autoencoders comes
-   to rescue. Since they do not maximize the same objective as the DRL
-   we can guide the process of learning a representation as we
-   please.
-   Moreover, we will discover in the nexts chapters how it is crucial
-   to aims for disentagled representation.
+Since DRL is maximizing some objective, it make sense that the best
+representation is the most MDP-entangled one and therfore is the
+one that is guided by the learning process to learn.[fn:darla]
+Therefore, if we do not move this concern outside the DRL we
+will have poor generalization cability, particularly without extensive
+fine tuning.
 
-   The main downfall of moving the concern of learning a
-   representation outside DRL is that we need to becarefull of the
-   what kind of dataset we use to train the autoencoders. It is
-   crucial that the dataset has big variability and covers most of the
-   "visible" state space. This is because, a lot of autoencoders
-   architecture have weird/undefined behaviour in point of the space
-   not explored during training which is not desirable.
+Here, Dimensionality reduction methods such as Autoencoders comes
+to rescue. Since they do not maximize the same objective as the DRL
+we can guide the process of learning a representation as we
+please.
+Moreover, we will discover in the nexts chapters how it is crucial
+to aims for disentagled representation.
 
-   Other potential downfalls are:
+The main downfall of moving the concern of learning a
+representation outside DRL is that we need to becarefull of the
+what kind of dataset we use to train the autoencoders. It is
+crucial that the dataset has big variability and covers most of the
+"visible" state space. This is because, a lot of autoencoders
+architecture have weird/undefined behaviour in point of the space
+not explored during training which is not desirable.
+
+Other potential downfalls are:
    + Increase overall computation time (not always true though)
    + Risk of losing important information for the DRL algorithm
    + Non-trivial definition of AE-hyperparameters
 
-   Since usually the AE objective is centered on the reconstruction
-   error it is not trivial to focus on learning usefull representations
-   as opposed to learning representations which are based on the
-   ability of the decoder to achive better reconstruction errors.
-   Therefore, tradeoff must be made in order to achive usefull
-   representations for RL
+Since usually the AE objective is centered on the reconstruction
+error it is not trivial to focus on learning usefull representations
+as opposed to learning representations which are based on the
+ability of the decoder to achive better reconstruction errors.
+Therefore, tradeoff must be made in order to achive usefull
+representations for RL. We will see in future sections how different
+AE architectures deals with this tradeoff.
 
-** TODO Disentagled Representations
-** TODO Adversarial Autoencoder
+** Disentagled Representations
+This is a big topic in current AI research [fn:ml_survey] (6th big
+challenge)
+
+In the literature is not entirely clear what we mean when we talk
+about disentangled representations. However, some research  and effort
+was made to have a formal definition [fn:def_dis_repr]
+It seems, following their[fn:def_dis_repr] definition, that the
+concept of disentagled is quite similar to the concept of symmetry in
+physics. Physics, indeed, can be seen as an indept study of
+symmetries (see More is different from P.W.Anderson in Science which
+stated "it is only slightly overstating the case to say that physics
+is the study of symmetry")
+
+This is quite important because, given this point of view, it is
+easier to define formally (i.e. mathematically) what are the
+properties of a disentagled representations.
+
+As stated in [fn:def_dis_repr]
+#+begin_verse
+Intuitevely. we define a vector representation as disentangled, if it can be decomposed into a number of subspaces,each one of which is compatible with, and can be transformed independently by a unique symmetry transformation
+#+end_verse
+
+The paper[fn:def_dis_repr], then goes towards defining more formally
+this intuition using group theory, and this concept of symmetries.
+
+Of course, this is one point of view on disentangled representations,
+there are different ones, however, this is to the best of our
+knowledge the best formal attempt to define it.
+
+Another important point is that this "new" definition tries to put
+together all the different approaches/point of view that were present
+in the literature at that time.
+The main 3 charateristic that the authors identifies are:
+modularity,compactness and explicitness.
+Directly quoting from [fn:def_dis_repr]:
+   + *Modularity*
+     "measures whether a
+     single latent dimension encodes no more than a single data
+     generative factor"
+   + *Compactness*
+     "measures whether each data generative factor is encoded by a
+     single lantent dimension"
+   + *Explicitness*
+     "measures whether the values of all of the data generative factors
+     can be decoded from the representation usign a linear
+     transformation"
+
+Not all of them are explicitly required to have a disentangled
+representation. Particularly the *explicitness* charateristic, since
+linearity is not required to have a disentangled representation (given
+the definition in [fn:def_dis_repr])
+
+So now that we have a general overview of what we mean when we talk
+about disentangled representation, we can move on in understanding
+whether having such a representation is usefull or at least is better
+than having a "normal" representation (i.e. without forcing any of the
+properties aforementioned)
+
+Understanding whether it is usefull having such a representation is
+also not a trivial task, and the literature is not clear on it.
+Most papers, claims that having such a thing is usefull for three main
+reasons [fn:dis_usefull]:
+    + more sample-efficient
+    + less sensitive to nuisance variables
+    + better in terms of generalization
+This has been shown to be experimentally correct[fn:dis_usefull],
+however, from a formal point of view it is not clear why this is the
+case.
+
+That is another motivation for conducting this thesis on disentangled
+representation to see whether this findings translates to harder and
+more complex settings.
+
+Now we will proceed to show the different architectures that will used
+in the thesis and we will justify the decision on each one.
+
+** TODO Variational inference
+Before diving into the different VAEs architecture let's take a step
+back and let's understand the core concept of Variational inference in
+the context of generative modelling. This will be an informal overview
+on it and the only goal is to give the reader a intuition behind the
+different mathematical techniques that will be used.
+
+The main reference for this introduction is [fn:vae_tutorial].
+
 ** TODO Variational Autoencoder
+** TODO Adversarial Autoencoder
 ** TODO \beta-VAE
 ** TODO Info VAE
 ** INPROGRESS Random thought
@@ -387,11 +479,17 @@ CLOSED: [2022-01-21 Fri 15:24]
 + [[https://iq.opengenus.org/applications-of-autoencoders/][applications autoencoders]]
 + [[https://towardsdatascience.com/how-to-mitigate-overfitting-with-dimensionality-reduction-555b755b3d66][reduce overfitting dim red]]
 + [[https://github.com/amir-abdi/disentanglement-pytorch][disentaglement pytorch autoencoders]]
+** General papers:
+*** Interpretable machine learning: Fundamental principles and 10 grand challenges[fn:ml_survey]
+[fn:ml_survey]
+[[file:background/surveyofbigproblems.pdf]]
 
-** DONE Autoencoders:
-    CLOSED: [2022-02-21 Mon 09:49]
-*** DONE \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
-     CLOSED: [2022-02-18 Fri 12:58]
+
+Quite interesting paper about the 10 grand problems/challenges in the
+current Machine learning state of research
+*Note* the 6th one is about unsupervised disentaglement of neural networks
+** Autoencoders:
+*** \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
 [fn:b-vae]
 [[file:background/beta_vae_learning_basic_visual.pdf]]
 
@@ -407,8 +505,7 @@ CLOSED: [2022-01-21 Fri 15:24]
         between AE (or at least it should be the only factor) see
         conclusions
       + Interesting references (usef
-*** DONE Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
-     CLOSED: [2022-02-19 Sat 11:37]
+*** Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks [fn:avb]
 [fn:avb]
 [[file:background/mescheder2017avb.pdf]]
 
@@ -423,11 +520,9 @@ CLOSED: [2022-01-21 Fri 15:24]
         suitable in a RL framework. Testing is need to asses the
         performance.
 
-
 **** Resources
-[[https://chrisorm.github.
+[[https://chrisorm.github.io/AVB-pyt.html][tutorial with pytorch]]
 *** DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction[fn:gen_ae]
-     CLOSED: [2022-02-18 Fri 15:03]
 [fn:gen_ae]
 [[file:background/Wang_Generalized_Autoencoder_A_2014_CVPR_paper.pdf]]
 
@@ -438,12 +533,14 @@ CLOSED: [2022-01-21 Fri 15:24]
         direction
       + Therefore seems to be a bit too much to try for the thesis
       + That's why it was *
-*** DONE Tutorial on Variational Autoencoders
+*** Tutorial on Variational Autoencoders[fn:vae_tutorial]
+[fn:vae_tutorial]
+[[file:background/VAE_tutorial.pdf]]
 
-   [[file:background/VAE_tutorial.pdf]]
 
-*** DONE Auto-Encoding Variational Bayes [fn:original_vae]
-     CLOSED: [2022-02-18 Fri 14:00]
+Quite usefull tutorial, explains unformally what vae tries to achive
+and how it does it.
+*** Auto-Encoding Variational Bayes [fn:original_vae]
 [fn:original_vae]
 [[file:background/Auto-Encoding_Variational_Bayer.pdf]]
 
@@ -454,9 +551,8 @@ CLOSED: [2022-01-21 Fri 15:24]
       + *Crucial* to understand what,how and why we will want
         something like a VAE
 **** Resources
-      [[https://www.youtube.com/watch?v=HxQ94L8n0vU&t=31s][Variational Inference intuitions and de
-*** DONE InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
-     CLOSED: [2022-02-19 Sat 14:15]
+[[https://www.youtube.com/watch?v=HxQ94L8n0vU&t=31s][Variational Inference intuitions]]
+*** InfoVAE: Balancing Learning and Inference in Variational Autoencoders [fn:infovae]
 [fn:infovae]
 [[file:background/infovae.pdf]]
 **** Summary
@@ -476,8 +572,7 @@ CLOSED: [2022-01-21 Fri 15:24]
         representations
       + REALLY INTERESTING in particular in an RL framework since
         it parametrize both mutual information
-*** DONE Adversarial Autoencoders [fn:aae]
-     CLOSED: [2022-02-18 Fri 15:28]
+*** Adversarial Autoencoders [fn:aae]
 [fn:aae]
 [[file:background/AdversarialAutoencoder.pdf]]
 
@@ -503,8 +598,7 @@ CLOSED: [2022-01-21 Fri 15:24]
         disentangled representations but on the reconstruction error
         which maybe is not suitable if the main point is to use it
         within an RL framework. However, it can be intere
-*** DONE Learning representations by maximizing mutual information in variational autoencoders [fn:infomax_vae]
-     CLOSED: [2022-02-19 Sat 16:22]
+*** Learning representations by maximizing mutual information in variational autoencoders [fn:infomax_vae]
 [fn:infomax_vae]
 [[file:background/infomax-vae.pdf]]
 
@@ -521,17 +615,16 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 **** Summary
       + Quite advanced mathematically maybe for the future rese
-*** HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models
-     [[file:background/CasualVAE.pdf]]
+*** HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models [fn:casual_vae]
+[fn:casual_vae]
+[[file:background/CasualVAE.pdf]]
 
 **** Summary
       + The concept of causuality seems pretty interesting in
         particular with respect to phisics and real environments,
         however, left for future res
-** DONE Dimensionality reduction:
-    CLOSED: [2022-02-21 Mon 09:49]
-*** DONE Auto-encoder based dimensionality reduction [fn:ae_dimred]
-CLOSED: [2022-01-21 Fri 15:27]
+** Dimensionality reduction:
+*** Auto-encoder based dimensionality reduction [fn:ae_dimred]
 [fn:ae_dimred]
 [[file:background/Autoencoder_based_dimensionality_reduction.pdf]]
 
@@ -562,8 +655,7 @@ maches the intrinsic dimensionality of the dataset.
 This clearly shows how Autoencoder can be essentially different and
 more usefull than other dimensionality reduction methods. This
 consolidate the choice of usi
-*** DONE Dimensionality Reduction of SDSS Spectra with Variational Autoencoders [fn:dimred_vae]
-CLOSED: [2022-01-21 Fri 16:40]
+*** Dimensionality Reduction of SDSS Spectra with Variational Autoencoders [fn:dimred_vae]
 [fn:dimred_vae]
 [[file:background/dim_red_vae.pdf]]
 
@@ -584,8 +676,7 @@ disentangle (e.i. force mapping different inputs to disjoint distribution ) the 
 It was *DISCARDED* because it contains too specific content and the
 comparison between algorithms has multiple steps and variables which
 are highly specific to the task. Therefore I do not think it should b
-*** DONE A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis [fn:dimred_vae_rna]
-    CLOSED: [2022-01-23 Sun 15:49]
+*** A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis [fn:dimred_vae_rna]
 [fn:dimred_vae_rna]
 [[file:background/VAE_dim_red_RNA_sequencing.pdf]]
 
@@ -609,9 +700,8 @@ Note: The interesting part of the data is that it have dropout event
 sequencing). This dropout event are zero expression measurament that
 can be either biological or technical. This phenomenon result in poor
 results
-** TODO Disentagled representation
-*** DONE Understanding disentagling in \beta-VAE [fn:understand_bvae]
-     CLOSED: [2022-02-19 Sat 15:53]
+** Disentagled representation
+*** Understanding disentagling in \beta-VAE [fn:understand_bvae]
 [fn:understand_bvae]
 [[file:background/understand_beta-VAE.pdf]]
 
@@ -621,7 +711,8 @@ results
       + Introduces a modification on the "standard" \beta-VAE
       + Quite interesting, however, also here there seems to not be
         any research on the application
-*** DONE Towards a Definition of Disentangled Representations
+*** Towards a Definition of Disentangled Representations [fn:def_dis_repr]
+[fn:def_dis_repr]
 [[file:background/disentangledrepresentation.pdf]]
 
 **** Summary
@@ -633,24 +724,26 @@ results
       + Really good references (Look at the underlined ones)
       + Interesting idea about active perception!
 
-*** TODO Are Disentagled representations helpful for Abstract Visual Reasoning?
+*** Are Disentagled representations helpful for Abstract Visual Reasoning?[fn:dis_usefull]
+[fn:dis_usefull]
+[[file:background/Dis_usefull.pdf]]
+**** Summary
++
+*** DISCARDED On the binding Problem in Artificial Neural Networks [fn:binding_nn]
+[fn:binding_nn]
+[[file:background/bindingproblem.pdf]]
 
-    [[file:background/Dis_usefull.pdf]]
-*** DISCARDED On the binding Problem in Artificial Neural Networks
 
-   [[file:background/bindingproblem.pdf]]
 
-   Really interesting paper about the binding problems. It does talk
-   about representation learning and disentagled representations
-   however, it goes way beyond the scope of this thesis talking about
-   hierarchical representations, object detection and classification
-   etc.
-   *Really interesting for future research!*
+Really interesting paper about the binding problems. It does talk
+about representation learning and disentagled representations
+however, it goes way beyond the scope of this thesis talking about
+hierarchical representations, object detection and classification
+etc.
+*Really interesting for future research!*
 
-** DONE AE + RL:
-    CLOSED: [2022-02-21 Mon 09:49]
-*** DONE VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
-CLOSED: [2022-01-23 Sun 16:30]
+** AE + RL:
+*** VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
 [fn:varl]
 [[file:background/Wang2021_Article_VARLAVariationalAutoencoder-ba.pdf]]
 
@@ -682,8 +775,7 @@ The main down side is that the VARL architecture seems to be quite
 complex and specific for combinatorial optimization. That said, it
 also shows how variational inference can be effectively used in
 combination with reinforcement learning (in the paper R
-*** DONE Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
-     CLOSED: [2022-02-16 Wed 11:18]
+*** Robot skill learning in latent space of a deep autoencoder neural network [fn:robot_skill_dae]
 [fn:robot_skill_dae]
 [[file:background/robot_skill_learning_in_latent_space.pdf]]
 
@@ -703,8 +795,7 @@ combination with reinforcement learning (in the paper R
         is probably due to the non linearity in AE
       + In particular during the introduction sections it has a lot of
         good references which are worth looking in
-*** DONE AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton [fn:ae_saferl]
-     CLOSED: [2022-02-16 Wed 13:19]
+*** AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton [fn:ae_saferl]
 [fn:ae_saferl]
 [[file:background/AutoEncoder-based_Safe_Reinforcement_Learning_for_Power_Augmentation_in_a_Lower-limb_Exoskeleton.pdf]]
 
@@ -717,8 +808,7 @@ combination with reinforcement learning (in the paper R
         learning process faster,safe and more stable.
       + Note: in this paper HMI (Human-Machine Interaction) was a
         central role in the optimizat
-*** DONE The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
-     CLOSED: [2022-02-16 Wed 13:50]
+*** The Dreaming Variational Autoencoder for Reinforcement Learning Environments [fn:dreaming_vae]
 [fn:dreaming_vae]
 [[file:background/dreaming_autoencoder.pdf]]
 
@@ -733,8 +823,7 @@ combination with reinforcement learning (in the paper R
         environments in the unexplored states.
       + Quite interesting, however, not fitting for highly complex and
         continuos environments where exploration is costly and/or
-*** DONE Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
-     CLOSED: [2022-02-16 Wed 14:56]
+*** Deep Variational Reinforcement Learning for POMDPs [fn:dvrl]
 [fn:dvrl]
 [[file:background/dvrl.pdf]]
 
@@ -750,8 +839,7 @@ combination with reinforcement learning (in the paper R
       + Quite interesting, seems too complex and more reasearch most
        be done if we want to use this approch.
       + Contains some use
-*** DONE On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
-     CLOSED: [2022-02-16 Wed 15:38]
+*** On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning [fn:dae_efficient_rl]
 [fn:dae_efficient_rl]
 [[file:background/deep_ae+rl.pdf]]
 
@@ -767,8 +855,7 @@ combination with reinforcement learning (in the paper R
       + However, seems another good source of information which again
         shows that AE-based latent space increase the RL performance
         and decrease the time
-*** DONE DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
-     CLOSED: [2022-02-18 Fri 09:42]
+*** DARLA: Improving Zero-Shot Transfer in Reinforcement Learning [fn:darla]
 [fn:darla]
 [[file:background/DARLA.pdf]]
 
@@ -794,9 +881,7 @@ combination with reinforcement learning (in the paper R
 **** Resources
 [[http://proceedings.mlr.pres
 ** Old ideas
-
-*** DONE Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation [fn:drl_human_locomotion]
-CLOSED: [2022-01-21 Fri 15:27]
+*** Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation [fn:drl_human_locomotion]
 [fn:drl_human_locomotion]
 [[file:background/oldideas/Deep_reiforcement_learning_for_modeling_human_locomotion_in_neuromechanical_sim.pdf]]
 
