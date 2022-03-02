@@ -191,7 +191,6 @@ This techinique is a 3 steps procedure:
 
 
 
-
 ** Intermezzo
 So, we have rapidly been through classical and non dimensionality
 reduction technique. The main focus of this thesis, though, is to
@@ -211,9 +210,10 @@ it has all the important features needed to learn a mapping between
 states and actions)
 
 For this reason, this thesis will mainly focus on Autoencoders
-technique to perform dimensionality reduction since they give a
-good tradeoff between process flexibility  and
-accuracy. (for reference: [fn:ae_dimred][fn:dimred_vae][fn:dimred_vae_rna])
+technique to perform dimensionality reduction (and/or Representation
+learning) since they give a good tradeoff between process flexibility
+and accuracy. (for
+reference: [fn:ae_dimred][fn:dimred_vae][fn:dimred_vae_rna])
 
 It is also crucial to notice that the literature indicate that
 usually Autoencoders-based latent space (or embeddings) outperforms
