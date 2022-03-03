@@ -933,6 +933,10 @@ combination with reinforcement learning (in the paper R
 #+BEGIN_EXPORT html
 <iframe src="resources/init_pres.pdf" width="100%" style="height:50em" align="center"> </iframe>
 #+END_EXPORT
+** Second one
+#+BEGIN_EXPORT html
+<iframe src="resources/second_pres.pdf" width="100%" style="height:50em" align="center"> </iframe>
+#+END_EXPORT
 
 * INPROGRESS Code
 Visit this file to see the current documentation
