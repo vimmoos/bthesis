@@ -937,7 +937,18 @@ combination with reinforcement learning (in the paper R
 #+BEGIN_EXPORT html
 <iframe src="resources/second_pres.pdf" width="100%" style="height:50em" align="center"> </iframe>
 #+END_EXPORT
-
+* INPROGRESS Future Research
++ test other Disentanglement AE/GAN architectures (e.g. FactorVAE,CasualVAE,DreamingVAE).
++ explicitly focus on transfer (maybe with fine-tuning instead of
+  zero-shot)
++ test different DRL algorithm to see how this impact the performance
++ test different method of training the AE (for example on-line, see
+  active perceptions frameworks and/or active learning currently in
+  development by Microsoft research closely followed by  Yoshua
+  Bengio)
++ In general, the idea of representation learning + DRL seems to be
+  a really interesting and not fully explored path. (see The Consciusness
+  Prior by Yoshua Bengio)
 * INPROGRESS Code
 Visit this file to see the current documentation
 #+begin_warning
