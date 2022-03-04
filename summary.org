@@ -206,7 +206,6 @@ This techinique is a 3 steps procedure:
 
 
 
-
 ** Intermezzo
 So, we have rapidly been through classical and non dimensionality
 reduction technique. The main focus of this thesis, though, is to
@@ -528,14 +527,87 @@ $$ELBO(q)=\mathbb{E}[log(p(x|z))] - KL(q(z)||p(z))$$
 This will be the form we will use while optimizing Variational
 Autoencoders and its derivatives
 
+** Variational Autoencoder
+The Variational autoencoder is a variation of the standard [[*Autoencoder][Autoencoder]]
+architecture.
+The first, and crucial, difference is that instead of mapping one data
+point to one latent point, it encodes the data point into a
+distribution. Therefore, transforming both encoder and decoder into
+probabilistic ones instead of deterministic (like in standard
+autoencoders)
+
+#+CAPTION: Variational autoencoder vs Standard Autoencoder
+#+attr_html:  :width 600em
+[[file:resources/vaevsae.png]]
+
+Therefore, the encoder part instead of returning a single point it
+will return a mean and a variance (log variance will be used to have a
+more stable and reliable learning process)
+
+#+CAPTION: Variational autoencoder architecture
+#+attr_html:  :width 600em
+[[file:resources/vaearch.jpg]]
+
+Given this change in architecture, also the loss function will have to
+change to address the new needs.
+In particular, the loss function will be now formed by two different
+part: reconstruction error term and regularization term.
+The reconstruction term will be the same as before (e.g the L_2
+between the input and the output)
+The regularization term, on the other hand, it will be the
+=KL-divergence= between the current latent space distribution and the
+"wanted" one.
+
+#+begin_info
+*NOTE* having two terms in the loss function clearly remark the fact
+ that there is a tradeoff between forcing the latent distribution and
+ having a good reconstruction error. This will be the main focus for
+ future VAE architectures
+#+end_info
+
+The intuition behind the regularization term is that we want to
+have two properties for the latent space distribution: *Continuity*
+(two close points in the latent space must be mapped to close point in
+the output)
+and *Completness* (sampling from the latent distribution must returns
+some "meaningfull" output).
+
+As we can see, we are entering into a probablistic framework. Here,
+the previous chapter on Variational inference will become handy.
+
+We can the decoder as $p(x|z)$ and the encoder as $p(z|x)$
+As seen before we can express $p(z|x)$ as:
+$$p(z|x) = \frac {p(x|z)p(z)}{p(x)}$$
+
+That said, as before $p(z|x)$ is intractable however, in this
+architecture, we will assume that our surrogate posterior $q_x(z)$ is
+a Guassian specified by
+$$q_x(z)=\mathcal{N}(g(x),h(x))$$
+where $g\in \mathcal{G}$ and $h\in \mathcal{H}$.
+$\mathcal{G}\mathcal{H}$ represent family of function which will be
+approximate by the encoder.
+
+To find such functions we can use the last equation in the previous
+chapter:
+
+$$(g^*,h^*)=argmax_{(g,h)\in\mathcal{G}\times\mathcal{H}}\mathbb{E}[log(p(x|z))] - KL(q(z)||p(z))$$
+
+It is important to notice that $p(x|z)$ is our decoder and therefore
+we will approximate by minimizing the reconstruction error.
+
+So we can finally rewrite the above equation to also consider the
+decoder part (again $\mathcal{F}$ is a family of functions):
+$$(f^*,g^*,h^*)
+=argmax_{(f,g,h)\in\mathcal{F}\times\mathcal{G}\times\mathcal{H}}\mathbb{E}\left[-\frac{||x-f(z)||^2}{2c}\right] -
+KL(q(z)||p(z))$$
+
+Of course this is only one possibility, we can change the
+reconstruction error accordingly to the type of data or results we
+want to achive.
 
 
+Some reference [fn:original_vae][[https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73][Understanding Variational Autoencoders]]
 
-
-
-
-
-** TODO Variational Autoencoder
 ** TODO Adversarial Autoencoder
 ** TODO \beta-VAE
 ** TODO Info VAE

@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-03-04 Fri 12:44 -->
+<!-- 2022-03-04 Fri 14:18 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Bachelor Thesis Dimensionality Reduction</title>
@@ -257,187 +257,187 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf1a9ee8">1. Overview</a>
+<li><a href="#org3663ace">1. Overview</a>
 <ul>
-<li><a href="#org001dab9">1.1. Project scope</a></li>
-<li><a href="#orgf17b6df">1.2. Index:</a>
+<li><a href="#orgead35a8">1.1. Project scope</a></li>
+<li><a href="#orgf5804ea">1.2. Index:</a>
 <ul>
-<li><a href="#org7bc0fe6">1.2.1. Lines of Thoughts</a></li>
-<li><a href="#orgf96337a">1.2.2. Papers</a></li>
-<li><a href="#orgaafe90d">1.2.3. Autoencoders</a></li>
-<li><a href="#org38ae3bb">1.2.4. Ideas for Hyperparameters</a></li>
-<li><a href="#orgbc9f9c3">1.2.5. Future Research</a></li>
-<li><a href="#orgf45ae10">1.2.6. Code</a></li>
-<li><a href="#org14be054">1.2.7. Todos</a></li>
-<li><a href="#org890cc5e">1.2.8. Presentations</a></li>
-<li><a href="#org3723272">1.2.9. Contacts</a></li>
+<li><a href="#org2bfb9a4">1.2.1. Lines of Thoughts</a></li>
+<li><a href="#org9958ea5">1.2.2. Papers</a></li>
+<li><a href="#org13340ba">1.2.3. Autoencoders</a></li>
+<li><a href="#org2268a33">1.2.4. Ideas for Hyperparameters</a></li>
+<li><a href="#org00db9c4">1.2.5. Future Research</a></li>
+<li><a href="#org78a4bf5">1.2.6. Code</a></li>
+<li><a href="#orge9aad08">1.2.7. Todos</a></li>
+<li><a href="#orgb02f771">1.2.8. Presentations</a></li>
+<li><a href="#org313fdbf">1.2.9. Contacts</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org2d50ce9">2. Lines of Thoughts</a>
+<li><a href="#orgaf16656">2. Lines of Thoughts</a>
 <ul>
-<li><a href="#org5ad5de2">2.1. Dimensionality Reduction</a></li>
-<li><a href="#org1baa145">2.2. Autoencoder</a></li>
-<li><a href="#org8db3a85">2.3. PCA</a>
+<li><a href="#org0a8c0ed">2.1. Dimensionality Reduction</a></li>
+<li><a href="#orgf5eef68">2.2. Autoencoder</a></li>
+<li><a href="#org9a6ea7a">2.3. PCA</a>
 <ul>
-<li><a href="#org5e94511">2.3.1. Assumptions</a></li>
+<li><a href="#orga487cdf">2.3.1. Assumptions</a></li>
 </ul>
 </li>
-<li><a href="#org67abac8">2.4. LDA</a>
+<li><a href="#orgdeb75f0">2.4. LDA</a>
 <ul>
-<li><a href="#orgd24b900">2.4.1. Assumptions</a></li>
+<li><a href="#org4a09b37">2.4.1. Assumptions</a></li>
 </ul>
 </li>
-<li><a href="#orgd64e86a">2.5. LLE</a>
+<li><a href="#org6d53b83">2.5. LLE</a>
 <ul>
-<li><a href="#org1007039">2.5.1. Assumptions</a></li>
+<li><a href="#org8ee36dd">2.5.1. Assumptions</a></li>
 </ul>
 </li>
-<li><a href="#org3ff72a6">2.6. Isomap</a>
+<li><a href="#org467fa32">2.6. Isomap</a>
 <ul>
-<li><a href="#org3c37c1f">2.6.1. Assumptions</a></li>
+<li><a href="#org3cada76">2.6.1. Assumptions</a></li>
 </ul>
 </li>
-<li><a href="#org14c4926">2.7. Intermezzo</a></li>
-<li><a href="#orgdc6c734">2.8. MDPs Generalization</a></li>
-<li><a href="#org4cee572">2.9. Disentagled Representations</a></li>
-<li><a href="#org55ec4ab">2.10. Variational inference</a></li>
-<li><a href="#orga1bc4a6">2.11. <span class="todo TODO">TODO</span> Variational Autoencoder</a></li>
-<li><a href="#orgcdd694d">2.12. <span class="todo TODO">TODO</span> Adversarial Autoencoder</a></li>
-<li><a href="#orgb555df7">2.13. <span class="todo TODO">TODO</span> &beta;-VAE</a></li>
-<li><a href="#org81bcce0">2.14. <span class="todo TODO">TODO</span> Info VAE</a></li>
-<li><a href="#org650fd91">2.15. INPROGRESS Random thought</a></li>
+<li><a href="#org67f0763">2.7. Intermezzo</a></li>
+<li><a href="#orgdccec92">2.8. MDPs Generalization</a></li>
+<li><a href="#orgf0a89af">2.9. Disentagled Representations</a></li>
+<li><a href="#orgfb67fc6">2.10. Variational inference</a></li>
+<li><a href="#org38afd8f">2.11. Variational Autoencoder</a></li>
+<li><a href="#orgb0ea3aa">2.12. <span class="todo TODO">TODO</span> Adversarial Autoencoder</a></li>
+<li><a href="#orgb58888e">2.13. <span class="todo TODO">TODO</span> &beta;-VAE</a></li>
+<li><a href="#orgc1484fb">2.14. <span class="todo TODO">TODO</span> Info VAE</a></li>
+<li><a href="#org7f5b29a">2.15. INPROGRESS Random thought</a></li>
 </ul>
 </li>
-<li><a href="#orga4c3f8b">3. Ideas for Hyperparameters</a>
+<li><a href="#orgd2618eb">3. Ideas for Hyperparameters</a>
 <ul>
-<li><a href="#orgdc90b00">3.1. Number of neurons per layer</a></li>
+<li><a href="#org0724fef">3.1. Number of neurons per layer</a></li>
 </ul>
 </li>
-<li><a href="#org48aa777">4. ML Pipeline</a></li>
-<li><a href="#org2f33660">5. Autoencoders</a>
+<li><a href="#orgd26c3b2">4. ML Pipeline</a></li>
+<li><a href="#org3a25207">5. Autoencoders</a>
 <ul>
-<li><a href="#org609caa8">5.1. <span class="done DONE">DONE</span> Vanilla</a></li>
-<li><a href="#orgc0ef3fd">5.2. <span class="done DONE">DONE</span> VAE</a></li>
-<li><a href="#orgba0e1d9">5.3. <span class="done DONE">DONE</span> AVB</a></li>
-<li><a href="#orgb9d035c">5.4. HOLD B-VAE</a></li>
-<li><a href="#org72ca6f4">5.5. HOLD InfoVae</a></li>
+<li><a href="#org914b210">5.1. <span class="done DONE">DONE</span> Vanilla</a></li>
+<li><a href="#orgfde6d9e">5.2. <span class="done DONE">DONE</span> VAE</a></li>
+<li><a href="#orgb20dc6c">5.3. <span class="done DONE">DONE</span> AVB</a></li>
+<li><a href="#orgee52672">5.4. HOLD B-VAE</a></li>
+<li><a href="#org7c3267b">5.5. HOLD InfoVae</a></li>
 </ul>
 </li>
-<li><a href="#orgb884ad2">6. Papers</a>
+<li><a href="#orgbd56d2a">6. Papers</a>
 <ul>
-<li><a href="#org5be8a6b">6.1. Common knowledge resources</a></li>
-<li><a href="#org234aa19">6.2. General papers:</a>
+<li><a href="#orga0e21ff">6.1. Common knowledge resources</a></li>
+<li><a href="#org29f43d3">6.2. General papers:</a>
 <ul>
-<li><a href="#org5be05c0">6.2.1. Interpretable machine learning: Fundamental principles and 10 grand challenges</a></li>
-<li><a href="#org1ed8b14">6.2.2. Variational Inference: A Review for Statisticians</a></li>
+<li><a href="#org1f1ede6">6.2.1. Interpretable machine learning: Fundamental principles and 10 grand challenges</a></li>
+<li><a href="#org3c159c3">6.2.2. Variational Inference: A Review for Statisticians</a></li>
 </ul>
 </li>
-<li><a href="#org0f16e9d">6.3. Autoencoders:</a>
+<li><a href="#orgfcd8bdd">6.3. Autoencoders:</a>
 <ul>
-<li><a href="#org2d5e3b0">6.3.1. Recent advances in Autoencoder-based Representation Learning </a></li>
-<li><a href="#orgf15265a">6.3.2. &beta;-VAE: Learning basic visual concepts with a constrained variational framework</a></li>
-<li><a href="#org18a00b2">6.3.3. Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks </a></li>
-<li><a href="#org9ffbf15">6.3.4. DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction</a></li>
-<li><a href="#orgec68b3c">6.3.5. Tutorial on Variational Autoencoders</a></li>
-<li><a href="#orge87608a">6.3.6. Auto-Encoding Variational Bayes </a></li>
-<li><a href="#orgf774a3e">6.3.7. InfoVAE: Balancing Learning and Inference in Variational Autoencoders </a></li>
-<li><a href="#org7c375ba">6.3.8. Adversarial Autoencoders </a></li>
-<li><a href="#org03c1ffe">6.3.9. Learning representations by maximizing mutual information in variational autoencoders </a></li>
-<li><a href="#org610276d">6.3.10. HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models </a></li>
-<li><a href="#org13f9561">6.3.11. HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models </a></li>
+<li><a href="#org554d3d3">6.3.1. Recent advances in Autoencoder-based Representation Learning </a></li>
+<li><a href="#org84fadff">6.3.2. &beta;-VAE: Learning basic visual concepts with a constrained variational framework</a></li>
+<li><a href="#org89c2217">6.3.3. Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks </a></li>
+<li><a href="#orgf19f062">6.3.4. DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction</a></li>
+<li><a href="#orgac185c0">6.3.5. Tutorial on Variational Autoencoders</a></li>
+<li><a href="#orgd6a06aa">6.3.6. Auto-Encoding Variational Bayes </a></li>
+<li><a href="#org6629a0b">6.3.7. InfoVAE: Balancing Learning and Inference in Variational Autoencoders </a></li>
+<li><a href="#org05f6dcc">6.3.8. Adversarial Autoencoders </a></li>
+<li><a href="#org87badb3">6.3.9. Learning representations by maximizing mutual information in variational autoencoders </a></li>
+<li><a href="#orgfbb0cc2">6.3.10. HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models </a></li>
+<li><a href="#orgee6c514">6.3.11. HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models </a></li>
 </ul>
 </li>
-<li><a href="#org57be4e2">6.4. Dimensionality reduction:</a>
+<li><a href="#orgbb3bd7f">6.4. Dimensionality reduction:</a>
 <ul>
-<li><a href="#org3573c52">6.4.1. Auto-encoder based dimensionality reduction </a></li>
-<li><a href="#org7fa34f7">6.4.2. Dimensionality Reduction of SDSS Spectra with Variational Autoencoders </a></li>
-<li><a href="#orgd267903">6.4.3. DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis </a></li>
-<li><a href="#org0f647b6">6.4.4. A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis </a></li>
+<li><a href="#org0032043">6.4.1. Auto-encoder based dimensionality reduction </a></li>
+<li><a href="#org1383a50">6.4.2. Dimensionality Reduction of SDSS Spectra with Variational Autoencoders </a></li>
+<li><a href="#org5090dc8">6.4.3. DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis </a></li>
+<li><a href="#org9931776">6.4.4. A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis </a></li>
 </ul>
 </li>
-<li><a href="#orgabc754e">6.5. Disentagled representation</a>
+<li><a href="#org30779ef">6.5. Disentagled representation</a>
 <ul>
-<li><a href="#org5f8e0c2">6.5.1. Understanding disentagling in &beta;-VAE </a></li>
-<li><a href="#orgd991a7c">6.5.2. Towards a Definition of Disentangled Representations </a></li>
-<li><a href="#org0d96721">6.5.3. Are Disentagled representations helpful for Abstract Visual Reasoning?</a></li>
-<li><a href="#org242fd1b">6.5.4. DISCARDED On the binding Problem in Artificial Neural Networks </a></li>
+<li><a href="#orgac3421d">6.5.1. Understanding disentagling in &beta;-VAE </a></li>
+<li><a href="#org5da40c3">6.5.2. Towards a Definition of Disentangled Representations </a></li>
+<li><a href="#org7cce9d6">6.5.3. Are Disentagled representations helpful for Abstract Visual Reasoning?</a></li>
+<li><a href="#org26bba9f">6.5.4. DISCARDED On the binding Problem in Artificial Neural Networks </a></li>
 </ul>
 </li>
-<li><a href="#org1a58c3b">6.6. AE + RL:</a>
+<li><a href="#org45842f8">6.6. AE + RL:</a>
 <ul>
-<li><a href="#org77d598a">6.6.1. VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems </a></li>
-<li><a href="#org481b6e8">6.6.2. Robot skill learning in latent space of a deep autoencoder neural network </a></li>
-<li><a href="#orga7f80e4">6.6.3. AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton </a></li>
-<li><a href="#org5c0a05d">6.6.4. The Dreaming Variational Autoencoder for Reinforcement Learning Environments </a></li>
-<li><a href="#org511fb24">6.6.5. Deep Variational Reinforcement Learning for POMDPs </a></li>
-<li><a href="#org1cce40f">6.6.6. On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning </a></li>
-<li><a href="#org2fe0a13">6.6.7. DARLA: Improving Zero-Shot Transfer in Reinforcement Learning </a></li>
+<li><a href="#orgbe4a254">6.6.1. VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems </a></li>
+<li><a href="#org54ca042">6.6.2. Robot skill learning in latent space of a deep autoencoder neural network </a></li>
+<li><a href="#org49a7670">6.6.3. AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton </a></li>
+<li><a href="#orgbdfb6a9">6.6.4. The Dreaming Variational Autoencoder for Reinforcement Learning Environments </a></li>
+<li><a href="#org55617c4">6.6.5. Deep Variational Reinforcement Learning for POMDPs </a></li>
+<li><a href="#org8c7e73c">6.6.6. On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning </a></li>
+<li><a href="#orgc3a5241">6.6.7. DARLA: Improving Zero-Shot Transfer in Reinforcement Learning </a></li>
 </ul>
 </li>
-<li><a href="#org19712fc">6.7. Old ideas</a>
+<li><a href="#orgb335c38">6.7. Old ideas</a>
 <ul>
-<li><a href="#org4eaf123">6.7.1. Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation </a></li>
+<li><a href="#org9f25a4f">6.7.1. Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation </a></li>
 </ul>
 </li>
-<li><a href="#org21660f8">6.8. <span class="todo TODO">TODO</span> Old work</a>
+<li><a href="#org62c7631">6.8. <span class="todo TODO">TODO</span> Old work</a>
 <ul>
-<li><a href="#org58b56ce">6.8.1. Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization </a></li>
-<li><a href="#orge1132d5">6.8.2. Deep reinforcement learning for physics-based musculoskeletal model of a transfemoral amputee with a prothesis walking on uneven terrain </a></li>
-<li><a href="#org76e04d3">6.8.3. Deep reinforcement learning for physics-based musculoskeletal simulations of healthy subjects and transfemoral protheses' users during normal walking </a></li>
-<li><a href="#orga704804">6.8.4. Learning to walk: Phasic Policy Gradient for healthy and impaired musculoskeletal models </a></li>
-<li><a href="#org47255fe">6.8.5. Evaluating Deep Reinforcement Learning Algorithms for Physics-Based Musculoskeletal Transfemoral Model with a Prosthetic Leg Performing Ground-Level Walking </a></li>
-<li><a href="#org0897955">6.8.6. Deep Reinforcement Learning for Physics-based Musculoskeletal Simulations of Transfemoral Prosthesis' Users during the Transition between Normal Walking and Stairs Ascending </a></li>
-<li><a href="#org9dc05c5">6.8.7. Testing For Generality Of A Proximal Policy Optimiser For Advanced Human Locomotion Beyond Walking </a></li>
+<li><a href="#org9ce769e">6.8.1. Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization </a></li>
+<li><a href="#org9ebfde7">6.8.2. Deep reinforcement learning for physics-based musculoskeletal model of a transfemoral amputee with a prothesis walking on uneven terrain </a></li>
+<li><a href="#orga9a4342">6.8.3. Deep reinforcement learning for physics-based musculoskeletal simulations of healthy subjects and transfemoral protheses' users during normal walking </a></li>
+<li><a href="#orge2ae347">6.8.4. Learning to walk: Phasic Policy Gradient for healthy and impaired musculoskeletal models </a></li>
+<li><a href="#org5cfbb5f">6.8.5. Evaluating Deep Reinforcement Learning Algorithms for Physics-Based Musculoskeletal Transfemoral Model with a Prosthetic Leg Performing Ground-Level Walking </a></li>
+<li><a href="#org3388f22">6.8.6. Deep Reinforcement Learning for Physics-based Musculoskeletal Simulations of Transfemoral Prosthesis' Users during the Transition between Normal Walking and Stairs Ascending </a></li>
+<li><a href="#org9c660c4">6.8.7. Testing For Generality Of A Proximal Policy Optimiser For Advanced Human Locomotion Beyond Walking </a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org2961d7e">7. Presentations</a>
+<li><a href="#orgc9cf58c">7. Presentations</a>
 <ul>
-<li><a href="#org1a7bbcb">7.1. First one</a></li>
-<li><a href="#org09c43ba">7.2. Second one</a></li>
+<li><a href="#orga797744">7.1. First one</a></li>
+<li><a href="#org8923d5e">7.2. Second one</a></li>
 </ul>
 </li>
-<li><a href="#org5949c97">8. INPROGRESS Future Research</a></li>
-<li><a href="#orgad4fc59">9. INPROGRESS Code</a>
+<li><a href="#org8160970">8. INPROGRESS Future Research</a></li>
+<li><a href="#org702a4d4">9. INPROGRESS Code</a>
 <ul>
-<li><a href="#org0de883a">9.1. REPOS</a></li>
+<li><a href="#orgee24901">9.1. REPOS</a></li>
 </ul>
 </li>
-<li><a href="#orge5a2735">10. Contacts</a>
+<li><a href="#orgb0be4d3">10. Contacts</a>
 <ul>
-<li><a href="#org5756084">10.1. Massimiliano Falzari</a></li>
-<li><a href="#org5b83581">10.2. Professor</a></li>
-<li><a href="#org8809eee">10.3. Other Students</a></li>
+<li><a href="#org5a0af29">10.1. Massimiliano Falzari</a></li>
+<li><a href="#orgbe66dbf">10.2. Professor</a></li>
+<li><a href="#org0dca9fa">10.3. Other Students</a></li>
 </ul>
 </li>
-<li><a href="#org2beb56d">11. Todos</a>
+<li><a href="#orge6e3e49">11. Todos</a>
 <ul>
-<li><a href="#orgd6b4866">11.1. Code</a>
+<li><a href="#org30fba31">11.1. Code</a>
 <ul>
-<li><a href="#orga14fc02">11.1.1. <span class="done DONE">DONE</span> Vanilla Autoencoder</a></li>
-<li><a href="#org65f1bd1">11.1.2. <span class="done DONE">DONE</span> VAE</a></li>
-<li><a href="#org5747d0e">11.1.3. <span class="done DONE">DONE</span> AVB</a></li>
-<li><a href="#orgbd93d85">11.1.4. <span class="done DONE">DONE</span> logging</a></li>
-<li><a href="#org26d696a">11.1.5. <span class="done DONE">DONE</span> tensorboard</a></li>
-<li><a href="#org4bcc8ff">11.1.6. <span class="done DONE">DONE</span> data loader</a></li>
-<li><a href="#orgb34c498">11.1.7. <span class="done DONE">DONE</span> cross validation</a></li>
-<li><a href="#org51efd57">11.1.8. <span class="done DONE">DONE</span> parse config</a></li>
-<li><a href="#orgf8433c2">11.1.9. <span class="done DONE">DONE</span> writer</a></li>
-<li><a href="#org6190bd8">11.1.10. <span class="done DONE">DONE</span> validate with different loss</a></li>
-<li><a href="#org9730acd">11.1.11. <span class="done DONE">DONE</span> Create config parser module</a></li>
-<li><a href="#orgec7bb90">11.1.12. HOLD Dict -&gt; nametuple</a></li>
-<li><a href="#org92c482f">11.1.13. INPROGRESS Graph module</a></li>
-<li><a href="#org4d899f4">11.1.14. HOLD Collect Data from simulation</a></li>
+<li><a href="#orgc780592">11.1.1. <span class="done DONE">DONE</span> Vanilla Autoencoder</a></li>
+<li><a href="#org3d7c554">11.1.2. <span class="done DONE">DONE</span> VAE</a></li>
+<li><a href="#orga03f901">11.1.3. <span class="done DONE">DONE</span> AVB</a></li>
+<li><a href="#org6d98746">11.1.4. <span class="done DONE">DONE</span> logging</a></li>
+<li><a href="#orgfe871b3">11.1.5. <span class="done DONE">DONE</span> tensorboard</a></li>
+<li><a href="#org6737cfa">11.1.6. <span class="done DONE">DONE</span> data loader</a></li>
+<li><a href="#org7381ad7">11.1.7. <span class="done DONE">DONE</span> cross validation</a></li>
+<li><a href="#org931997e">11.1.8. <span class="done DONE">DONE</span> parse config</a></li>
+<li><a href="#org7209b94">11.1.9. <span class="done DONE">DONE</span> writer</a></li>
+<li><a href="#org94135e7">11.1.10. <span class="done DONE">DONE</span> validate with different loss</a></li>
+<li><a href="#orgda6924f">11.1.11. <span class="done DONE">DONE</span> Create config parser module</a></li>
+<li><a href="#org577f64f">11.1.12. HOLD Dict -&gt; nametuple</a></li>
+<li><a href="#org9333298">11.1.13. INPROGRESS Graph module</a></li>
+<li><a href="#org7ab6f0e">11.1.14. HOLD Collect Data from simulation</a></li>
 </ul>
 </li>
-<li><a href="#org161180e">11.2. Paper</a>
+<li><a href="#orgf6a4c54">11.2. Paper</a>
 <ul>
-<li><a href="#org6b7be89">11.2.1. INPROGRESS Review all papers</a></li>
-<li><a href="#orgdeb14fb">11.2.2. <span class="todo TODO">TODO</span> restructure paper summaries</a></li>
-<li><a href="#orgfa1b2f5">11.2.3. <span class="done DONE">DONE</span> Why we use autoencoders</a></li>
+<li><a href="#orgaa2af0c">11.2.1. INPROGRESS Review all papers</a></li>
+<li><a href="#orgd08fc92">11.2.2. <span class="todo TODO">TODO</span> restructure paper summaries</a></li>
+<li><a href="#orge240da1">11.2.3. <span class="done DONE">DONE</span> Why we use autoencoders</a></li>
 </ul>
 </li>
 </ul>
@@ -445,12 +445,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgf1a9ee8" class="outline-2">
-<h2 id="orgf1a9ee8"><span class="section-number-2">1</span> Overview</h2>
+<div id="outline-container-org3663ace" class="outline-2">
+<h2 id="org3663ace"><span class="section-number-2">1</span> Overview</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org001dab9" class="outline-3">
-<h3 id="org001dab9"><span class="section-number-3">1.1</span> Project scope</h3>
+<div id="outline-container-orgead35a8" class="outline-3">
+<h3 id="orgead35a8"><span class="section-number-3">1.1</span> Project scope</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 The project aim to build an autoencoder for dimensionality
@@ -462,12 +462,12 @@ In this project different type of Autoencoders will be tested.
 </div>
 </div>
 
-<div id="outline-container-orgf17b6df" class="outline-3">
-<h3 id="orgf17b6df"><span class="section-number-3">1.2</span> Index:</h3>
+<div id="outline-container-orgf5804ea" class="outline-3">
+<h3 id="orgf5804ea"><span class="section-number-3">1.2</span> Index:</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-org7bc0fe6" class="outline-4">
-<h4 id="org7bc0fe6"><span class="section-number-4">1.2.1</span> <a href="#org2d50ce9">Lines of Thoughts</a></h4>
+<div id="outline-container-org2bfb9a4" class="outline-4">
+<h4 id="org2bfb9a4"><span class="section-number-4">1.2.1</span> <a href="#orgaf16656">Lines of Thoughts</a></h4>
 <div class="outline-text-4" id="text-1-2-1">
 <p>
 A kinda of overview on what the thesis is about (e.i. Autoencoders and
@@ -475,8 +475,8 @@ dimensionality reduction)
 </p>
 </div>
 </div>
-<div id="outline-container-orgf96337a" class="outline-4">
-<h4 id="orgf96337a"><span class="section-number-4">1.2.2</span> <a href="#orgb884ad2">Papers</a></h4>
+<div id="outline-container-org9958ea5" class="outline-4">
+<h4 id="org9958ea5"><span class="section-number-4">1.2.2</span> <a href="#orgbd56d2a">Papers</a></h4>
 <div class="outline-text-4" id="text-1-2-2">
 <p>
 A list of all the background literature found. For each of paper there
@@ -484,16 +484,16 @@ is a short description of the aims and  the results.
 </p>
 </div>
 </div>
-<div id="outline-container-orgaafe90d" class="outline-4">
-<h4 id="orgaafe90d"><span class="section-number-4">1.2.3</span> <a href="#org2f33660">Autoencoders</a></h4>
+<div id="outline-container-org13340ba" class="outline-4">
+<h4 id="org13340ba"><span class="section-number-4">1.2.3</span> <a href="#org3a25207">Autoencoders</a></h4>
 <div class="outline-text-4" id="text-1-2-3">
 <p>
 Contains a list of implemented and not autoencoders
 </p>
 </div>
 </div>
-<div id="outline-container-org38ae3bb" class="outline-4">
-<h4 id="org38ae3bb"><span class="section-number-4">1.2.4</span> <a href="#orga4c3f8b">Ideas for Hyperparameters</a></h4>
+<div id="outline-container-org2268a33" class="outline-4">
+<h4 id="org2268a33"><span class="section-number-4">1.2.4</span> <a href="#orgd2618eb">Ideas for Hyperparameters</a></h4>
 <div class="outline-text-4" id="text-1-2-4">
 <p>
 Contains some ideas for the hyperparameters fitting and some maybe
@@ -501,8 +501,8 @@ clever ideas
 </p>
 </div>
 </div>
-<div id="outline-container-orgbc9f9c3" class="outline-4">
-<h4 id="orgbc9f9c3"><span class="section-number-4">1.2.5</span> <a href="#org5949c97">Future Research</a></h4>
+<div id="outline-container-org00db9c4" class="outline-4">
+<h4 id="org00db9c4"><span class="section-number-4">1.2.5</span> <a href="#org8160970">Future Research</a></h4>
 <div class="outline-text-4" id="text-1-2-5">
 <p>
 Contains some ideas for future research, and on ideas that goes beyond
@@ -510,32 +510,32 @@ the thesis
 </p>
 </div>
 </div>
-<div id="outline-container-orgf45ae10" class="outline-4">
-<h4 id="orgf45ae10"><span class="section-number-4">1.2.6</span> <a href="#orgd6b4866">Code</a></h4>
+<div id="outline-container-org78a4bf5" class="outline-4">
+<h4 id="org78a4bf5"><span class="section-number-4">1.2.6</span> <a href="#org30fba31">Code</a></h4>
 <div class="outline-text-4" id="text-1-2-6">
 <p>
 Contains the git repo and the link for the code documentation
 </p>
 </div>
 </div>
-<div id="outline-container-org14be054" class="outline-4">
-<h4 id="org14be054"><span class="section-number-4">1.2.7</span> <a href="#org2beb56d">Todos</a></h4>
+<div id="outline-container-orge9aad08" class="outline-4">
+<h4 id="orge9aad08"><span class="section-number-4">1.2.7</span> <a href="#orge6e3e49">Todos</a></h4>
 <div class="outline-text-4" id="text-1-2-7">
 <p>
 Contains a list of different type of Todo
 </p>
 </div>
 </div>
-<div id="outline-container-org890cc5e" class="outline-4">
-<h4 id="org890cc5e"><span class="section-number-4">1.2.8</span> <a href="#org2961d7e">Presentations</a></h4>
+<div id="outline-container-orgb02f771" class="outline-4">
+<h4 id="orgb02f771"><span class="section-number-4">1.2.8</span> <a href="#orgc9cf58c">Presentations</a></h4>
 <div class="outline-text-4" id="text-1-2-8">
 <p>
 Contains all the presentations done or in progress
 </p>
 </div>
 </div>
-<div id="outline-container-org3723272" class="outline-4">
-<h4 id="org3723272"><span class="section-number-4">1.2.9</span> <a href="#orge5a2735">Contacts</a></h4>
+<div id="outline-container-org313fdbf" class="outline-4">
+<h4 id="org313fdbf"><span class="section-number-4">1.2.9</span> <a href="#orgb0be4d3">Contacts</a></h4>
 <div class="outline-text-4" id="text-1-2-9">
 <p>
 Self explanatory
@@ -544,12 +544,12 @@ Self explanatory
 </div>
 </div>
 </div>
-<div id="outline-container-org2d50ce9" class="outline-2">
-<h2 id="org2d50ce9"><span class="section-number-2">2</span> Lines of Thoughts</h2>
+<div id="outline-container-orgaf16656" class="outline-2">
+<h2 id="orgaf16656"><span class="section-number-2">2</span> Lines of Thoughts</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org5ad5de2" class="outline-3">
-<h3 id="org5ad5de2"><span class="section-number-3">2.1</span> Dimensionality Reduction</h3>
+<div id="outline-container-org0a8c0ed" class="outline-3">
+<h3 id="org0a8c0ed"><span class="section-number-3">2.1</span> Dimensionality Reduction</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 The concept of dimensionality reduction is quite
@@ -590,13 +590,13 @@ In the following sections we will present roughly 2 approaches  per
 category.
 </p>
 
-<div id="orgd58933f" class="figure">
+<div id="org91c5ce2" class="figure">
 <p><img src="resources/dimred_timeline.JPEG" alt="dimred_timeline.JPEG" width="600em" />
 </p>
 <p><span class="figure-number">Figure 1: </span>The Dimensionality reduction methods timeline</p>
 </div>
 
-<div class="info" id="orgffb503f">
+<div class="info" id="org3752b8b">
 <p>
 <b>NOTE</b> we will only focus on unsupervised methods since they are
 the most suitable for real-life situation where having labeled data
@@ -607,15 +607,15 @@ is hard and expensive.
 </div>
 </div>
 
-<div id="outline-container-org1baa145" class="outline-3">
-<h3 id="org1baa145"><span class="section-number-3">2.2</span> Autoencoder</h3>
+<div id="outline-container-orgf5eef68" class="outline-3">
+<h3 id="orgf5eef68"><span class="section-number-3">2.2</span> Autoencoder</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 An Autoencoder is a special network architecture which approximate two
 different function <b>encode</b> and <b>decode</b> such as:
 \[decode(encode(\hat{X})) = \hat{X}\]
 </p>
-<div class="info" id="org8fd4a82">
+<div class="info" id="orgcc41926">
 <p>
 <b>Note</b>  most of the the time is not an = but an &asymp;
 </p>
@@ -635,7 +635,7 @@ There two constraint to this two function. The first one is that
 <b>decode</b> must be approximately the inverse of the <b>encode</b><sup><a id="fnr.1" class="footref" href="#fn.1">1</a></sup>. The second one is that
 \[ m << n \]
 </p>
-<div class="info" id="orgb286238">
+<div class="info" id="org3e57916">
 <p>
 <b>NOTE</b> when the second constraint is sudisfacted, the autoencoder is
 cosidered an undercomplete autoencoder. However, every time we will
@@ -675,8 +675,8 @@ Auto-encoder can be seen as a way to transform representation.<br />
 </div>
 </div>
 
-<div id="outline-container-org8db3a85" class="outline-3">
-<h3 id="org8db3a85"><span class="section-number-3">2.3</span> PCA</h3>
+<div id="outline-container-org9a6ea7a" class="outline-3">
+<h3 id="org9a6ea7a"><span class="section-number-3">2.3</span> PCA</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 Principal Component Analysis(PCA) is a linear technique. It is
@@ -694,14 +694,14 @@ most of hte variability of the data. <b>Note</b> The Principal
 Components are selected based on the explained variance.
 </p>
 
-<div id="org59368e6" class="figure">
+<div id="org287c635" class="figure">
 <p><img src="resources/pca.png" alt="pca.png" width="600em" />
 </p>
 <p><span class="figure-number">Figure 2: </span>PCA visualization</p>
 </div>
 </div>
-<div id="outline-container-org5e94511" class="outline-4">
-<h4 id="org5e94511"><span class="section-number-4">2.3.1</span> Assumptions</h4>
+<div id="outline-container-orga487cdf" class="outline-4">
+<h4 id="orga487cdf"><span class="section-number-4">2.3.1</span> Assumptions</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <ul class="org-ul">
 <li>Linear dimensions (i.e. the variables in the dataset must combine in a linear manner)</li>
@@ -710,8 +710,8 @@ Components are selected based on the explained variance.
 </div>
 </div>
 </div>
-<div id="outline-container-org67abac8" class="outline-3">
-<h3 id="org67abac8"><span class="section-number-3">2.4</span> LDA</h3>
+<div id="outline-container-orgdeb75f0" class="outline-3">
+<h3 id="orgdeb75f0"><span class="section-number-3">2.4</span> LDA</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 Linear Discriminant Analysis (LDA) is a linear method.
@@ -730,14 +730,14 @@ The main disadvange is that LDA have good performance only if the
 dataset is Normally distributed.
 </p>
 
-<div id="orgd0ea523" class="figure">
+<div id="org903e1a8" class="figure">
 <p><img src="resources/lda.png" alt="lda.png" width="600em" />
 </p>
 <p><span class="figure-number">Figure 3: </span>LDA vs PCA</p>
 </div>
 </div>
-<div id="outline-container-orgd24b900" class="outline-4">
-<h4 id="orgd24b900"><span class="section-number-4">2.4.1</span> Assumptions</h4>
+<div id="outline-container-org4a09b37" class="outline-4">
+<h4 id="org4a09b37"><span class="section-number-4">2.4.1</span> Assumptions</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <ul class="org-ul">
 <li>Normally distributed data</li>
@@ -746,8 +746,8 @@ dataset is Normally distributed.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd64e86a" class="outline-3">
-<h3 id="orgd64e86a"><span class="section-number-3">2.5</span> LLE</h3>
+<div id="outline-container-org6d53b83" class="outline-3">
+<h3 id="org6d53b83"><span class="section-number-3">2.5</span> LLE</h3>
 <div class="outline-text-3" id="text-2-5">
 <p>
 Locally Linear Embedding (LLE) is a non-linear methods.
@@ -757,7 +757,7 @@ neighborhoods.
 </p>
 
 
-<div id="org3f051d9" class="figure">
+<div id="orged9d3aa" class="figure">
 <p><img src="resources/lle.jpg" alt="lle.jpg" width="600em" />
 </p>
 <p><span class="figure-number">Figure 4: </span>LLE visualization</p>
@@ -776,8 +776,8 @@ in a particular neighborhoods have 0 weight)</li>
 neighbors</li>
 </ol>
 </div>
-<div id="outline-container-org1007039" class="outline-4">
-<h4 id="org1007039"><span class="section-number-4">2.5.1</span> Assumptions</h4>
+<div id="outline-container-org8ee36dd" class="outline-4">
+<h4 id="org8ee36dd"><span class="section-number-4">2.5.1</span> Assumptions</h4>
 <div class="outline-text-4" id="text-2-5-1">
 <ul class="org-ul">
 <li>Euclidean distance to compute k-nearest neighbors</li>
@@ -786,8 +786,8 @@ neighbors</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org3ff72a6" class="outline-3">
-<h3 id="org3ff72a6"><span class="section-number-3">2.6</span> Isomap</h3>
+<div id="outline-container-org467fa32" class="outline-3">
+<h3 id="org467fa32"><span class="section-number-3">2.6</span> Isomap</h3>
 <div class="outline-text-3" id="text-2-6">
 <p>
 Isometric Mapping (Isomap) is a non-linear methods which belong to
@@ -800,7 +800,7 @@ of this mapping is to maintain a geodesic distance between two
 points.
 </p>
 
-<div class="info" id="org72ad701">
+<div class="info" id="org0ad1d72">
 <p>
 <b>Note</b> Geodesic is the shortest path between two points on the
  surface itself. This is why Isomap is considered a Manifold
@@ -824,14 +824,14 @@ kernel)</li>
 
 
 
-<div id="orgffa52da" class="figure">
+<div id="orgdbb83ca" class="figure">
 <p><img src="resources/isomapvspca.jpg" alt="isomapvspca.jpg" width="600em" />
 </p>
 <p><span class="figure-number">Figure 5: </span>Isomap vs PCA vs LLE</p>
 </div>
 </div>
-<div id="outline-container-org3c37c1f" class="outline-4">
-<h4 id="org3c37c1f"><span class="section-number-4">2.6.1</span> Assumptions</h4>
+<div id="outline-container-org3cada76" class="outline-4">
+<h4 id="org3cada76"><span class="section-number-4">2.6.1</span> Assumptions</h4>
 <div class="outline-text-4" id="text-2-6-1">
 <ul class="org-ul">
 <li>Computational intensive</li>
@@ -843,9 +843,8 @@ kernel)</li>
 
 
 
-
-<div id="outline-container-org14c4926" class="outline-3">
-<h3 id="org14c4926"><span class="section-number-3">2.7</span> Intermezzo</h3>
+<div id="outline-container-org67f0763" class="outline-3">
+<h3 id="org67f0763"><span class="section-number-3">2.7</span> Intermezzo</h3>
 <div class="outline-text-3" id="text-2-7">
 <p>
 So, we have rapidly been through classical and non dimensionality
@@ -928,8 +927,8 @@ the next chapter.
 </div>
 </div>
 
-<div id="outline-container-orgdc6c734" class="outline-3">
-<h3 id="orgdc6c734"><span class="section-number-3">2.8</span> MDPs Generalization</h3>
+<div id="outline-container-orgdccec92" class="outline-3">
+<h3 id="orgdccec92"><span class="section-number-3">2.8</span> MDPs Generalization</h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 For formal description of this concept look up at <sup><a id="fnr.5.100" class="footref" href="#fn.5">5</a></sup> (section 2.2)
@@ -998,8 +997,8 @@ AE architectures deals with this tradeoff.
 </div>
 </div>
 
-<div id="outline-container-org4cee572" class="outline-3">
-<h3 id="org4cee572"><span class="section-number-3">2.9</span> Disentagled Representations</h3>
+<div id="outline-container-orgf0a89af" class="outline-3">
+<h3 id="orgf0a89af"><span class="section-number-3">2.9</span> Disentagled Representations</h3>
 <div class="outline-text-3" id="text-2-9">
 <p>
 This is a big topic in current AI research <sup><a id="fnr.11" class="footref" href="#fn.11">11</a></sup> (6th big
@@ -1073,7 +1072,7 @@ the definition in <sup><a id="fnr.12.100" class="footref" href="#fn.12">12</a></
 
 
 
-<div id="org7c566b1" class="figure">
+<div id="org5bc8bde" class="figure">
 <p><img src="resources/dis_vs_ent.png" alt="dis_vs_ent.png" width="600em" />
 </p>
 <p><span class="figure-number">Figure 6: </span>Comparison of entangled vs disentangled representation</p>
@@ -1117,8 +1116,8 @@ in the thesis and we will justify the decision on each one.
 </div>
 </div>
 
-<div id="outline-container-org55ec4ab" class="outline-3">
-<h3 id="org55ec4ab"><span class="section-number-3">2.10</span> Variational inference</h3>
+<div id="outline-container-orgfb67fc6" class="outline-3">
+<h3 id="orgfb67fc6"><span class="section-number-3">2.10</span> Variational inference</h3>
 <div class="outline-text-3" id="text-2-10">
 <p>
 Before diving into the different VAEs architecture let's take a step
@@ -1152,7 +1151,7 @@ variable.
 We can rewrite the <code>evidence</code> (or the marginal) such that:
 \[p(x) =\int p(z,x) dz\]
 </p>
-<div class="info" id="orgb50e276">
+<div class="info" id="orga707b0a">
 <p>
 <b>NOTE</b> in a lot of cases the <code>evidence</code> integral is unavaible in closed
  form and therefore the integral is most of the time intractable (also
@@ -1297,27 +1296,128 @@ Autoencoders and its derivatives
 </div>
 </div>
 
+<div id="outline-container-org38afd8f" class="outline-3">
+<h3 id="org38afd8f"><span class="section-number-3">2.11</span> Variational Autoencoder</h3>
+<div class="outline-text-3" id="text-2-11">
+<p>
+The Variational autoencoder is a variation of the standard <a href="#orgf5eef68">Autoencoder</a>
+architecture.
+The first, and crucial, difference is that instead of mapping one data
+point to one latent point, it encodes the data point into a
+distribution. Therefore, transforming both encoder and decoder into
+probabilistic ones instead of deterministic (like in standard
+autoencoders)
+</p>
 
 
-
-
-
-
-
-<div id="outline-container-orga1bc4a6" class="outline-3">
-<h3 id="orga1bc4a6"><span class="section-number-3">2.11</span> <span class="todo TODO">TODO</span> Variational Autoencoder</h3>
+<div id="org8f7ebc5" class="figure">
+<p><img src="resources/vaevsae.png" alt="vaevsae.png" width="600em" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Variational autoencoder vs Standard Autoencoder</p>
 </div>
-<div id="outline-container-orgcdd694d" class="outline-3">
-<h3 id="orgcdd694d"><span class="section-number-3">2.12</span> <span class="todo TODO">TODO</span> Adversarial Autoencoder</h3>
+
+<p>
+Therefore, the encoder part instead of returning a single point it
+will return a mean and a variance (log variance will be used to have a
+more stable and reliable learning process)
+</p>
+
+
+<div id="orgb304f3f" class="figure">
+<p><img src="resources/vaearch.jpg" alt="vaearch.jpg" width="600em" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Variational autoencoder architecture</p>
 </div>
-<div id="outline-container-orgb555df7" class="outline-3">
-<h3 id="orgb555df7"><span class="section-number-3">2.13</span> <span class="todo TODO">TODO</span> &beta;-VAE</h3>
+
+<p>
+Given this change in architecture, also the loss function will have to
+change to address the new needs.
+In particular, the loss function will be now formed by two different
+part: reconstruction error term and regularization term.
+The reconstruction term will be the same as before (e.g the L<sub>2</sub>
+between the input and the output)
+The regularization term, on the other hand, it will be the
+<code>KL-divergence</code> between the current latent space distribution and the
+"wanted" one.
+</p>
+
+<div class="info" id="orgd373891">
+<p>
+<b>NOTE</b> having two terms in the loss function clearly remark the fact
+ that there is a tradeoff between forcing the latent distribution and
+ having a good reconstruction error. This will be the main focus for
+ future VAE architectures
+</p>
+
 </div>
-<div id="outline-container-org81bcce0" class="outline-3">
-<h3 id="org81bcce0"><span class="section-number-3">2.14</span> <span class="todo TODO">TODO</span> Info VAE</h3>
+
+<p>
+The intuition behind the regularization term is that we want to
+have two properties for the latent space distribution: <b>Continuity</b>
+(two close points in the latent space must be mapped to close point in
+the output)
+and <b>Completness</b> (sampling from the latent distribution must returns
+some "meaningfull" output).
+</p>
+
+<p>
+As we can see, we are entering into a probablistic framework. Here,
+the previous chapter on Variational inference will become handy.
+</p>
+
+<p>
+We can the decoder as \(p(x|z)\) and the encoder as \(p(z|x)\)
+As seen before we can express \(p(z|x)\) as:
+\[p(z|x) = \frac {p(x|z)p(z)}{p(x)}\]
+</p>
+
+<p>
+That said, as before \(p(z|x)\) is intractable however, in this
+architecture, we will assume that our surrogate posterior \(q_x(z)\) is
+a Guassian specified by
+\[q_x(z)=\mathcal{N}(g(x),h(x))\]
+where \(g\in \mathcal{G}\) and \(h\in \mathcal{H}\).
+\(\mathcal{G}\mathcal{H}\) represent family of function which will be
+approximate by the encoder.
+</p>
+
+<p>
+To find such functions we can use the last equation in the previous
+chapter:
+</p>
+
+<p>
+\[(g^*,h^*)=argmax_{(g,h)\in\mathcal{G}\times\mathcal{H}}\mathbb{E}[log(p(x|z))] - KL(q(z)||p(z))\]
+</p>
+
+<p>
+It is important to notice that \(p(x|z)\) is our decoder and therefore
+we will approximate by minimizing the reconstruction error.
+</p>
+
+<p>
+So we can finally rewrite the above equation to also consider the
+decoder part (again \(\mathcal{F}\) is a family of functions):
+\[(f^*,g^*,h^*) =argmax_{(f,g,h)\in\mathcal{F}\times\mathcal{G}\times\mathcal{H}}\mathbb{E}\left[-\frac{||x-f(z)||^2}{2c}\right] - KL(q(z)||p(z))\]
+</p>
 </div>
-<div id="outline-container-org650fd91" class="outline-3">
-<h3 id="org650fd91"><span class="section-number-3">2.15</span> INPROGRESS Random thought</h3>
+</div>
+
+
+
+
+
+<div id="outline-container-orgb0ea3aa" class="outline-3">
+<h3 id="orgb0ea3aa"><span class="section-number-3">2.12</span> <span class="todo TODO">TODO</span> Adversarial Autoencoder</h3>
+</div>
+<div id="outline-container-orgb58888e" class="outline-3">
+<h3 id="orgb58888e"><span class="section-number-3">2.13</span> <span class="todo TODO">TODO</span> &beta;-VAE</h3>
+</div>
+<div id="outline-container-orgc1484fb" class="outline-3">
+<h3 id="orgc1484fb"><span class="section-number-3">2.14</span> <span class="todo TODO">TODO</span> Info VAE</h3>
+</div>
+<div id="outline-container-org7f5b29a" class="outline-3">
+<h3 id="org7f5b29a"><span class="section-number-3">2.15</span> INPROGRESS Random thought</h3>
 <div class="outline-text-3" id="text-2-15">
 <p>
 Based on (towards ) why not training the AE and RL toghether.
@@ -1345,8 +1445,8 @@ by Benjo! More investigation is needed.
 </div>
 </div>
 
-<div id="outline-container-orga4c3f8b" class="outline-2">
-<h2 id="orga4c3f8b"><span class="section-number-2">3</span> Ideas for Hyperparameters</h2>
+<div id="outline-container-orgd2618eb" class="outline-2">
+<h2 id="orgd2618eb"><span class="section-number-2">3</span> Ideas for Hyperparameters</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Since we will have to fit quite a lot of hyperparameters we tried to come
@@ -1355,8 +1455,8 @@ hyperparameters.
 </p>
 </div>
 
-<div id="outline-container-orgdc90b00" class="outline-3">
-<h3 id="orgdc90b00"><span class="section-number-3">3.1</span> Number of neurons per layer</h3>
+<div id="outline-container-org0724fef" class="outline-3">
+<h3 id="org0724fef"><span class="section-number-3">3.1</span> Number of neurons per layer</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 The first hyperparameters we would like to remove is the number of
@@ -1399,18 +1499,18 @@ Substitute &lambda; with the prievious found equation.
 </div>
 </div>
 
-<div id="outline-container-org48aa777" class="outline-2">
-<h2 id="org48aa777"><span class="section-number-2">4</span> ML Pipeline</h2>
+<div id="outline-container-orgd26c3b2" class="outline-2">
+<h2 id="orgd26c3b2"><span class="section-number-2">4</span> ML Pipeline</h2>
 <div class="outline-text-2" id="text-4">
 <iframe src="./resources/ML-pipeline.pdf" width="100%" style="height:50em" align="center"> </iframe>
 </div>
 </div>
-<div id="outline-container-org2f33660" class="outline-2">
-<h2 id="org2f33660"><span class="section-number-2">5</span> Autoencoders</h2>
+<div id="outline-container-org3a25207" class="outline-2">
+<h2 id="org3a25207"><span class="section-number-2">5</span> Autoencoders</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org609caa8" class="outline-3">
-<h3 id="org609caa8"><span class="section-number-3">5.1</span> <span class="done DONE">DONE</span> Vanilla</h3>
+<div id="outline-container-org914b210" class="outline-3">
+<h3 id="org914b210"><span class="section-number-3">5.1</span> <span class="done DONE">DONE</span> Vanilla</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 The vanilla autoencoder is the classical one. Composed by an
@@ -1418,8 +1518,8 @@ encoder and a decoder without any kind of constriction.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc0ef3fd" class="outline-3">
-<h3 id="orgc0ef3fd"><span class="section-number-3">5.2</span> <span class="done DONE">DONE</span> VAE</h3>
+<div id="outline-container-orgfde6d9e" class="outline-3">
+<h3 id="orgfde6d9e"><span class="section-number-3">5.2</span> <span class="done DONE">DONE</span> VAE</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 The Variational autoencoder is a modified version of a vanilla AE
@@ -1428,8 +1528,8 @@ gaussian.
 </p>
 </div>
 </div>
-<div id="outline-container-orgba0e1d9" class="outline-3">
-<h3 id="orgba0e1d9"><span class="section-number-3">5.3</span> <span class="done DONE">DONE</span> AVB</h3>
+<div id="outline-container-orgb20dc6c" class="outline-3">
+<h3 id="orgb20dc6c"><span class="section-number-3">5.3</span> <span class="done DONE">DONE</span> AVB</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 Adversarial Variational Bayes is a relatively new ideas which
@@ -1438,8 +1538,8 @@ distribution. All is done in an adversarial environment.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb9d035c" class="outline-3">
-<h3 id="orgb9d035c"><span class="section-number-3">5.4</span> HOLD B-VAE</h3>
+<div id="outline-container-orgee52672" class="outline-3">
+<h3 id="orgee52672"><span class="section-number-3">5.4</span> HOLD B-VAE</h3>
 <div class="outline-text-3" id="text-5-4">
 <p>
 Quite interesting if focus is on transfer learning and disentangled representations
@@ -1447,17 +1547,17 @@ Quite interesting if focus is on transfer learning and disentangled representati
 </div>
 </div>
 
-<div id="outline-container-org72ca6f4" class="outline-3">
-<h3 id="org72ca6f4"><span class="section-number-3">5.5</span> HOLD InfoVae</h3>
+<div id="outline-container-org7c3267b" class="outline-3">
+<h3 id="org7c3267b"><span class="section-number-3">5.5</span> HOLD InfoVae</h3>
 </div>
 </div>
 
-<div id="outline-container-orgb884ad2" class="outline-2">
-<h2 id="orgb884ad2"><span class="section-number-2">6</span> Papers</h2>
+<div id="outline-container-orgbd56d2a" class="outline-2">
+<h2 id="orgbd56d2a"><span class="section-number-2">6</span> Papers</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org5be8a6b" class="outline-3">
-<h3 id="org5be8a6b"><span class="section-number-3">6.1</span> Common knowledge resources</h3>
+<div id="outline-container-orga0e21ff" class="outline-3">
+<h3 id="orga0e21ff"><span class="section-number-3">6.1</span> Common knowledge resources</h3>
 <div class="outline-text-3" id="text-6-1">
 <ul class="org-ul">
 <li><a href="https://www.analyticsvidhya.com/blog/2021/06/dimensionality-reduction-using-autoencoders-in-python/">autoencoder dim red python</a></li>
@@ -1468,12 +1568,12 @@ Quite interesting if focus is on transfer learning and disentangled representati
 </ul>
 </div>
 </div>
-<div id="outline-container-org234aa19" class="outline-3">
-<h3 id="org234aa19"><span class="section-number-3">6.2</span> General papers:</h3>
+<div id="outline-container-org29f43d3" class="outline-3">
+<h3 id="org29f43d3"><span class="section-number-3">6.2</span> General papers:</h3>
 <div class="outline-text-3" id="text-6-2">
 </div>
-<div id="outline-container-org5be05c0" class="outline-4">
-<h4 id="org5be05c0"><span class="section-number-4">6.2.1</span> Interpretable machine learning: Fundamental principles and 10 grand challenges<sup><a id="fnr.11.100" class="footref" href="#fn.11">11</a></sup></h4>
+<div id="outline-container-org1f1ede6" class="outline-4">
+<h4 id="org1f1ede6"><span class="section-number-4">6.2.1</span> Interpretable machine learning: Fundamental principles and 10 grand challenges<sup><a id="fnr.11.100" class="footref" href="#fn.11">11</a></sup></h4>
 <div class="outline-text-4" id="text-6-2-1">
 <p>
 Quite interesting paper about the 10 grand problems/challenges in the
@@ -1483,8 +1583,8 @@ networks
 </p>
 </div>
 </div>
-<div id="outline-container-org1ed8b14" class="outline-4">
-<h4 id="org1ed8b14"><span class="section-number-4">6.2.2</span> Variational Inference: A Review for Statisticians<sup><a id="fnr.14.100" class="footref" href="#fn.14">14</a></sup></h4>
+<div id="outline-container-org3c159c3" class="outline-4">
+<h4 id="org3c159c3"><span class="section-number-4">6.2.2</span> Variational Inference: A Review for Statisticians<sup><a id="fnr.14.100" class="footref" href="#fn.14">14</a></sup></h4>
 <div class="outline-text-4" id="text-6-2-2">
 <p>
 Review paper on Variational inference, explain in mathematical details
@@ -1493,12 +1593,12 @@ the theory and compare it with MCMC (Markov chain Monte Carlo) methods.
 </div>
 </div>
 </div>
-<div id="outline-container-org0f16e9d" class="outline-3">
-<h3 id="org0f16e9d"><span class="section-number-3">6.3</span> Autoencoders:</h3>
+<div id="outline-container-orgfcd8bdd" class="outline-3">
+<h3 id="orgfcd8bdd"><span class="section-number-3">6.3</span> Autoencoders:</h3>
 <div class="outline-text-3" id="text-6-3">
 </div>
-<div id="outline-container-org2d5e3b0" class="outline-4">
-<h4 id="org2d5e3b0"><span class="section-number-4">6.3.1</span> Recent advances in Autoencoder-based Representation Learning <sup><a id="fnr.15" class="footref" href="#fn.15">15</a></sup></h4>
+<div id="outline-container-org554d3d3" class="outline-4">
+<h4 id="org554d3d3"><span class="section-number-4">6.3.1</span> Recent advances in Autoencoder-based Representation Learning <sup><a id="fnr.15" class="footref" href="#fn.15">15</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-1">
 <p>
 Interesting paper which reviews a lot of up to date techniques for
@@ -1506,14 +1606,14 @@ Autoencoders and disentangled representations.
 </p>
 </div>
 </div>
-<div id="outline-container-orgf15265a" class="outline-4">
-<h4 id="orgf15265a"><span class="section-number-4">6.3.2</span> &beta;-VAE: Learning basic visual concepts with a constrained variational framework<sup><a id="fnr.16" class="footref" href="#fn.16">16</a></sup></h4>
+<div id="outline-container-org84fadff" class="outline-4">
+<h4 id="org84fadff"><span class="section-number-4">6.3.2</span> &beta;-VAE: Learning basic visual concepts with a constrained variational framework<sup><a id="fnr.16" class="footref" href="#fn.16">16</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-2">
 </div>
 
 
 <ol class="org-ol">
-<li><a id="orgf30fc83"></a>Summary<br />
+<li><a id="orgc29995e"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-2-1">
 <ul class="org-ul">
 <li>introduces &beta;-VAE</li>
@@ -1531,13 +1631,13 @@ conclusions</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org18a00b2" class="outline-4">
-<h4 id="org18a00b2"><span class="section-number-4">6.3.3</span> Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks <sup><a id="fnr.17" class="footref" href="#fn.17">17</a></sup></h4>
+<div id="outline-container-org89c2217" class="outline-4">
+<h4 id="org89c2217"><span class="section-number-4">6.3.3</span> Adversarial Variational Bayes: Unifying Variational Autoencoders and Generative Adversarial Networks <sup><a id="fnr.17" class="footref" href="#fn.17">17</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-3">
 </div>
 
 <ol class="org-ol">
-<li><a id="orgcd55acf"></a>Summary<br />
+<li><a id="orgf1e6e83"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-3-1">
 <ul class="org-ul">
 <li>Introduces AVB</li>
@@ -1553,7 +1653,7 @@ performance.</li>
 </div>
 </li>
 
-<li><a id="org27d2ca4"></a>Resources<br />
+<li><a id="org79f2ad9"></a>Resources<br />
 <div class="outline-text-5" id="text-6-3-3-2">
 <p>
 <a href="https://chrisorm.github.io/AVB-pyt.html">tutorial with pytorch</a>
@@ -1562,13 +1662,13 @@ performance.</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org9ffbf15" class="outline-4">
-<h4 id="org9ffbf15"><span class="section-number-4">6.3.4</span> DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction<sup><a id="fnr.18" class="footref" href="#fn.18">18</a></sup></h4>
+<div id="outline-container-orgf19f062" class="outline-4">
+<h4 id="orgf19f062"><span class="section-number-4">6.3.4</span> DISCARDED Generalized Autoencoder: A Neural Network Framework for Dimensionality Reduction<sup><a id="fnr.18" class="footref" href="#fn.18">18</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-4">
 </div>
 
 <ol class="org-ol">
-<li><a id="orgf3cd586"></a>Summary<br />
+<li><a id="org7d39917"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-4-1">
 <ul class="org-ul">
 <li>Interesting approach to dimensionality reduction which tries
@@ -1582,8 +1682,8 @@ direction</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-orgec68b3c" class="outline-4">
-<h4 id="orgec68b3c"><span class="section-number-4">6.3.5</span> Tutorial on Variational Autoencoders<sup><a id="fnr.19" class="footref" href="#fn.19">19</a></sup></h4>
+<div id="outline-container-orgac185c0" class="outline-4">
+<h4 id="orgac185c0"><span class="section-number-4">6.3.5</span> Tutorial on Variational Autoencoders<sup><a id="fnr.19" class="footref" href="#fn.19">19</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-5">
 <p>
 Quite usefull tutorial, explains unformally what vae tries to achive
@@ -1591,13 +1691,13 @@ and how it does it.
 </p>
 </div>
 </div>
-<div id="outline-container-orge87608a" class="outline-4">
-<h4 id="orge87608a"><span class="section-number-4">6.3.6</span> Auto-Encoding Variational Bayes <sup><a id="fnr.20" class="footref" href="#fn.20">20</a></sup></h4>
+<div id="outline-container-orgd6a06aa" class="outline-4">
+<h4 id="orgd6a06aa"><span class="section-number-4">6.3.6</span> Auto-Encoding Variational Bayes <sup><a id="fnr.20" class="footref" href="#fn.20">20</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-6">
 </div>
 
 <ol class="org-ol">
-<li><a id="org66c3a1b"></a>Summary<br />
+<li><a id="org41c4d78"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-6-1">
 <ul class="org-ul">
 <li>Paper which introduce the theory behind VAE</li>
@@ -1608,7 +1708,7 @@ something like a VAE</li>
 </ul>
 </div>
 </li>
-<li><a id="org8a51490"></a>Resources<br />
+<li><a id="org34e36b3"></a>Resources<br />
 <div class="outline-text-5" id="text-6-3-6-2">
 <p>
 <a href="https://www.youtube.com/watch?v=HxQ94L8n0vU&amp;t=31s">Variational Inference intuitions</a>
@@ -1617,12 +1717,12 @@ something like a VAE</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-orgf774a3e" class="outline-4">
-<h4 id="orgf774a3e"><span class="section-number-4">6.3.7</span> InfoVAE: Balancing Learning and Inference in Variational Autoencoders <sup><a id="fnr.21" class="footref" href="#fn.21">21</a></sup></h4>
+<div id="outline-container-org6629a0b" class="outline-4">
+<h4 id="org6629a0b"><span class="section-number-4">6.3.7</span> InfoVAE: Balancing Learning and Inference in Variational Autoencoders <sup><a id="fnr.21" class="footref" href="#fn.21">21</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-7">
 </div>
 <ol class="org-ol">
-<li><a id="orgcbf3735"></a>Summary<br />
+<li><a id="org1ede9a5"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-7-1">
 <ul class="org-ul">
 <li>Shows crucial down fall of the ELBO objective.</li>
@@ -1646,19 +1746,19 @@ it parametrize both mutual information</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org7c375ba" class="outline-4">
-<h4 id="org7c375ba"><span class="section-number-4">6.3.8</span> Adversarial Autoencoders <sup><a id="fnr.22" class="footref" href="#fn.22">22</a></sup></h4>
+<div id="outline-container-org05f6dcc" class="outline-4">
+<h4 id="org05f6dcc"><span class="section-number-4">6.3.8</span> Adversarial Autoencoders <sup><a id="fnr.22" class="footref" href="#fn.22">22</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-8">
 
-<div id="orgcf527b7" class="figure">
+<div id="org749376e" class="figure">
 <p><img src="resources/AAE.png" alt="AAE.png" width="600em" />
 </p>
-<p><span class="figure-number">Figure 7: </span>Adversarial Autoencoder structure</p>
+<p><span class="figure-number">Figure 9: </span>Adversarial Autoencoder structure</p>
 </div>
 </div>
 
 <ol class="org-ol">
-<li><a id="org6bc8ab8"></a>Summary<br />
+<li><a id="orgdd9dffc"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-8-1">
 <ul class="org-ul">
 <li>introduces formally the AAE</li>
@@ -1682,13 +1782,13 @@ within an RL framework. However, it can be intere</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org03c1ffe" class="outline-4">
-<h4 id="org03c1ffe"><span class="section-number-4">6.3.9</span> Learning representations by maximizing mutual information in variational autoencoders <sup><a id="fnr.23" class="footref" href="#fn.23">23</a></sup></h4>
+<div id="outline-container-org87badb3" class="outline-4">
+<h4 id="org87badb3"><span class="section-number-4">6.3.9</span> Learning representations by maximizing mutual information in variational autoencoders <sup><a id="fnr.23" class="footref" href="#fn.23">23</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-9">
 </div>
 
 <ol class="org-ol">
-<li><a id="org0a39e24"></a>Summary<br />
+<li><a id="orgfff0236"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-9-1">
 <ul class="org-ul">
 <li>Quite interesting new architecture (similar approach
@@ -1702,13 +1802,13 @@ representation which can results in quite bad representations</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org610276d" class="outline-4">
-<h4 id="org610276d"><span class="section-number-4">6.3.10</span> HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models <sup><a id="fnr.24" class="footref" href="#fn.24">24</a></sup></h4>
+<div id="outline-container-orgfbb0cc2" class="outline-4">
+<h4 id="orgfbb0cc2"><span class="section-number-4">6.3.10</span> HOLD The information autoencoding family: A lagrangian Perspective on latent variable generative models <sup><a id="fnr.24" class="footref" href="#fn.24">24</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-10">
 </div>
 
 <ol class="org-ol">
-<li><a id="orge0bb367"></a>Summary<br />
+<li><a id="org24a1729"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-10-1">
 <ul class="org-ul">
 <li>Quite advanced mathematically maybe for the future rese</li>
@@ -1717,13 +1817,13 @@ representation which can results in quite bad representations</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org13f9561" class="outline-4">
-<h4 id="org13f9561"><span class="section-number-4">6.3.11</span> HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models <sup><a id="fnr.25" class="footref" href="#fn.25">25</a></sup></h4>
+<div id="outline-container-orgee6c514" class="outline-4">
+<h4 id="orgee6c514"><span class="section-number-4">6.3.11</span> HOLD CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models <sup><a id="fnr.25" class="footref" href="#fn.25">25</a></sup></h4>
 <div class="outline-text-4" id="text-6-3-11">
 </div>
 
 <ol class="org-ol">
-<li><a id="org8f83080"></a>Summary<br />
+<li><a id="orga4890b0"></a>Summary<br />
 <div class="outline-text-5" id="text-6-3-11-1">
 <ul class="org-ul">
 <li>The concept of causuality seems pretty interesting in
@@ -1735,12 +1835,12 @@ however, left for future res</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org57be4e2" class="outline-3">
-<h3 id="org57be4e2"><span class="section-number-3">6.4</span> Dimensionality reduction:</h3>
+<div id="outline-container-orgbb3bd7f" class="outline-3">
+<h3 id="orgbb3bd7f"><span class="section-number-3">6.4</span> Dimensionality reduction:</h3>
 <div class="outline-text-3" id="text-6-4">
 </div>
-<div id="outline-container-org3573c52" class="outline-4">
-<h4 id="org3573c52"><span class="section-number-4">6.4.1</span> Auto-encoder based dimensionality reduction <sup><a id="fnr.2.100" class="footref" href="#fn.2">2</a></sup></h4>
+<div id="outline-container-org0032043" class="outline-4">
+<h4 id="org0032043"><span class="section-number-4">6.4.1</span> Auto-encoder based dimensionality reduction <sup><a id="fnr.2.100" class="footref" href="#fn.2">2</a></sup></h4>
 <div class="outline-text-4" id="text-6-4-1">
 <p>
 <b>Contributions</b>
@@ -1761,7 +1861,7 @@ relation with the intrinsic dimensionality.<br />
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="org557ba11"></a>Summary<br />
+<li><a id="org8962b71"></a>Summary<br />
 <div class="outline-text-5" id="text-6-4-1-1">
 <p>
 Shows comparison of Autoencoder and other dimensionality reduction
@@ -1773,7 +1873,7 @@ maches the intrinsic dimensionality of the dataset.
 </div>
 </li>
 
-<li><a id="orge73ae0c"></a>Opinions<br />
+<li><a id="org71df0ce"></a>Opinions<br />
 <div class="outline-text-5" id="text-6-4-1-2">
 <p>
 This clearly shows how Autoencoder can be essentially different and
@@ -1784,13 +1884,13 @@ consolidate the choice of usi
 </li>
 </ol>
 </div>
-<div id="outline-container-org7fa34f7" class="outline-4">
-<h4 id="org7fa34f7"><span class="section-number-4">6.4.2</span> Dimensionality Reduction of SDSS Spectra with Variational Autoencoders <sup><a id="fnr.3.100" class="footref" href="#fn.3">3</a></sup></h4>
+<div id="outline-container-org1383a50" class="outline-4">
+<h4 id="org1383a50"><span class="section-number-4">6.4.2</span> Dimensionality Reduction of SDSS Spectra with Variational Autoencoders <sup><a id="fnr.3.100" class="footref" href="#fn.3">3</a></sup></h4>
 <div class="outline-text-4" id="text-6-4-2">
 </div>
 
 <ol class="org-ol">
-<li><a id="org098db2d"></a>Summary<br />
+<li><a id="org421e0dd"></a>Summary<br />
 <div class="outline-text-5" id="text-6-4-2-1">
 <p>
 Show how AEs were already used in astrony for different dimensionality
@@ -1806,8 +1906,8 @@ disentangle (e.i. force mapping different inputs to disjoint distribution ) the 
 </li>
 </ol>
 </div>
-<div id="outline-container-orgd267903" class="outline-4">
-<h4 id="orgd267903"><span class="section-number-4">6.4.3</span> DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis <sup><a id="fnr.26" class="footref" href="#fn.26">26</a></sup></h4>
+<div id="outline-container-org5090dc8" class="outline-4">
+<h4 id="org5090dc8"><span class="section-number-4">6.4.3</span> DISCARDED Dimensionality reduction for EEG-based sleep stage detection: comparison of autoencoders, principal component analysis and factor analysis <sup><a id="fnr.26" class="footref" href="#fn.26">26</a></sup></h4>
 <div class="outline-text-4" id="text-6-4-3">
 <p>
 It was <b>DISCARDED</b> because it contains too specific content and the
@@ -1816,19 +1916,19 @@ are highly specific to the task. Therefore I do not think it should b
 </p>
 </div>
 </div>
-<div id="outline-container-org0f647b6" class="outline-4">
-<h4 id="org0f647b6"><span class="section-number-4">6.4.4</span> A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis <sup><a id="fnr.4.100" class="footref" href="#fn.4">4</a></sup></h4>
+<div id="outline-container-org9931776" class="outline-4">
+<h4 id="org9931776"><span class="section-number-4">6.4.4</span> A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis <sup><a id="fnr.4.100" class="footref" href="#fn.4">4</a></sup></h4>
 <div class="outline-text-4" id="text-6-4-4">
 
-<div id="org0f6e328" class="figure">
+<div id="org1bacc61" class="figure">
 <p><img src="resources/The-novel-architecture-of-an-Adversarial-Variational-AutoEncoder-with-Dual-Matching.png" alt="The-novel-architecture-of-an-Adversarial-Variational-AutoEncoder-with-Dual-Matching.png" width="600em" />
 </p>
-<p><span class="figure-number">Figure 8: </span>Adversarial Variational Autoencoder with dual matching</p>
+<p><span class="figure-number">Figure 10: </span>Adversarial Variational Autoencoder with dual matching</p>
 </div>
 </div>
 
 <ol class="org-ol">
-<li><a id="orgc3a9340"></a>Summary<br />
+<li><a id="org8730768"></a>Summary<br />
 <div class="outline-text-5" id="text-6-4-4-1">
 <p>
 It introduces a novel Adversarial autoencoder architecture named
@@ -1851,17 +1951,17 @@ results
 </ol>
 </div>
 </div>
-<div id="outline-container-orgabc754e" class="outline-3">
-<h3 id="orgabc754e"><span class="section-number-3">6.5</span> Disentagled representation</h3>
+<div id="outline-container-org30779ef" class="outline-3">
+<h3 id="org30779ef"><span class="section-number-3">6.5</span> Disentagled representation</h3>
 <div class="outline-text-3" id="text-6-5">
 </div>
-<div id="outline-container-org5f8e0c2" class="outline-4">
-<h4 id="org5f8e0c2"><span class="section-number-4">6.5.1</span> Understanding disentagling in &beta;-VAE <sup><a id="fnr.27" class="footref" href="#fn.27">27</a></sup></h4>
+<div id="outline-container-orgac3421d" class="outline-4">
+<h4 id="orgac3421d"><span class="section-number-4">6.5.1</span> Understanding disentagling in &beta;-VAE <sup><a id="fnr.27" class="footref" href="#fn.27">27</a></sup></h4>
 <div class="outline-text-4" id="text-6-5-1">
 </div>
 
 <ol class="org-ol">
-<li><a id="org18263d7"></a>Summary<br />
+<li><a id="org9cd6356"></a>Summary<br />
 <div class="outline-text-5" id="text-6-5-1-1">
 <ul class="org-ul">
 <li>Give some intuitions on why &beta;-VAE achive disentaglement</li>
@@ -1874,13 +1974,13 @@ any research on the application</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-orgd991a7c" class="outline-4">
-<h4 id="orgd991a7c"><span class="section-number-4">6.5.2</span> Towards a Definition of Disentangled Representations <sup><a id="fnr.12.100" class="footref" href="#fn.12">12</a></sup></h4>
+<div id="outline-container-org5da40c3" class="outline-4">
+<h4 id="org5da40c3"><span class="section-number-4">6.5.2</span> Towards a Definition of Disentangled Representations <sup><a id="fnr.12.100" class="footref" href="#fn.12">12</a></sup></h4>
 <div class="outline-text-4" id="text-6-5-2">
 </div>
 
 <ol class="org-ol">
-<li><a id="org2cec6cc"></a>Summary<br />
+<li><a id="org4c3d1b3"></a>Summary<br />
 <div class="outline-text-5" id="text-6-5-2-1">
 <ul class="org-ul">
 <li>Gives a formal definition of what a Disentangled
@@ -1896,12 +1996,12 @@ representation is</li>
 </ol>
 </div>
 
-<div id="outline-container-org0d96721" class="outline-4">
-<h4 id="org0d96721"><span class="section-number-4">6.5.3</span> Are Disentagled representations helpful for Abstract Visual Reasoning?<sup><a id="fnr.13.100" class="footref" href="#fn.13">13</a></sup></h4>
+<div id="outline-container-org7cce9d6" class="outline-4">
+<h4 id="org7cce9d6"><span class="section-number-4">6.5.3</span> Are Disentagled representations helpful for Abstract Visual Reasoning?<sup><a id="fnr.13.100" class="footref" href="#fn.13">13</a></sup></h4>
 <div class="outline-text-4" id="text-6-5-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgdc195cc"></a>Summary<br />
+<li><a id="org5eb53b5"></a>Summary<br />
 <div class="outline-text-5" id="text-6-5-3-1">
 <ul class="org-ul">
 <li></li>
@@ -1910,8 +2010,8 @@ representation is</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org242fd1b" class="outline-4">
-<h4 id="org242fd1b"><span class="section-number-4">6.5.4</span> DISCARDED On the binding Problem in Artificial Neural Networks <sup><a id="fnr.28" class="footref" href="#fn.28">28</a></sup></h4>
+<div id="outline-container-org26bba9f" class="outline-4">
+<h4 id="org26bba9f"><span class="section-number-4">6.5.4</span> DISCARDED On the binding Problem in Artificial Neural Networks <sup><a id="fnr.28" class="footref" href="#fn.28">28</a></sup></h4>
 <div class="outline-text-4" id="text-6-5-4">
 <p>
 Really interesting paper about the binding problems. It does talk
@@ -1925,12 +2025,12 @@ etc.
 </div>
 </div>
 
-<div id="outline-container-org1a58c3b" class="outline-3">
-<h3 id="org1a58c3b"><span class="section-number-3">6.6</span> AE + RL:</h3>
+<div id="outline-container-org45842f8" class="outline-3">
+<h3 id="org45842f8"><span class="section-number-3">6.6</span> AE + RL:</h3>
 <div class="outline-text-3" id="text-6-6">
 </div>
-<div id="outline-container-org77d598a" class="outline-4">
-<h4 id="org77d598a"><span class="section-number-4">6.6.1</span> VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems <sup><a id="fnr.6.100" class="footref" href="#fn.6">6</a></sup></h4>
+<div id="outline-container-orgbe4a254" class="outline-4">
+<h4 id="orgbe4a254"><span class="section-number-4">6.6.1</span> VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems <sup><a id="fnr.6.100" class="footref" href="#fn.6">6</a></sup></h4>
 <div class="outline-text-4" id="text-6-6-1">
 <p>
 <b>Quotes</b>
@@ -1951,7 +2051,7 @@ range of theoretical models and industry applications.<br />
 </div>
 
 <ol class="org-ol">
-<li><a id="orged57692"></a>Summary<br />
+<li><a id="org5f1c45c"></a>Summary<br />
 <div class="outline-text-5" id="text-6-6-1-1">
 <p>
 Introduces a new variational framework  for combinatorial optimization
@@ -1963,7 +2063,7 @@ solution in a graph-based framework.
 </div>
 </li>
 
-<li><a id="org0d13e57"></a>Opinions<br />
+<li><a id="orge85e3f2"></a>Opinions<br />
 <div class="outline-text-5" id="text-6-6-1-2">
 <p>
 The main down side is that the VARL architecture seems to be quite
@@ -1975,13 +2075,13 @@ combination with reinforcement learning (in the paper R
 </li>
 </ol>
 </div>
-<div id="outline-container-org481b6e8" class="outline-4">
-<h4 id="org481b6e8"><span class="section-number-4">6.6.2</span> Robot skill learning in latent space of a deep autoencoder neural network <sup><a id="fnr.7.100" class="footref" href="#fn.7">7</a></sup></h4>
+<div id="outline-container-org54ca042" class="outline-4">
+<h4 id="org54ca042"><span class="section-number-4">6.6.2</span> Robot skill learning in latent space of a deep autoencoder neural network <sup><a id="fnr.7.100" class="footref" href="#fn.7">7</a></sup></h4>
 <div class="outline-text-4" id="text-6-6-2">
 </div>
 
 <ol class="org-ol">
-<li><a id="org3bf4c83"></a>Summary<br />
+<li><a id="orgfc96677"></a>Summary<br />
 <div class="outline-text-5" id="text-6-6-2-1">
 <ul class="org-ul">
 <li>Gaussian Process Regression (GPR) for statistical learning</li>
@@ -2004,13 +2104,13 @@ good references which are worth looking in</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-orga7f80e4" class="outline-4">
-<h4 id="orga7f80e4"><span class="section-number-4">6.6.3</span> AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton <sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup></h4>
+<div id="outline-container-org49a7670" class="outline-4">
+<h4 id="org49a7670"><span class="section-number-4">6.6.3</span> AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton <sup><a id="fnr.1.100" class="footref" href="#fn.1">1</a></sup></h4>
 <div class="outline-text-4" id="text-6-6-3">
 </div>
 
 <ol class="org-ol">
-<li><a id="org1525ddc"></a>Summary<br />
+<li><a id="orgff996d5"></a>Summary<br />
 <div class="outline-text-5" id="text-6-6-3-1">
 <ul class="org-ul">
 <li>GPR used to generate data given few real-world examples.</li>
@@ -2026,13 +2126,13 @@ central role in the optimizat</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org5c0a05d" class="outline-4">
-<h4 id="org5c0a05d"><span class="section-number-4">6.6.4</span> The Dreaming Variational Autoencoder for Reinforcement Learning Environments <sup><a id="fnr.10.100" class="footref" href="#fn.10">10</a></sup></h4>
+<div id="outline-container-orgbdfb6a9" class="outline-4">
+<h4 id="orgbdfb6a9"><span class="section-number-4">6.6.4</span> The Dreaming Variational Autoencoder for Reinforcement Learning Environments <sup><a id="fnr.10.100" class="footref" href="#fn.10">10</a></sup></h4>
 <div class="outline-text-4" id="text-6-6-4">
 </div>
 
 <ol class="org-ol">
-<li><a id="orgbce6967"></a>Summary<br />
+<li><a id="org405e2b6"></a>Summary<br />
 <div class="outline-text-5" id="text-6-6-4-1">
 <ul class="org-ul">
 <li><b>NOTE</b> Gaussian distributed policy for initial state-space
@@ -2050,13 +2150,13 @@ continuos environments where exploration is costly and/or</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org511fb24" class="outline-4">
-<h4 id="org511fb24"><span class="section-number-4">6.6.5</span> Deep Variational Reinforcement Learning for POMDPs <sup><a id="fnr.9.100" class="footref" href="#fn.9">9</a></sup></h4>
+<div id="outline-container-org55617c4" class="outline-4">
+<h4 id="org55617c4"><span class="section-number-4">6.6.5</span> Deep Variational Reinforcement Learning for POMDPs <sup><a id="fnr.9.100" class="footref" href="#fn.9">9</a></sup></h4>
 <div class="outline-text-4" id="text-6-6-5">
 </div>
 
 <ol class="org-ol">
-<li><a id="orgf1623a6"></a>Summary<br />
+<li><a id="org8e4a82e"></a>Summary<br />
 <div class="outline-text-5" id="text-6-6-5-1">
 <ul class="org-ul">
 <li>Defines a new RL method with AE</li>
@@ -2075,13 +2175,13 @@ be done if we want to use this approch.</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org1cce40f" class="outline-4">
-<h4 id="org1cce40f"><span class="section-number-4">6.6.6</span> On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning <sup><a id="fnr.8.100" class="footref" href="#fn.8">8</a></sup></h4>
+<div id="outline-container-org8c7e73c" class="outline-4">
+<h4 id="org8c7e73c"><span class="section-number-4">6.6.6</span> On the use of Deep Autoencoders for Efficient Embedded Reinforcement Learning <sup><a id="fnr.8.100" class="footref" href="#fn.8">8</a></sup></h4>
 <div class="outline-text-4" id="text-6-6-6">
 </div>
 
 <ol class="org-ol">
-<li><a id="org02197f5"></a>Summary<br />
+<li><a id="org810bdda"></a>Summary<br />
 <div class="outline-text-5" id="text-6-6-6-1">
 <ul class="org-ul">
 <li>Shows how using AE-based latent space reduce the time of
@@ -2100,13 +2200,13 @@ and decrease the time</li>
 </li>
 </ol>
 </div>
-<div id="outline-container-org2fe0a13" class="outline-4">
-<h4 id="org2fe0a13"><span class="section-number-4">6.6.7</span> DARLA: Improving Zero-Shot Transfer in Reinforcement Learning <sup><a id="fnr.5.100" class="footref" href="#fn.5">5</a></sup></h4>
+<div id="outline-container-orgc3a5241" class="outline-4">
+<h4 id="orgc3a5241"><span class="section-number-4">6.6.7</span> DARLA: Improving Zero-Shot Transfer in Reinforcement Learning <sup><a id="fnr.5.100" class="footref" href="#fn.5">5</a></sup></h4>
 <div class="outline-text-4" id="text-6-6-7">
 </div>
 
 <ol class="org-ol">
-<li><a id="orgc456a67"></a>Summary<br />
+<li><a id="orga16b245"></a>Summary<br />
 <div class="outline-text-5" id="text-6-6-7-1">
 <ul class="org-ul">
 <li>REALLY INTERESTING PAPER!</li>
@@ -2132,7 +2232,7 @@ disentangled representation</li>
 </div>
 </li>
 
-<li><a id="org8c65a30"></a>Resources<br />
+<li><a id="orga94693b"></a>Resources<br />
 <div class="outline-text-5" id="text-6-6-7-2">
 <p>
 [[<a href="http://proceedings.mlr.pres">http://proceedings.mlr.pres</a>
@@ -2142,17 +2242,17 @@ disentangled representation</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-org19712fc" class="outline-3">
-<h3 id="org19712fc"><span class="section-number-3">6.7</span> Old ideas</h3>
+<div id="outline-container-orgb335c38" class="outline-3">
+<h3 id="orgb335c38"><span class="section-number-3">6.7</span> Old ideas</h3>
 <div class="outline-text-3" id="text-6-7">
 </div>
-<div id="outline-container-org4eaf123" class="outline-4">
-<h4 id="org4eaf123"><span class="section-number-4">6.7.1</span> Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation <sup><a id="fnr.29" class="footref" href="#fn.29">29</a></sup></h4>
+<div id="outline-container-org9f25a4f" class="outline-4">
+<h4 id="org9f25a4f"><span class="section-number-4">6.7.1</span> Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation <sup><a id="fnr.29" class="footref" href="#fn.29">29</a></sup></h4>
 <div class="outline-text-4" id="text-6-7-1">
 </div>
 
 <ol class="org-ol">
-<li><a id="orgedb09e2"></a>Summary<br />
+<li><a id="orgf343fd7"></a>Summary<br />
 <div class="outline-text-5" id="text-6-7-1-1">
 <p>
 review paper, it introduces in general the topic. it illustrate
@@ -2163,7 +2263,7 @@ that competition. Finally some future directions.
 </div>
 </li>
 
-<li><a id="org9223896"></a>Opinions<br />
+<li><a id="org43973dc"></a>Opinions<br />
 <div class="outline-text-5" id="text-6-7-1-2">
 <p>
 This paper is really interesting in particular the part about
@@ -2172,7 +2272,7 @@ Learn to Move and future directions.
 </div>
 </li>
 
-<li><a id="org2541001"></a>Ideas<br />
+<li><a id="orgc587af6"></a>Ideas<br />
 <div class="outline-text-5" id="text-6-7-1-3">
 <p>
 It suggest imitation learning and hierarchical
@@ -2182,73 +2282,73 @@ It suggest imitation learning and hierarchical
 </ol>
 </div>
 </div>
-<div id="outline-container-org21660f8" class="outline-3">
-<h3 id="org21660f8"><span class="section-number-3">6.8</span> <span class="todo TODO">TODO</span> Old work</h3>
+<div id="outline-container-org62c7631" class="outline-3">
+<h3 id="org62c7631"><span class="section-number-3">6.8</span> <span class="todo TODO">TODO</span> Old work</h3>
 <div class="outline-text-3" id="text-6-8">
 </div>
-<div id="outline-container-org58b56ce" class="outline-4">
-<h4 id="org58b56ce"><span class="section-number-4">6.8.1</span> Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization <sup><a id="fnr.30" class="footref" href="#fn.30">30</a></sup></h4>
+<div id="outline-container-org9ce769e" class="outline-4">
+<h4 id="org9ce769e"><span class="section-number-4">6.8.1</span> Level ground walking for  healthy and transfemoral amputee models. Deep reinforcement learning with phasic policy gradient optimization <sup><a id="fnr.30" class="footref" href="#fn.30">30</a></sup></h4>
 <div class="outline-text-4" id="text-6-8-1">
 </div>
 </div>
 
-<div id="outline-container-orge1132d5" class="outline-4">
-<h4 id="orge1132d5"><span class="section-number-4">6.8.2</span> Deep reinforcement learning for physics-based musculoskeletal model of a transfemoral amputee with a prothesis walking on uneven terrain <sup><a id="fnr.31" class="footref" href="#fn.31">31</a></sup></h4>
+<div id="outline-container-org9ebfde7" class="outline-4">
+<h4 id="org9ebfde7"><span class="section-number-4">6.8.2</span> Deep reinforcement learning for physics-based musculoskeletal model of a transfemoral amputee with a prothesis walking on uneven terrain <sup><a id="fnr.31" class="footref" href="#fn.31">31</a></sup></h4>
 <div class="outline-text-4" id="text-6-8-2">
 </div>
 </div>
 
-<div id="outline-container-org76e04d3" class="outline-4">
-<h4 id="org76e04d3"><span class="section-number-4">6.8.3</span> Deep reinforcement learning for physics-based musculoskeletal simulations of healthy subjects and transfemoral protheses' users during normal walking <sup><a id="fnr.32" class="footref" href="#fn.32">32</a></sup></h4>
+<div id="outline-container-orga9a4342" class="outline-4">
+<h4 id="orga9a4342"><span class="section-number-4">6.8.3</span> Deep reinforcement learning for physics-based musculoskeletal simulations of healthy subjects and transfemoral protheses' users during normal walking <sup><a id="fnr.32" class="footref" href="#fn.32">32</a></sup></h4>
 <div class="outline-text-4" id="text-6-8-3">
 </div>
 </div>
 
-<div id="outline-container-orga704804" class="outline-4">
-<h4 id="orga704804"><span class="section-number-4">6.8.4</span> Learning to walk: Phasic Policy Gradient for healthy and impaired musculoskeletal models <sup><a id="fnr.33" class="footref" href="#fn.33">33</a></sup></h4>
+<div id="outline-container-orge2ae347" class="outline-4">
+<h4 id="orge2ae347"><span class="section-number-4">6.8.4</span> Learning to walk: Phasic Policy Gradient for healthy and impaired musculoskeletal models <sup><a id="fnr.33" class="footref" href="#fn.33">33</a></sup></h4>
 <div class="outline-text-4" id="text-6-8-4">
 </div>
 </div>
 
-<div id="outline-container-org47255fe" class="outline-4">
-<h4 id="org47255fe"><span class="section-number-4">6.8.5</span> Evaluating Deep Reinforcement Learning Algorithms for Physics-Based Musculoskeletal Transfemoral Model with a Prosthetic Leg Performing Ground-Level Walking <sup><a id="fnr.34" class="footref" href="#fn.34">34</a></sup></h4>
+<div id="outline-container-org5cfbb5f" class="outline-4">
+<h4 id="org5cfbb5f"><span class="section-number-4">6.8.5</span> Evaluating Deep Reinforcement Learning Algorithms for Physics-Based Musculoskeletal Transfemoral Model with a Prosthetic Leg Performing Ground-Level Walking <sup><a id="fnr.34" class="footref" href="#fn.34">34</a></sup></h4>
 <div class="outline-text-4" id="text-6-8-5">
 </div>
 </div>
 
-<div id="outline-container-org0897955" class="outline-4">
-<h4 id="org0897955"><span class="section-number-4">6.8.6</span> Deep Reinforcement Learning for Physics-based Musculoskeletal Simulations of Transfemoral Prosthesis' Users during the Transition between Normal Walking and Stairs Ascending <sup><a id="fnr.35" class="footref" href="#fn.35">35</a></sup></h4>
+<div id="outline-container-org3388f22" class="outline-4">
+<h4 id="org3388f22"><span class="section-number-4">6.8.6</span> Deep Reinforcement Learning for Physics-based Musculoskeletal Simulations of Transfemoral Prosthesis' Users during the Transition between Normal Walking and Stairs Ascending <sup><a id="fnr.35" class="footref" href="#fn.35">35</a></sup></h4>
 <div class="outline-text-4" id="text-6-8-6">
 </div>
 </div>
 
-<div id="outline-container-org9dc05c5" class="outline-4">
-<h4 id="org9dc05c5"><span class="section-number-4">6.8.7</span> Testing For Generality Of A Proximal Policy Optimiser For Advanced Human Locomotion Beyond Walking <sup><a id="fnr.36" class="footref" href="#fn.36">36</a></sup></h4>
+<div id="outline-container-org9c660c4" class="outline-4">
+<h4 id="org9c660c4"><span class="section-number-4">6.8.7</span> Testing For Generality Of A Proximal Policy Optimiser For Advanced Human Locomotion Beyond Walking <sup><a id="fnr.36" class="footref" href="#fn.36">36</a></sup></h4>
 <div class="outline-text-4" id="text-6-8-7">
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2961d7e" class="outline-2">
-<h2 id="org2961d7e"><span class="section-number-2">7</span> Presentations</h2>
+<div id="outline-container-orgc9cf58c" class="outline-2">
+<h2 id="orgc9cf58c"><span class="section-number-2">7</span> Presentations</h2>
 <div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-org1a7bbcb" class="outline-3">
-<h3 id="org1a7bbcb"><span class="section-number-3">7.1</span> First one</h3>
+<div id="outline-container-orga797744" class="outline-3">
+<h3 id="orga797744"><span class="section-number-3">7.1</span> First one</h3>
 <div class="outline-text-3" id="text-7-1">
 <iframe src="resources/init_pres.pdf" width="100%" style="height:50em" align="center"> </iframe>
 </div>
 </div>
-<div id="outline-container-org09c43ba" class="outline-3">
-<h3 id="org09c43ba"><span class="section-number-3">7.2</span> Second one</h3>
+<div id="outline-container-org8923d5e" class="outline-3">
+<h3 id="org8923d5e"><span class="section-number-3">7.2</span> Second one</h3>
 <div class="outline-text-3" id="text-7-2">
 <iframe src="resources/second_pres.pdf" width="100%" style="height:50em" align="center"> </iframe>
 </div>
 </div>
 </div>
-<div id="outline-container-org5949c97" class="outline-2">
-<h2 id="org5949c97"><span class="section-number-2">8</span> INPROGRESS Future Research</h2>
+<div id="outline-container-org8160970" class="outline-2">
+<h2 id="org8160970"><span class="section-number-2">8</span> INPROGRESS Future Research</h2>
 <div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>test other Disentanglement AE/GAN architectures (e.g. FactorVAE,CasualVAE,DreamingVAE).</li>
@@ -2265,13 +2365,13 @@ Prior by Yoshua Bengio)</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgad4fc59" class="outline-2">
-<h2 id="orgad4fc59"><span class="section-number-2">9</span> INPROGRESS Code</h2>
+<div id="outline-container-org702a4d4" class="outline-2">
+<h2 id="org702a4d4"><span class="section-number-2">9</span> INPROGRESS Code</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 Visit this file to see the current documentation
 </p>
-<div class="warning" id="org1318929">
+<div class="warning" id="orgb831800">
 <p>
 <b>WORK IN PROGRESS</b>  FIXME the documentation is in progress and it can be
  potentially not up to date
@@ -2283,8 +2383,8 @@ Visit this file to see the current documentation
 </p>
 </div>
 
-<div id="outline-container-org0de883a" class="outline-3">
-<h3 id="org0de883a"><span class="section-number-3">9.1</span> REPOS</h3>
+<div id="outline-container-orgee24901" class="outline-3">
+<h3 id="orgee24901"><span class="section-number-3">9.1</span> REPOS</h3>
 <div class="outline-text-3" id="text-9-1">
 <p>
 <a href="https://github.com/vbotics/rug-opensim-rl">vbotics repo</a>
@@ -2300,20 +2400,20 @@ Visit this file to see the current documentation
 </div>
 </div>
 </div>
-<div id="outline-container-orge5a2735" class="outline-2">
-<h2 id="orge5a2735"><span class="section-number-2">10</span> Contacts</h2>
+<div id="outline-container-orgb0be4d3" class="outline-2">
+<h2 id="orgb0be4d3"><span class="section-number-2">10</span> Contacts</h2>
 <div class="outline-text-2" id="text-10">
 </div>
-<div id="outline-container-org5756084" class="outline-3">
-<h3 id="org5756084"><span class="section-number-3">10.1</span> Massimiliano Falzari</h3>
+<div id="outline-container-org5a0af29" class="outline-3">
+<h3 id="org5a0af29"><span class="section-number-3">10.1</span> Massimiliano Falzari</h3>
 <div class="outline-text-3" id="text-10-1">
 <p>
 m.falzari@student.rug.nl
 </p>
 </div>
 </div>
-<div id="outline-container-org5b83581" class="outline-3">
-<h3 id="org5b83581"><span class="section-number-3">10.2</span> Professor</h3>
+<div id="outline-container-orgbe66dbf" class="outline-3">
+<h3 id="orgbe66dbf"><span class="section-number-3">10.2</span> Professor</h3>
 <div class="outline-text-3" id="text-10-2">
 <ul class="org-ul">
 <li>Raffealla carloni</li>
@@ -2322,8 +2422,8 @@ m.falzari@student.rug.nl
 </ul>
 </div>
 </div>
-<div id="outline-container-org8809eee" class="outline-3">
-<h3 id="org8809eee"><span class="section-number-3">10.3</span> Other Students</h3>
+<div id="outline-container-org0dca9fa" class="outline-3">
+<h3 id="org0dca9fa"><span class="section-number-3">10.3</span> Other Students</h3>
 <div class="outline-text-3" id="text-10-3">
 <ul class="org-ul">
 <li>c.m.sreedhara@student.rug.nl</li>
@@ -2334,95 +2434,95 @@ m.falzari@student.rug.nl
 </div>
 </div>
 
-<div id="outline-container-org2beb56d" class="outline-2">
-<h2 id="org2beb56d"><span class="section-number-2">11</span> Todos</h2>
+<div id="outline-container-orge6e3e49" class="outline-2">
+<h2 id="orge6e3e49"><span class="section-number-2">11</span> Todos</h2>
 <div class="outline-text-2" id="text-11">
 </div>
-<div id="outline-container-orgd6b4866" class="outline-3">
-<h3 id="orgd6b4866"><span class="section-number-3">11.1</span> Code</h3>
+<div id="outline-container-org30fba31" class="outline-3">
+<h3 id="org30fba31"><span class="section-number-3">11.1</span> Code</h3>
 <div class="outline-text-3" id="text-11-1">
 </div>
-<div id="outline-container-orga14fc02" class="outline-4">
-<h4 id="orga14fc02"><span class="section-number-4">11.1.1</span> <span class="done DONE">DONE</span> Vanilla Autoencoder</h4>
+<div id="outline-container-orgc780592" class="outline-4">
+<h4 id="orgc780592"><span class="section-number-4">11.1.1</span> <span class="done DONE">DONE</span> Vanilla Autoencoder</h4>
 <div class="outline-text-4" id="text-11-1-1">
 </div>
 </div>
-<div id="outline-container-org65f1bd1" class="outline-4">
-<h4 id="org65f1bd1"><span class="section-number-4">11.1.2</span> <span class="done DONE">DONE</span> VAE</h4>
+<div id="outline-container-org3d7c554" class="outline-4">
+<h4 id="org3d7c554"><span class="section-number-4">11.1.2</span> <span class="done DONE">DONE</span> VAE</h4>
 <div class="outline-text-4" id="text-11-1-2">
 </div>
 </div>
-<div id="outline-container-org5747d0e" class="outline-4">
-<h4 id="org5747d0e"><span class="section-number-4">11.1.3</span> <span class="done DONE">DONE</span> AVB</h4>
+<div id="outline-container-orga03f901" class="outline-4">
+<h4 id="orga03f901"><span class="section-number-4">11.1.3</span> <span class="done DONE">DONE</span> AVB</h4>
 <div class="outline-text-4" id="text-11-1-3">
 </div>
 </div>
-<div id="outline-container-orgbd93d85" class="outline-4">
-<h4 id="orgbd93d85"><span class="section-number-4">11.1.4</span> <span class="done DONE">DONE</span> logging</h4>
+<div id="outline-container-org6d98746" class="outline-4">
+<h4 id="org6d98746"><span class="section-number-4">11.1.4</span> <span class="done DONE">DONE</span> logging</h4>
 <div class="outline-text-4" id="text-11-1-4">
 </div>
 </div>
-<div id="outline-container-org26d696a" class="outline-4">
-<h4 id="org26d696a"><span class="section-number-4">11.1.5</span> <span class="done DONE">DONE</span> tensorboard</h4>
+<div id="outline-container-orgfe871b3" class="outline-4">
+<h4 id="orgfe871b3"><span class="section-number-4">11.1.5</span> <span class="done DONE">DONE</span> tensorboard</h4>
 <div class="outline-text-4" id="text-11-1-5">
 </div>
 </div>
-<div id="outline-container-org4bcc8ff" class="outline-4">
-<h4 id="org4bcc8ff"><span class="section-number-4">11.1.6</span> <span class="done DONE">DONE</span> data loader</h4>
+<div id="outline-container-org6737cfa" class="outline-4">
+<h4 id="org6737cfa"><span class="section-number-4">11.1.6</span> <span class="done DONE">DONE</span> data loader</h4>
 <div class="outline-text-4" id="text-11-1-6">
 </div>
 </div>
-<div id="outline-container-orgb34c498" class="outline-4">
-<h4 id="orgb34c498"><span class="section-number-4">11.1.7</span> <span class="done DONE">DONE</span> cross validation</h4>
+<div id="outline-container-org7381ad7" class="outline-4">
+<h4 id="org7381ad7"><span class="section-number-4">11.1.7</span> <span class="done DONE">DONE</span> cross validation</h4>
 <div class="outline-text-4" id="text-11-1-7">
 </div>
 </div>
-<div id="outline-container-org51efd57" class="outline-4">
-<h4 id="org51efd57"><span class="section-number-4">11.1.8</span> <span class="done DONE">DONE</span> parse config</h4>
+<div id="outline-container-org931997e" class="outline-4">
+<h4 id="org931997e"><span class="section-number-4">11.1.8</span> <span class="done DONE">DONE</span> parse config</h4>
 <div class="outline-text-4" id="text-11-1-8">
 </div>
 </div>
-<div id="outline-container-orgf8433c2" class="outline-4">
-<h4 id="orgf8433c2"><span class="section-number-4">11.1.9</span> <span class="done DONE">DONE</span> writer</h4>
+<div id="outline-container-org7209b94" class="outline-4">
+<h4 id="org7209b94"><span class="section-number-4">11.1.9</span> <span class="done DONE">DONE</span> writer</h4>
 <div class="outline-text-4" id="text-11-1-9">
 </div>
 <ol class="org-ol">
-<li><a id="org90e3f91"></a>Csv writer<br /></li>
-<li><a id="org65e2b38"></a>tensorboard writer<br /></li>
+<li><a id="org251f1d7"></a>Csv writer<br /></li>
+<li><a id="orgcf6ee3d"></a>tensorboard writer<br /></li>
 </ol>
 </div>
-<div id="outline-container-org6190bd8" class="outline-4">
-<h4 id="org6190bd8"><span class="section-number-4">11.1.10</span> <span class="done DONE">DONE</span> validate with different loss</h4>
+<div id="outline-container-org94135e7" class="outline-4">
+<h4 id="org94135e7"><span class="section-number-4">11.1.10</span> <span class="done DONE">DONE</span> validate with different loss</h4>
 <div class="outline-text-4" id="text-11-1-10">
 </div>
 </div>
-<div id="outline-container-org9730acd" class="outline-4">
-<h4 id="org9730acd"><span class="section-number-4">11.1.11</span> <span class="done DONE">DONE</span> Create config parser module</h4>
+<div id="outline-container-orgda6924f" class="outline-4">
+<h4 id="orgda6924f"><span class="section-number-4">11.1.11</span> <span class="done DONE">DONE</span> Create config parser module</h4>
 <div class="outline-text-4" id="text-11-1-11">
 </div>
 </div>
-<div id="outline-container-orgec7bb90" class="outline-4">
-<h4 id="orgec7bb90"><span class="section-number-4">11.1.12</span> HOLD Dict -&gt; nametuple</h4>
+<div id="outline-container-org577f64f" class="outline-4">
+<h4 id="org577f64f"><span class="section-number-4">11.1.12</span> HOLD Dict -&gt; nametuple</h4>
 </div>
-<div id="outline-container-org92c482f" class="outline-4">
-<h4 id="org92c482f"><span class="section-number-4">11.1.13</span> INPROGRESS Graph module</h4>
+<div id="outline-container-org9333298" class="outline-4">
+<h4 id="org9333298"><span class="section-number-4">11.1.13</span> INPROGRESS Graph module</h4>
 </div>
-<div id="outline-container-org4d899f4" class="outline-4">
-<h4 id="org4d899f4"><span class="section-number-4">11.1.14</span> HOLD Collect Data from simulation</h4>
+<div id="outline-container-org7ab6f0e" class="outline-4">
+<h4 id="org7ab6f0e"><span class="section-number-4">11.1.14</span> HOLD Collect Data from simulation</h4>
 </div>
 </div>
-<div id="outline-container-org161180e" class="outline-3">
-<h3 id="org161180e"><span class="section-number-3">11.2</span> Paper</h3>
+<div id="outline-container-orgf6a4c54" class="outline-3">
+<h3 id="orgf6a4c54"><span class="section-number-3">11.2</span> Paper</h3>
 <div class="outline-text-3" id="text-11-2">
 </div>
-<div id="outline-container-org6b7be89" class="outline-4">
-<h4 id="org6b7be89"><span class="section-number-4">11.2.1</span> INPROGRESS Review all papers</h4>
+<div id="outline-container-orgaa2af0c" class="outline-4">
+<h4 id="orgaa2af0c"><span class="section-number-4">11.2.1</span> INPROGRESS Review all papers</h4>
 </div>
-<div id="outline-container-orgdeb14fb" class="outline-4">
-<h4 id="orgdeb14fb"><span class="section-number-4">11.2.2</span> <span class="todo TODO">TODO</span> restructure paper summaries</h4>
+<div id="outline-container-orgd08fc92" class="outline-4">
+<h4 id="orgd08fc92"><span class="section-number-4">11.2.2</span> <span class="todo TODO">TODO</span> restructure paper summaries</h4>
 </div>
-<div id="outline-container-orgfa1b2f5" class="outline-4">
-<h4 id="orgfa1b2f5"><span class="section-number-4">11.2.3</span> <span class="done DONE">DONE</span> Why we use autoencoders</h4>
+<div id="outline-container-orge240da1" class="outline-4">
+<h4 id="orge240da1"><span class="section-number-4">11.2.3</span> <span class="done DONE">DONE</span> Why we use autoencoders</h4>
 <div class="outline-text-4" id="text-11-2-3">
 </div>
 </div>
@@ -2582,7 +2682,7 @@ m.falzari@student.rug.nl
 </div></div>
 <div id="postamble" class="status">
 <p class="author">Author: Massimiliano Falzari (s3459101)</p>
-<p class="date">Created: 2022-03-04 Fri 12:44</p>
+<p class="date">Created: 2022-03-04 Fri 14:18</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
