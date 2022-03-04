@@ -24,6 +24,9 @@ Contains a list of implemented and not autoencoders
 *** [[*Ideas for Hyperparameters][Ideas for Hyperparameters]]
 Contains some ideas for the hyperparameters fitting and some maybe
 clever ideas
+*** [[*INPROGRESS Future Research][Future Research]]
+Contains some ideas for future research, and on ideas that goes beyond
+the thesis
 *** [[*Code][Code]]
 Contains the git repo and the link for the code documentation
 *** [[*Todos][Todos]]
@@ -60,6 +63,9 @@ Of course there can also be other type of categorizations
 (e.g. feature selection, feature extraction,Neural,Manifold based,Local methods etc.)
 In the following sections we will present roughly 2 approaches  per
 category.
+#+CAPTION: The Dimensionality reduction methods timeline
+#+attr_html:  :width 600em
+[[file:resources/dimred_timeline.JPEG]]
 
    #+begin_info
    *NOTE* we will only focus on unsupervised methods since they are
@@ -123,6 +129,9 @@ category.
    data which are therefore completely uncorrelated while maintaining
    most of hte variability of the data. *Note* The Principal
    Components are selected based on the explained variance.
+   #+CAPTION: PCA visualization
+   #+attr_html:  :width 600em
+   [[file:resources/pca.png]]
 *** Assumptions
     + Linear dimensions (i.e. the variables in the dataset must combine in a linear manner)
     + approximately normally distributed data
@@ -137,6 +146,9 @@ category.
 
    The main disadvange is that LDA have good performance only if the
    dataset is Normally distributed.
+   #+CAPTION: LDA vs PCA
+   #+attr_html:  :width 600em
+   [[file:resources/lda.png]]
 *** Assumptions
     + Normally distributed data
     + Linear combination of features
@@ -146,7 +158,7 @@ Conceptually it aims to discover the underline non-linear structure
 of the data set while preserving the distance within local
 neighborhoods.
 
-#+CAPTION: The Autoencoder Structure
+#+CAPTION: LLE visualization
 #+attr_html:  :width 600em
 [[file:resources/lle.jpg]]
 
@@ -184,6 +196,10 @@ This techinique is a 3 steps procedure:
       decomposition (i.e. taking the d largest eigenvalues of the
       kernel)
 
+
+   #+CAPTION: Isomap vs PCA vs LLE
+   #+attr_html:  :width 600em
+   [[file:resources/isomapvspca.jpg]]
 *** Assumptions
     + Computational intensive
     + Euclidean distance for k-nearest neighbors
@@ -351,6 +367,11 @@ Not all of them are explicitly required to have a disentangled
 representation. Particularly the *explicitness* charateristic, since
 linearity is not required to have a disentangled representation (given
 the definition in [fn:def_dis_repr])
+
+
+#+CAPTION: Comparison of entangled vs disentangled representation
+#+attr_html:  :width 600em
+[[file:resources/dis_vs_ent.png]]
 
 So now that we have a general overview of what we mean when we talk
 about disentangled representation, we can move on in understanding
