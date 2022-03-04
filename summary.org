@@ -397,14 +397,143 @@ more complex settings.
 Now we will proceed to show the different architectures that will used
 in the thesis and we will justify the decision on each one.
 
-** TODO Variational inference
+** Variational inference
 Before diving into the different VAEs architecture let's take a step
 back and let's understand the core concept of Variational inference in
-the context of generative modelling. This will be an informal overview
-on it and the only goal is to give the reader a intuition behind the
-different mathematical techniques that will be used.
+Bayesian modelling. In general, Variational inference comes from
+[[https://en.wikipedia.org/wiki/Calculus_of_variations][Variational Calculus]]
 
-The main reference for this introduction is [fn:vae_tutorial].
+The main reference of this overview is the paper [fn:varinf_review]
+
+The core problem is to approximate a probabability density which can
+be hard to compute or even intractable computationally.
+
+Formally the problem can be expressed as following:
+
+Let $x=x_{1:n}$ be the dataset or observed variables and let
+$z=z_{1:m}$ the set of latent variables
+The problem is to compute the conditional density of $z$ over $x$
+$$p(z|x)=\frac{p(z,x)}{p(x)}$$
+Rewriting the nominator using Bayes rules we get :
+$$p(z|x) = \frac{p(x|z)p(z)}{p(x)}$$
+so $p(x|z)$ is the likelyhood and $p(z)$ is the prior of the latent
+variable.
+We can rewrite the =evidence= (or the marginal) such that:
+$$p(x) =\int p(z,x) dz$$
+#+begin_info
+*NOTE* in a lot of cases the =evidence= integral is unavaible in closed
+ form and therefore the integral is most of the time intractable (also
+ in the case we can rewrite the formula most of the time the time we
+ need to compute such integral is exponential and unfeasible with
+ large data sets)
+#+end_info
+
+Therefore, since in the general case computing this integral is
+intractable, we want to find a surrogate posterior which is close
+enough to the real one but it is more tractable and easier to work
+with.
+We can express this surrogate as:
+$$q(z)\approx p(z|x)$$
+
+Therefore to find such a surrogate, in an optimization problem
+framework, we first need to find how to asses the "godness of the
+fit".
+In other words, we need to find a measure that tell us how close
+$q(z)$ is to $p(z|x)$.
+The most natural measure of distributions distance is the
+=KL-divergence=. This metric comes directly from *Information theory*
+(*TODO* explain better KL-divergence)
+
+We can write how optimization problem in terms of the =KL-divergence=
+as follows:
+$$ q^*(z)=argmin_{q(z)\in Q}KL(q(z)||p(z|x))$$
+
+$Q$ is the family of "simple" distribution from which we sample our
+$q(z)$. *Note* simple here just means we have an analytical form of
+the distribution
+
+The =KL-divergence= is expressed as:
+$$KL(q(z)||p(z|x)) = \mathbb{E}_{z \thicksim
+q(z)}\left[log\left(\frac{q(z)}{p(z|x)}\right)\right]$$
+
+As we can see we still have the intractable posterior $p(z|x)$
+We can rearrange the equation as following: (*note* expectation in a
+continuos situation it is express as an integral)
+$$KL(q(z)||p(z|x)) = \int q(z) log\left(\frac{q(z)}{p(z|x)}\right)$$
+using the aforementioned definition of the posterior we get
+$$= \int q(z) log\left(\frac{q(z)p(x)}{p(z,x)}\right) dz$$
+Now we can rearrange and we can separete the integral in two different
+part:
+$$= \int q(z) log\left(\frac{q(z)}{p(z,x)}\right)dz + \int q(z)
+log(p(x))dz $$
+Now we can see that we have two different expectations:
+$$= \mathbb{E}_{z \thicksim
+q(z)}\left[log\left(\frac{q(z)}{p(z,x)}\right)\right] + \mathbb{E}_{z
+\thicksim q(z)}\left[log(p(x))\right]$$
+
+Now it is important to notice that the second expectation does not
+contains $z$ therefore we can remove the expectation operation.
+Finally, we will do another further rearrangement to the first
+expectation. Specifically we will invert the numerator with the
+denominator, and to make it mathematically sound we need to negate
+it (exploiting logarithms properties)
+$$= -\mathbb{E}_{z \thicksim
+q(z)}\left[log\left(\frac{p(z,x)}{q(z)}\right)\right] + log(p(x))$$
+
+Let us call the first expectation $\mathcal{L}(q)$
+Now we have the final form of the =KL-divergence=:
+$$KL = - \mathcal{L}(q) + log(p(x))$$
+$p(x)$ is known as the marginal probability.
+$log(p(x))$ is known as the evidence and it will always be negative
+since taking the log of something between 0 and 1 will always result
+in negative values.
+Another important point is that $log(p(x))$ will be a costant since it
+does not change given the dataset (i.e. the obeserved variables)
+
+The =KL-divergence= is by definition something positive. Therefore,
+$\mathcal{L}(q)$ must be negative in order for the formula to have
+sense.
+
+Also $\mathcal{L}(q)$ must be smaller than the evidence ($log(p(x))$),
+therefore, $mathcal{L}(q)$ is also known as Evidence Lower Bound
+(ELBO).
+
+Finally, we also know that $\mathcal{L}{q}=log(p(x))$ is true iff
+$KL(q(z)||p(z,x))=0$
+
+Therefore,we just derived the =ELBO= and we know that it is tractable.
+So now instead of minimizing the =KL-divergence= we can maximizing the
+=ELBO=.
+
+The optimization problem we had before was:
+$$ q^*(z)=argmin_{q(z)\in Q}KL(q(z)||p(z|x))$$
+Now, we have:
+$$q^*(z)=argmax_{q(z)\in Q}\mathcal{L}(q)$$
+
+To conclude, let us rewrite the =ELBO= ($\mathcal{L}(q)$) in a more
+tractable for and one that you will see more often in papers and
+literature.
+$$ELBO(q)= \mathbb{E}\left[log\left(p(z,x)\right)\right] -
+\mathbb{E}[log(q(z))]$$
+Another important form is the one in terms of the =KL-divergence=
+Directly quoting from  [fn:varinf_review]
+#+begin_verse
+Examining the $ELBO$ gives intuitions about the optimal variational density. We rewrite the
+ELBO as a sum of the expected log likelihood of the data and the KL divergence between the
+prior $p(z)$ and $q(z)$,
+#+end_verse
+
+$$ELBO(q)=\mathbb{E}[log(p(x|z))] - KL(q(z)||p(z))$$
+
+This will be the form we will use while optimizing Variational
+Autoencoders and its derivatives
+
+
+
+
+
+
+
 
 ** TODO Variational Autoencoder
 ** TODO Adversarial Autoencoder
@@ -508,8 +637,25 @@ CLOSED: [2022-01-21 Fri 15:24]
 
 Quite interesting paper about the 10 grand problems/challenges in the
 current Machine learning state of research
-*Note* the 6th one is about unsupervised disentaglement of neural networks
+*Note* the 6th one is about unsupervised disentaglement of neural
+networks
+*** Variational Inference: A Review for Statisticians[fn:varinf_review]
+[fn:varinf_review]
+[[file:background/VariationalInference.pdf]]
+
+
+
+
+Review paper on Variational inference, explain in mathematical details
+the theory and compare it with MCMC (Markov chain Monte Carlo) methods.
 ** Autoencoders:
+*** Recent advances in Autoencoder-based Representation Learning [fn:ae_review]
+[fn:ae_review]
+[[file:background/AE_review.pdf]]
+
+
+Interesting paper which reviews a lot of up to date techniques for
+Autoencoders and disentangled representations.
 *** \beta-VAE: Learning basic visual concepts with a constrained variational framework[fn:b-vae]
 [fn:b-vae]
 [[file:background/beta_vae_learning_basic_visual.pdf]]
