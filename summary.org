@@ -205,7 +205,6 @@ This techinique is a 3 steps procedure:
     + Euclidean distance for k-nearest neighbors
 
 
-
 ** Intermezzo
 So, we have rapidly been through classical and non dimensionality
 reduction technique. The main focus of this thesis, though, is to
@@ -861,7 +860,21 @@ and how it does it.
 **** Summary
       + The concept of causuality seems pretty interesting in
         particular with respect to phisics and real environments,
-        however, left for future res
+        however, left for future re
+*** Life-Long Disentangled representation learning with Cross-domain Latent Homologies [fn:vase]
+[fn:vase]
+[[file:background/VASE.pdf]]
+
+
+
+Really interesting technique for life-long learning with AE.
+It introduce the VASE architecture which aims to be able to learn in a
+continuouly change environment. More specifically it aims to transfer
+old learned knowledge to new environment when possible and using new
+latent space when needed. It seems a really intersting architecture
+for active perception in an RL framework
+*Todo* search for further research using such method
+*Todo* read again and understand deeply the math.
 ** Dimensionality reduction:
 *** Auto-encoder based dimensionality reduction [fn:ae_dimred]
 [fn:ae_dimred]
