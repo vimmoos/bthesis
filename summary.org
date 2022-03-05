@@ -204,7 +204,6 @@ This techinique is a 3 steps procedure:
     + Computational intensive
     + Euclidean distance for k-nearest neighbors
 
-
 ** Intermezzo
 So, we have rapidly been through classical and non dimensionality
 reduction technique. The main focus of this thesis, though, is to
@@ -394,6 +393,116 @@ more complex settings.
 
 Now we will proceed to show the different architectures that will used
 in the thesis and we will justify the decision on each one.
+*** Mathematical Background and explaination of Disentangled representations
+From a mathematical point of view the definition of disentangled
+representatiton is based on group theory and group representation
+theory(all the mathematical theory in this paragraph was summaried
+from [fn:def_dis_repr])
+
+So first of all let us introduce the basic concepts of group theory.
+
+A group is defined by a tuple $(\mathcal{G},\circ)$.
+
+$\mathcal{G}$ is a set, $\circ$ is defined as following:
+$$\circ : \mathcal{G} \times \mathcal{G} \rightarrow \mathcal{G}$$
+
+In order for the tuple to be consider a group the binary operator
+$\circ$ must have the following properties:
+
++ Associativity
+  $$\forall x,y,z \in \mathcal{G} : x \circ (y \circ z) = (x \circ y)
+  \circ z$$
++ Identity
+  $$\exists e \in \mathcal{G}, \forall x \in \mathcal{G} : e \circ x =
+  x \circ e = x $$
++ Inverse
+  $$\forall x \in \mathcal {G},\exists x^{-1} \in \mathcal{G} : x \circ
+  x^{-1} = x^{-1}\circ x = e$$
+
+If the tuple has these properties then it is considered a =group=.
+
+Now let us define what a =group's action= is:
+Given a tuple $(\mathcal{G},\circ)$ a =group's action= is a binary
+function such that
+$$\cdot : \mathcal{G} \times \mathcal{X} \rightarrow \mathcal{X}$$
+With the following properties:
+$$e \cdot x = x \ \ \ \ \forall x \in \mathcal{X}$$
+$$(g \cdot h) \cdot x = g \cdot (h \cdot x) \ \ \ \ \forall g,h \in
+\mathcal{G},x \in \mathcal {X}$$
+
+$\mathcal{X}$ can be any structured space (e.g. topological space,
+vector space ect.)
+In the case $\mathcal{X}$ is a vector space we have the specialization
+of the above properties as:
+$$g(x + y) = gx + gy \ \ \ \ \forall g \in \mathcal{G},\forall x,y \in
+\mathcal{X}$$
+$$g(\lambda x) = \lambda (gx) \ \ \ \ \ \forall g \in \mathcal
+{G},\lambda \in \mathbb{R}, x \in \mathcal {X}$$
+
+So now that we have the basic tools, let us first define what a
+Disentagled group of action is.
+
+$$\cdot: \mathcal {G} \times \mathcal {X} \rightarrow \mathcal{X}$$
+
+a =group's action= is disentangled with respect to a particular
+decomposition $\mathcal{G} = \mathcal{G_1} \times \mathcal{G_2}$
+if exists $\mathcal{X} = \mathcal{X_1} \times \mathcal{X_2}$ and
+subactions $\cdot_i = \mathcal{G_i} \times \mathcal{X_i} =
+\mathcal{X_i}$ where $i \in \{1,2\}$ such that:
+$$(g_1,g_2)\cdot(v_1,v_2) = (g_1 \cdot_1 v_1, g_2 \cdot v_2)$$
+The important thing to notice here is that we are simply saying that
+each subaction $\cdot_i$ modified the respective $\mathcal{X_i}$ but
+do not modify other $\mathcal{X}$ so it is invariant to the other
+$\mathcal{X}$
+Final note, if $\mathcal{X}$ has additional structure we would like
+the subaction to preserve such structure. So for example is $\cdot$ is
+linear we want $\cdot_i$ to be linear too.
+
+So now we can see what a disentangled representation is with respect
+to this framework.
+
+Let us first introduce some terminology:
+$\mathcal{W}$ is a set of world-state. There exists a generative
+process such that $b:\mathcal{W} \rightarrow \mathcal{O}$ where
+$\mathcal{O}$ are the observations. Then, there exists an inference
+process such that $h: \mathcal{O} \times \mathcal{Z}$ where
+$\mathcal{Z}$ is the agent representation. We will assume that
+$\mathcal{Z}$ is a vector space. So now with function composition we
+can say that exists an $f$ such that $f:\mathcal{W} \rightarrow
+\mathcal{Z}$.
+Now lets say that there exists a group's of action $\mathcal{G}$ such
+that $\cdot : \mathcal{G} \times \mathcal{W} \rightarrow \mathcal{W}$
+which describes the symmetries present in $\mathcal{W}$. We would like
+to find another group's action such that it maintains these symmetries
+in $\mathcal{Z}$
+and it is defined as following: $\cdot' : \mathcal{G} \times
+\mathcal{Z} \rightarrow \mathcal{Z}$
+Such group's action will exists if and only if:
+$$g \cdot f(w) = f(g\cdot w) \ \ \ \ \forall g \in \mathcal{G}, w \in
+\mathcal{W}$$
+If that is the case,$f$ is called a  $\mathcal{G}$ -morphism or
+equivariant map.
+Of course there is no guarantee that $\cdot'$ exists.
+If $f$ is =bijective= we can define $\cdot'$ in terms of $\cdot$ as
+follwing:
+$$g\cdot z = f(g \cdot f^-1(z))$$
+If $f$ has other properties see [fn:def_dis_repr]
+So we can say that $\mathcal{Z}$ is disentangled with respect to a
+decomposition $\mathcal{G} = \mathcal{G_i} \times ... \times
+\mathcal{G_n}$ if:
++ exists $\cdot$ such that $\cdot: \mathcal{G} \times \mathcal{Z}
+  \rightarrow \mathcal{Z}$
++ exists $f$ such that $f:\mathcal{W} \rightarrow \mathcal{Z}$ is a
+  $\mathcal{G}$ -morphism or equivariant map.
++  exists a decomposition of $\mathcal{Z} = \mathcal{Z_1} \times
+  ... \times \mathcal{Z_n}$ and a disentangled group's action which
+  act on it $\cdot$ such that $\cdot_i : \mathcal{G_i} \times
+  \mathcal{Z_i} \rightarrow \mathcal{Z_i}$
+
+
+
+
+
 
 ** Variational inference
 Before diving into the different VAEs architecture let's take a step
