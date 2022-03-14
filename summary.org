@@ -38,12 +38,12 @@ Self explanatory
 * Lines of Thoughts
 ** Dimensionality Reduction
 The concept of dimensionality reduction is quite
-straigthforward. The idea is to reduce the number of
+straightforward. The idea is to reduce the number of
 dimensions/features while retaining maximum information.
-Even thought the definition is quite simple being able to perform
-such transformation is not trivial.
+Even though the definition is quite simple, being able to perform
+such transformations is not trivial.
 
-Ideally, the reasons for performing such proceses are:(*Note* this
+Ideally, the reasons for performing such processes are:(*Note* this
 list is not complete but gives a general overview)
    + Avoid the curse of dimensionality
    + Reducing potential overfitting of further processing
@@ -54,14 +54,15 @@ list is not complete but gives a general overview)
    + Removing Correlated features
    + Removing redundant features
 
-There are several methods that are able to perform this
-transformation. They are usually divided in 2 category:
+Several methods can perform this
+transformation. They are usually divided into 2 categories:
    + Linear methods
    + Non-Linear methods
 
-Of course there can also be other type of categorizations
-(e.g. feature selection, feature extraction,Neural,Manifold based,Local methods etc.)
-In the following sections we will present roughly 2 approaches  per
+Of course, there can also be other types of categorizations
+(e.g. feature selection, feature extraction, Neural, Manifold based,
+Local methods etc.)
+In the following sections, we will present roughly 2 approaches per
 category.
 #+CAPTION: The Dimensionality reduction methods timeline
 #+attr_html:  :width 600em
@@ -69,7 +70,7 @@ category.
 
    #+begin_info
    *NOTE* we will only focus on unsupervised methods since they are
-   the most suitable for real-life situation where having labeled data
+   the most suitable for real-life situations where having labelled data
    is hard and expensive.
    #+end_info
 
@@ -81,29 +82,29 @@ category.
    *Note*  most of the the time is not an \equal but an \approx
    #+end_info
 
-   The network is therefore composed by two different sub networks. An
+   The network is therefore composed of two different sub-networks. An
    Encoder which can be defined as:
    $$encode \rightarrow \mathbb{R}^n \times \mathbb{R}^m $$
    And a Decoder which can be defined as:
    $$decode \rightarrow \mathbb{R}^m \times \mathbb{R}^n $$
 
-   There two constraint to this two function. The first one is that
+   There are two constraints to these two functions. The first one is that
    *decode* must be approximately the inverse of the *encode*[fn:ae_saferl]. The second one is that
    $$ m << n $$
    #+begin_info
-   *NOTE* when the second constraint is sudisfacted, the autoencoder is
-   cosidered an undercomplete autoencoder. However, every time we will
-   use the autoencoder word we will refer to undercomplete autoencoder.
+   *NOTE* when the second constraint is satisfied, the autoencoder is
+   considered an under-complete autoencoder. However, every time we will
+   use the autoencoder word we will refer to under-complete autoencoder.
    #+end_info
    The second constraint is an architectural one, meanwhile the first one
-   is a functional constraint which will be achived after the network is
+   is a functional constraint that will be achieved after the network is
    trained.
 
-   The error function is therefore a reconstruction error or distance
-   measure between the input and outuput.
+   The error function is, therefore, a reconstruction error or distance
+   measure between the input and output.
 
    The layer between the Encoder and the Decoder express what is usually
-   knonw as *Latent space* which dimensionality is $\mathbb{R}^m$.
+   known as *Latent space* which dimensionality is $\mathbb{R}^m$.
 
    We will from now on refer to the *Latent space* as $\hat{z}$.
    For clarity we can rewrite the above formulas as:
@@ -122,17 +123,18 @@ category.
    probably one of the most used methods because of its reliability
    and explainability.
    Conceptually, PCA find the directions of maximum variance in the
-   data and project it into a new space with fewer dimension than the
+   data and project it into a new space with fewer dimensions than the
    data
 
    The crucial point of PCA is to find the Principal Component of the
    data which are therefore completely uncorrelated while maintaining
-   most of hte variability of the data. *Note* The Principal
+   most of the variability of the data. *Note* The Principal
    Components are selected based on the explained variance.
+
    #+CAPTION: PCA visualization
    #+attr_html:  :width 600em
    [[file:resources/pca.png]]
-*** Assumptions
+*** Assumptions/downfalls
     + Linear dimensions (i.e. the variables in the dataset must combine in a linear manner)
     + approximately normally distributed data
 ** LDA
@@ -144,12 +146,12 @@ category.
    between the mean of each class while minimizing the spread within
    the class.
 
-   The main disadvange is that LDA have good performance only if the
+   The main disadvantage is that LDA have good performance only if the
    dataset is Normally distributed.
    #+CAPTION: LDA vs PCA
    #+attr_html:  :width 600em
    [[file:resources/lda.png]]
-*** Assumptions
+*** Assumptions/downfalls
     + Normally distributed data
     + Linear combination of features
 ** LLE
@@ -170,14 +172,14 @@ This techinique is a 3 steps procedure:
       in a particular neighborhoods have 0 weight)
    3. Computes the wieghts that best reconstruct the vectors from its
       neighbors
-*** Assumptions
+*** Assumptions/downfalls
     + Euclidean distance to compute k-nearest neighbors
     + Quite sensible to outliers and noise
 ** Isomap
-   Isometric Mapping (Isomap) is a non-linear methods which belong to
+   Isometric Mapping (Isomap) is non-linear method which belong to
    the category of Manifold Learning.
 
-   Ideally it is quite similar to LLE, however, the crucial objective
+   Ideally, it is quite similar to LLE, however, the crucial objective
    of this mapping is to maintain a geodesic distance between two
    points.
 
@@ -187,36 +189,34 @@ This techinique is a 3 steps procedure:
     Learning method
    #+end_info
 
-   This techinique is also defined by a 3 steps process:
-   1. Construct a neighborhoods graph (equivalent to the first step of
+   This technique is also defined by a 3 steps process:
+   1. Construct a neighbourhoods graph (equivalent to the first step of
       LLE)
-   2. Compute shortest path between points (using either Dijkstra's or
+   2. Compute the shortest path between points (using either Dijkstra's or
       Floyd-Warshall algorithm)
    3. Construct a d-dimensional embedding by a partial eigenvalue
       decomposition (i.e. taking the d largest eigenvalues of the
       kernel)
 
-
    #+CAPTION: Isomap vs PCA vs LLE
    #+attr_html:  :width 600em
    [[file:resources/isomapvspca.jpg]]
-*** Assumptions
+*** Assumptions/downfalls
     + Computational intensive
     + Euclidean distance for k-nearest neighbors
 
 ** Intermezzo
-So, we have rapidly been through classical and non dimensionality
-reduction technique. The main focus of this thesis, though, is to
-perform what is usually refered as Representation Learning.
+So, we have rapidly been through classical and not dimensionality
+reduction techniques. The main focus of this thesis, though, is to
+perform what is usually referred to as Representation Learning.
 
-Of course, it is quite trivial to see how Representation Learning
-and Dimensionality reduction are strictly related.
+Of course, it is quite trivial to see how Representation Learning and Dimensionality reduction are strictly related.
 
-Indeed, a representation usually has fewer dimension than the
+Indeed, a representation usually has fewer dimensions than the
 original input. A good representation also should maintain the
 most important information/features of the input space.
 
-Therefore, the two branch are strictly related. However, it is
+Therefore, the two branches are strictly related. However, it is
 important to notice that a good Dimensionality reduction method
 does not always produce a good representation (by good we mean that
 it has all the important features needed to learn a mapping between
@@ -235,67 +235,66 @@ used as input in an RL-based
 framework (for
 reference : [fn:darla] [fn:varl] [fn:robot_skill_dae] [fn:dae_efficient_rl] [fn:dvrl] [fn:dreaming_vae])
 
-Before jumping into more advanced Autoencoders-based techinique we
-will brefly introduce MDPs Generalization.
+Before jumping into more advanced Autoencoders-based technique we
+will briefly introduce MDPs Generalization.
 This is another important point in the thesis since, the two main
-objective of constructing low dimensional latent space for an RL
+objectives of constructing low dimensional latent space for an RL
 algorithm are:
    + Faster and more stable convergence
    + Better Generalization property
 
 The first point seems quite intuitive. Having a low dimensional
-state space should results in a faster and more stable convergence
+state-space should result in a faster and more stable convergence
 since the RL algorithm needs to  learn a mapping from a low dimensional
-state space to action which should be easier than learning a mapping from
+state-space to action which should be easier than learning a mapping from
 a high dimensional state space to action.
 
-Another intersting point made in [fn:darla] is that all Deep
+Another interesting point made in [fn:darla] is that all Deep
 Reinforcement Learning (DRL) algorithm implicitly learns a first
 mapping from high dimensional state space to low dimensional state
 space and then the maps this low dimensional state space to
 action.
-Therefore, by performing dimensionality reduction we take away the
-concern of learning a good representation from the DRL algorithm
+Therefore, by performing dimensionality reduction we take away the concern of learning a good representation from the DRL algorithm
 which therefore will only focus on learning a mapping from state to
 action directly.
 
-Other valueable property of doing such a process are described in
+Other valuable properties of doing such a process are described in
 the next chapter.
 
 ** MDPs Generalization
 For formal description of this concept look up at [fn:darla] (section 2.2)
-The idea though is quite intuitive. Let assume that we have a
-=natural world= from which we are able to sample MDPs. The crucial
+The idea though is quite intuitive. Let us assume that we have a
+=natural world= from which we can sample MDPs. The crucial
 characteristic of these MDPs is that they all do have the same
 action space but they have differences between the state spaces.
 However, since we are sampling these MDPs from the same =natural
-world= these state spaces must have some structural similiarity
+world= these state spaces must have some structural similarity
 (i.e. isomorphisms)
 
-Therefore, in order to have good generalization property, we need
-to construct a good representation which aims to represent the
-state space of the =natural world=. In order to do so, we cannot
-leave this concern to an DRL methods for the following reason.
+Therefore, to have good generalization property, we need
+to construct a good representation that aims to represent the
+state space of the =natural world=. To do so, we cannot
+leave this concern to a DRL method for the following reason.
 
-Since DRL is maximizing some objective, it make sense that the best
-representation is the most MDP-entangled one and therfore is the
+Since DRL is maximizing some objectives, it makes sense that the best
+representation is the most MDP-entangled one and therefore is the
 one that is guided by the learning process to learn.[fn:darla]
 Therefore, if we do not move this concern outside the DRL we
-will have poor generalization cability, particularly without extensive
-fine tuning.
+will have poor generalization ability, particularly without extensive
+fine-tuning.
 
 Here, Dimensionality reduction methods such as Autoencoders comes
-to rescue. Since they do not maximize the same objective as the DRL
+to the rescue. Since they do not maximize the same objective as the DRL
 we can guide the process of learning a representation as we
 please.
-Moreover, we will discover in the nexts chapters how it is crucial
-to aims for disentagled representation.
+Moreover, we will discover in the next chapters how it is crucial
+to aims for disentangled representation.
 
 The main downfall of moving the concern of learning a
-representation outside DRL is that we need to becarefull of the
+representation outside DRL is that we need to be careful of
 what kind of dataset we use to train the autoencoders. It is
 crucial that the dataset has big variability and covers most of the
-"visible" state space. This is because, a lot of autoencoders
+"visible" state space. This is because a lot of autoencoders
 architecture have weird/undefined behaviour in point of the space
 not explored during training which is not desirable.
 
@@ -304,13 +303,13 @@ Other potential downfalls are:
    + Risk of losing important information for the DRL algorithm
    + Non-trivial definition of AE-hyperparameters
 
-Since usually the AE objective is centered on the reconstruction
-error it is not trivial to focus on learning usefull representations
+Since usually the AE objective is centred on the reconstruction
+error it is not trivial to focus on learning useful representations
 as opposed to learning representations which are based on the
-ability of the decoder to achive better reconstruction errors.
-Therefore, tradeoff must be made in order to achive usefull
+ability of the decoder to achieve better reconstruction errors.
+Therefore, a tradeoff must be made to achieve useful
 representations for RL. We will see in future sections how different
-AE architectures deals with this tradeoff.
+AE architectures deal with this tradeoff.
 
 ** Disentagled Representations
 This is a big topic in current AI research [fn:ml_survey] (6th big
@@ -320,19 +319,19 @@ In the literature is not entirely clear what we mean when we talk
 about disentangled representations. However, some research  and effort
 was made to have a formal definition [fn:def_dis_repr]
 It seems, following their[fn:def_dis_repr] definition, that the
-concept of disentagled is quite similar to the concept of symmetry in
-physics. Physics, indeed, can be seen as an indept study of
+concept of disentangled is quite similar to the concept of symmetry in
+physics. Physics, indeed, can be seen as an in-depth study of
 symmetries (see More is different from P.W.Anderson in Science which
 stated "it is only slightly overstating the case to say that physics
 is the study of symmetry")
 
 This is quite important because, given this point of view, it is
 easier to define formally (i.e. mathematically) what are the
-properties of a disentagled representations.
+properties of disentangled representations.
 
 As stated in [fn:def_dis_repr]
 #+begin_verse
-Intuitevely. we define a vector representation as disentangled, if it can be decomposed into a number of subspaces,each one of which is compatible with, and can be transformed independently by a unique symmetry transformation
+Intuitively. we define a vector representation as disentangled if it can be decomposed into a number of subspaces, each one of which is compatible with, and can be transformed independently by a unique symmetry transformation
 #+end_verse
 
 The paper[fn:def_dis_repr], then goes towards defining more formally
@@ -342,11 +341,10 @@ Of course, this is one point of view on disentangled representations,
 there are different ones, however, this is to the best of our
 knowledge the best formal attempt to define it.
 
-Another important point is that this "new" definition tries to put
-together all the different approaches/point of view that were present
+Another important point is that this "new" definition tries to put together all the different approaches/points of view that were present
 in the literature at that time.
-The main 3 charateristic that the authors identifies are:
-modularity,compactness and explicitness.
+The main 3 characteristics that the authors identify are:
+modularity, compactness and explicitness.
 Directly quoting from [fn:def_dis_repr]:
    + *Modularity*
      "measures whether a
@@ -357,11 +355,11 @@ Directly quoting from [fn:def_dis_repr]:
      single lantent dimension"
    + *Explicitness*
      "measures whether the values of all of the data generative factors
-     can be decoded from the representation usign a linear
+     can be decoded from the representation using a linear
      transformation"
 
 Not all of them are explicitly required to have a disentangled
-representation. Particularly the *explicitness* charateristic, since
+representation. Particularly the *explicitness* characteristic, since
 linearity is not required to have a disentangled representation (given
 the definition in [fn:def_dis_repr])
 
@@ -372,31 +370,31 @@ the definition in [fn:def_dis_repr])
 
 So now that we have a general overview of what we mean when we talk
 about disentangled representation, we can move on in understanding
-whether having such a representation is usefull or at least is better
-than having a "normal" representation (i.e. without forcing any of the
+whether having such a representation is useful or at least is better than having a "normal" representation (i.e. without forcing any of the
 properties aforementioned)
 
-Understanding whether it is usefull having such a representation is
-also not a trivial task, and the literature is not clear on it.
-Most papers, claims that having such a thing is usefull for three main
+Understanding whether it is useful having such a representation is
+also, not a trivial task and the literature is not clear on it.
+Most papers, claims that having such a thing is useful for three main
 reasons [fn:dis_usefull]:
     + more sample-efficient
     + less sensitive to nuisance variables
     + better in terms of generalization
 This has been shown to be experimentally correct[fn:dis_usefull],
-however, from a formal point of view it is not clear why this is the
+however, from a formal point of view, it is not clear why this is the
 case.
 
 That is another motivation for conducting this thesis on disentangled
-representation to see whether this findings translates to harder and
+representation to see whether these findings translate to harder and
 more complex settings.
 
-Now we will proceed to show the different architectures that will used
+Now we will proceed to show the different architectures that will be used
 in the thesis and we will justify the decision on each one.
+
 *** Mathematical Background and explaination of Disentangled representations
 From a mathematical point of view the definition of disentangled
-representatiton is based on group theory and group representation
-theory(all the mathematical theory in this paragraph was summaried
+representation is based on group theory and group representation
+theory(all the mathematical theory in this paragraph was summarised
 from [fn:def_dis_repr])
 
 So first of all let us introduce the basic concepts of group theory.
@@ -431,7 +429,7 @@ $$(g \cdot h) \cdot x = g \cdot (h \cdot x) \ \ \ \ \forall g,h \in
 \mathcal{G},x \in \mathcal {X}$$
 
 $\mathcal{X}$ can be any structured space (e.g. topological space,
-vector space ect.)
+vector space etc.)
 In the case $\mathcal{X}$ is a vector space we have the specialization
 of the above properties as:
 $$g(x + y) = gx + gy \ \ \ \ \forall g \in \mathcal{G},\forall x,y \in
@@ -440,7 +438,7 @@ $$g(\lambda x) = \lambda (gx) \ \ \ \ \ \forall g \in \mathcal
 {G},\lambda \in \mathbb{R}, x \in \mathcal {X}$$
 
 So now that we have the basic tools, let us first define what a
-Disentagled group of action is.
+Disentangled group of action is.
 
 $$\cdot: \mathcal {G} \times \mathcal {X} \rightarrow \mathcal{X}$$
 
@@ -454,8 +452,8 @@ The important thing to notice here is that we are simply saying that
 each subaction $\cdot_i$ modified the respective $\mathcal{X_i}$ but
 do not modify other $\mathcal{X}$ so it is invariant to the other
 $\mathcal{X}$
-Final note, if $\mathcal{X}$ has additional structure we would like
-the subaction to preserve such structure. So for example is $\cdot$ is
+Final note, if $\mathcal{X}$ has an additional structure we would like
+the subaction to preserve such structure. So for example if $\cdot$ is
 linear we want $\cdot_i$ to be linear too.
 
 So now we can see what a disentangled representation is with respect
@@ -499,11 +497,6 @@ decomposition $\mathcal{G} = \mathcal{G_i} \times ... \times
   act on it $\cdot$ such that $\cdot_i : \mathcal{G_i} \times
   \mathcal{Z_i} \rightarrow \mathcal{Z_i}$
 
-
-
-
-
-
 ** Variational inference
 Before diving into the different VAEs architecture let's take a step
 back and let's understand the core concept of Variational inference in
@@ -512,7 +505,7 @@ Bayesian modelling. In general, Variational inference comes from
 
 The main reference of this overview is the paper [fn:varinf_review]
 
-The core problem is to approximate a probabability density which can
+The core problem is to approximate a probability density that can
 be hard to compute or even intractable computationally.
 
 Formally the problem can be expressed as following:
@@ -528,9 +521,9 @@ variable.
 We can rewrite the =evidence= (or the marginal) such that:
 $$p(x) =\int p(z,x) dz$$
 #+begin_info
-*NOTE* in a lot of cases the =evidence= integral is unavaible in closed
+*NOTE* in a lot of cases the =evidence= integral is unavailable in closed
  form and therefore the integral is most of the time intractable (also
- in the case we can rewrite the formula most of the time the time we
+ in this case, we can rewrite the formula, the time we
  need to compute such integral is exponential and unfeasible with
  large data sets)
 #+end_info
@@ -543,9 +536,9 @@ We can express this surrogate as:
 $$q(z)\approx p(z|x)$$
 
 Therefore to find such a surrogate, in an optimization problem
-framework, we first need to find how to asses the "godness of the
+framework, we first need to find how to assess the "goodness of the
 fit".
-In other words, we need to find a measure that tell us how close
+In other words, we need to find a measure that tells us how close
 $q(z)$ is to $p(z|x)$.
 The most natural measure of distributions distance is the
 =KL-divergence=. This metric comes directly from *Information theory*
@@ -594,11 +587,11 @@ $p(x)$ is known as the marginal probability.
 $log(p(x))$ is known as the evidence and it will always be negative
 since taking the log of something between 0 and 1 will always result
 in negative values.
-Another important point is that $log(p(x))$ will be a costant since it
-does not change given the dataset (i.e. the obeserved variables)
+Another important point is that $log(p(x))$ will be a constant since it
+does not change given the dataset (i.e. the observed variables)
 
 The =KL-divergence= is by definition something positive. Therefore,
-$\mathcal{L}(q)$ must be negative in order for the formula to have
+$\mathcal{L}(q)$ must be negative for the formula to have
 sense.
 
 Also $\mathcal{L}(q)$ must be smaller than the evidence ($log(p(x))$),
@@ -608,8 +601,8 @@ therefore, $mathcal{L}(q)$ is also known as Evidence Lower Bound
 Finally, we also know that $\mathcal{L}{q}=log(p(x))$ is true iff
 $KL(q(z)||p(z,x))=0$
 
-Therefore,we just derived the =ELBO= and we know that it is tractable.
-So now instead of minimizing the =KL-divergence= we can maximizing the
+Therefore, we just derived the =ELBO= and we know that it is tractable.
+So now instead of minimizing the =KL-divergence= , we can maximise the
 =ELBO=.
 
 The optimization problem we had before was:
@@ -626,7 +619,7 @@ Another important form is the one in terms of the =KL-divergence=
 Directly quoting from  [fn:varinf_review]
 #+begin_verse
 Examining the $ELBO$ gives intuitions about the optimal variational density. We rewrite the
-ELBO as a sum of the expected log likelihood of the data and the KL divergence between the
+ELBO as a sum of the expected log-likelihood of the data and the KL divergence between the
 prior $p(z)$ and $q(z)$,
 #+end_verse
 
@@ -638,7 +631,7 @@ Autoencoders and its derivatives
 ** Variational Autoencoder
 The Variational autoencoder is a variation of the standard [[*Autoencoder][Autoencoder]]
 architecture.
-The first, and crucial, difference is that instead of mapping one data
+The first and crucial difference is that instead of mapping one data
 point to one latent point, it encodes the data point into a
 distribution. Therefore, transforming both encoder and decoder into
 probabilistic ones instead of deterministic (like in standard
@@ -659,10 +652,10 @@ more stable and reliable learning process)
 Given this change in architecture, also the loss function will have to
 change to address the new needs.
 In particular, the loss function will be now formed by two different
-part: reconstruction error term and regularization term.
+part: reconstruction error term and a regularization term.
 The reconstruction term will be the same as before (e.g the L_2
 between the input and the output)
-The regularization term, on the other hand, it will be the
+The regularization term, on the other hand, will be the
 =KL-divergence= between the current latent space distribution and the
 "wanted" one.
 
@@ -675,12 +668,12 @@ The regularization term, on the other hand, it will be the
 
 The intuition behind the regularization term is that we want to
 have two properties for the latent space distribution: *Continuity*
-(two close points in the latent space must be mapped to close point in
+(two close points in the latent space must be mapped to close points in
 the output)
-and *Completness* (sampling from the latent distribution must returns
-some "meaningfull" output).
+and *Completeness* (sampling from the latent distribution must returns
+some "meaningful" output).
 
-As we can see, we are entering into a probablistic framework. Here,
+As we can see, we are entering into a probabilistic framework. Here,
 the previous chapter on Variational inference will become handy.
 
 We can the decoder as $p(x|z)$ and the encoder as $p(z|x)$
@@ -709,16 +702,94 @@ $$(f^*,g^*,h^*)
 =argmax_{(f,g,h)\in\mathcal{F}\times\mathcal{G}\times\mathcal{H}}\mathbb{E}\left[-\frac{||x-f(z)||^2}{2c}\right] -
 KL(q(z)||p(z))$$
 
-Of course this is only one possibility, we can change the
+Of course, this is only one possibility, we can change the
 reconstruction error accordingly to the type of data or results we
-want to achive.
+want to achieve.
 
 
 Some reference [fn:original_vae][[https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73][Understanding Variational Autoencoders]]
 
-** TODO Adversarial Autoencoder
-** TODO \beta-VAE
-** TODO Info VAE
+** Adversarial Autoencoder
+The Adversarial Autoencoder is a variation on the standard
+[[*Autoencoder][Autoencoder]].
+It aims to induce some prior distribution on the latent space,
+semantically performing the same idea of VAE.
+However, this architecture exploit a completely different mechanism.
+It useses adversarial learning to force such distribution.
+It takes the idea from Generative adversarial networks (GANs)
+(Goodfellow et al, 2014)
+
+#+CAPTION: Adversarial Autoencoder structure
+#+attr_html:  :width 600em
+[[file:resources/AAE.png]]
+
+Therefore, the idea is to have a discriminator network ($\mathcal{D}$)
+which tries to distinguish between the real prior distribution
+($p(z)$) and the actual latent space distribution ($q(z|x)$). In an
+adversarial learning process, the encoder is encourage to fool the
+discriminator network therefore bringing $q(z|x)$ closer to the actual
+prior ($p(z)$).
+In this way, this architecture achieve similar results to the *VAE*
+architecture. The main advantage over the *VAE* is that we actually do
+not need a functional form of the prior in order to enforce it. We
+only need to be able to sample from it.
+The error function of this architecture is quite similar to the *VAE*
+with the main difference that instead of the regularization term
+(i.e. KL-divergence )we have the adversarial training procedure.
+
+
+
+** \beta-VAE
+The \beta-VAE is a variation on the *VAE* architecture slightly change
+the optimization problem  by mutating the error function. In
+particular, it adds a hyperparameter \beta to the =KL-divergence= in
+order to arbitraryly force the latent space distribution to match the
+prior. With \beta = 1 we have the same formula of the *VAE* meanwhile,
+with \beta >> 1 the KL constraint has a higher force. In this way,
+follwing the paper [fn:b-vae] we will have more disentangled
+representations.
+In the same paper, they also shows that \beta is not stricly bound
+from above, the only limitation is that \beta >= 0.
+Of course, with higher \betat we are also making the tradeoff between
+reconstruction error and similarity to the prior.
+
+** Info VAE
+The InfoVAE was first presented in [fn:infovae].
+This architecture tries to make more explicit the *ELBO* tradeoff that
+in other architecture are implicit. Doing so they add a new term and 2
+hyperparameter \alpha and \lambda.
+They also introduce a new term in the *ELBO* objective which is the
+amount of mutual information between $x$  and $z$ under $q$. This new
+term should avoid that $x$ and $z$ are completely independent.
+The \alpha hyperparameter should control this value.
+The \lambda hyperparameter, on the other side, it should control the KL
+divergence.
+
+Therefore the objective function is:
+$$\mathcal{L}_{infoVAE} = - \lambda D_{KL}(q_\phi(z)||p(z)) -
+\mathbb{E}_{q(z)}\left[D_{KL}(q_\phi(x|z)||p_\theta(x|z))\right] +
+\alpha I_q(x;z)$$
+where $I_q(x;z)$ is the mutual information between $x$ and $z$ under
+the distribution $q_\phi(x,z)$
+However, it is not possible to optimize this objective. Therefore an
+alternative but equivalent formulation is:
+$$\mathcal{L}_{infoVAE} =
+\mathbb{E}_{p_{\mathcal{D}}(x)}\mathbb{E}_{q_\phi(z|x)}[log
+p_\theta(x|z)] - (1-\alpha)
+\mathbb{E}_{p_{\mathcal{D}}(x)}D_{KL}(q_\phi(z|x)||p(z)) - (\alpha +
+\lambda -1) D_{KL}(q_\phi(z)||p(z))$$
+
+It is important to notice that this formulation of the objective
+capture all the prievious seens autoencoders architectures.
+
+We get the
+standard VAE when \alpha = 0 and \lambda = 1.
+
+We get the \beta-VAE
+when \lambda > 0 and \alpha + \lambda - 1 = 0.
+
+Finally, we get the AAE when \alpha  = 1 and \lambda = 1 and
+$\mathcal{D}$ is chosen to be the Jensen Shannon divergence.
 ** INPROGRESS Random thought
    Based on (towards ) why not training the AE and RL toghether.
    an idea can be to mix the two objective toghether by a sum (for a
@@ -879,7 +950,7 @@ Autoencoders and disentangled representations.
       + However, does not look like anymore progress was done in this
         direction
       + Therefore seems to be a bit too much to try for the thesis
-      + That's why it was *
+      + That's why it was *discarded*
 *** Tutorial on Variational Autoencoders[fn:vae_tutorial]
 [fn:vae_tutorial]
 [[file:background/VAE_tutorial.pdf]]
