@@ -714,8 +714,8 @@ The Adversarial Autoencoder is a variation on the standard
 [[*Autoencoder][Autoencoder]].
 It aims to induce some prior distribution on the latent space,
 semantically performing the same idea of VAE.
-However, this architecture exploit a completely different mechanism.
-It useses adversarial learning to force such distribution.
+However, this architecture exploits a completely different mechanism.
+It uses adversarial learning to force such distribution.
 It takes the idea from Generative adversarial networks (GANs)
 (Goodfellow et al, 2014)
 
@@ -725,30 +725,26 @@ It takes the idea from Generative adversarial networks (GANs)
 
 Therefore, the idea is to have a discriminator network ($\mathcal{D}$)
 which tries to distinguish between the real prior distribution
-($p(z)$) and the actual latent space distribution ($q(z|x)$). In an
-adversarial learning process, the encoder is encourage to fool the
-discriminator network therefore bringing $q(z|x)$ closer to the actual
+($p(z)$) and the actual latent space distribution ($q(z|x)$). In an adversarial learning process, the encoder is encouraged to fool the
+discriminator network, therefore, bringing $q(z|x)$ closer to the actual
 prior ($p(z)$).
 In this way, this architecture achieve similar results to the *VAE*
-architecture. The main advantage over the *VAE* is that we actually do
-not need a functional form of the prior in order to enforce it. We
+architecture. The main advantage over the *VAE* is that we do
+not need a functional form of the prior to enforce it. We
 only need to be able to sample from it.
 The error function of this architecture is quite similar to the *VAE*
 with the main difference that instead of the regularization term
 (i.e. KL-divergence )we have the adversarial training procedure.
 
-
-
 ** \beta-VAE
-The \beta-VAE is a variation on the *VAE* architecture slightly change
-the optimization problem  by mutating the error function. In
+The \beta-VAE is a variation on the *VAE* architecture that slightly changes the optimization problem by mutating the objective function. In
 particular, it adds a hyperparameter \beta to the =KL-divergence= in
-order to arbitraryly force the latent space distribution to match the
+order to arbitrarily force the latent space distribution to match the
 prior. With \beta = 1 we have the same formula of the *VAE* meanwhile,
 with \beta >> 1 the KL constraint has a higher force. In this way,
-follwing the paper [fn:b-vae] we will have more disentangled
+following the paper [fn:b-vae] we will have more disentangled
 representations.
-In the same paper, they also shows that \beta is not stricly bound
+In the same paper, they also show that \beta is not strictly bound
 from above, the only limitation is that \beta >= 0.
 Of course, with higher \betat we are also making the tradeoff between
 reconstruction error and similarity to the prior.
@@ -762,7 +758,7 @@ They also introduce a new term in the *ELBO* objective which is the
 amount of mutual information between $x$  and $z$ under $q$. This new
 term should avoid that $x$ and $z$ are completely independent.
 The \alpha hyperparameter should control this value.
-The \lambda hyperparameter, on the other side, it should control the KL
+The \lambda hyperparameter, on the other side, should control the KL
 divergence.
 
 Therefore the objective function is:
@@ -780,7 +776,7 @@ p_\theta(x|z)] - (1-\alpha)
 \lambda -1) D_{KL}(q_\phi(z)||p(z))$$
 
 It is important to notice that this formulation of the objective
-capture all the prievious seens autoencoders architectures.
+capture all the previous seen autoencoders architectures.
 
 We get the
 standard VAE when \alpha = 0 and \lambda = 1.
