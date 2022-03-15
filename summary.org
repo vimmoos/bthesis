@@ -1177,12 +1177,15 @@ hierarchical representations, object detection and classification
 etc.
 *Really interesting for future research!*
 
-*** TODO Disentangling Disentanglement in Variational Autoencoders [fn:dis_dis_vae]
+*** Disentangling Disentanglement in Variational Autoencoders [fn:dis_dis_vae]
 [fn:dis_dis_vae]
 [[file:background/dis_disVAE.pdf]]
 
 
 **** Summary
++ Take another approach to disentangling representations.
++ decomposition as opposed to disentanglement
++ Achieve a pretty similarity objective to the [fn:infovae]
 *** TODO Unsupervised State Representation Learning in Atari [fn:repr_atari]
 [fn:repr_atari]
 [[file:background/representation_atari.pdf]]
