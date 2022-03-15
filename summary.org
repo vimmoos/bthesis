@@ -1051,6 +1051,18 @@ latent space when needed. It seems a really intersting architecture
 for active perception in an RL framework
 *Todo* search for further research using such method
 *Todo* read again and understand deeply the math.
+
+
+
+thesis/background/dis_disVAE.pdf
+thesis/background/representation_atari.pdf
+thesis/background/continual_learning.pdf
+thesis/background/clearning_DNN.pdf
+thesis/background/explainability_DRL.pdf
+thesis/background/select_VAEs.pdf
+thesis/background/cl_for_robotics.pdf
+thesis/background/c_represent_learning.pdf
+
 ** Dimensionality reduction:
 *** Auto-encoder based dimensionality reduction [fn:ae_dimred]
 [fn:ae_dimred]
