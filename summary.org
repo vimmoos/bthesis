@@ -1052,17 +1052,12 @@ for active perception in an RL framework
 *Todo* search for further research using such method
 *Todo* read again and understand deeply the math.
 
+*** TODO Unsupervised model selection for variational disentangled representation learning [fn:select_vae]
+[fn:select_vae]
+[[file:background/select_VAEs.pdf]]
 
 
-thesis/background/dis_disVAE.pdf
-thesis/background/representation_atari.pdf
-thesis/background/continual_learning.pdf
-thesis/background/clearning_DNN.pdf
-thesis/background/explainability_DRL.pdf
-thesis/background/select_VAEs.pdf
-thesis/background/cl_for_robotics.pdf
-thesis/background/c_represent_learning.pdf
-
+**** Summary
 ** Dimensionality reduction:
 *** Auto-encoder based dimensionality reduction [fn:ae_dimred]
 [fn:ae_dimred]
@@ -1140,7 +1135,7 @@ Note: The interesting part of the data is that it have dropout event
 sequencing). This dropout event are zero expression measurament that
 can be either biological or technical. This phenomenon result in poor
 results
-** Disentagled representation
+** Disentagled representation:
 *** Understanding disentagling in \beta-VAE [fn:understand_bvae]
 [fn:understand_bvae]
 [[file:background/understand_beta-VAE.pdf]]
@@ -1182,6 +1177,46 @@ hierarchical representations, object detection and classification
 etc.
 *Really interesting for future research!*
 
+*** TODO Disentangling Disentanglement in Variational Autoencoders [fn:dis_dis_vae]
+[fn:dis_dis_vae]
+[[file:background/dis_disVAE.pdf]]
+
+
+**** Summary
+*** TODO Unsupervised State Representation Learning in Atari [fn:repr_atari]
+[fn:repr_atari]
+[[file:background/representation_atari.pdf]]
+
+
+**** Summary
+** Continual Learning:
+*** TODO Generative Models from the perspective of Continual Learning [fn:gen_cl]
+[fn:gen_cl]
+[[file:background/continual_learning.pdf]]
+
+
+
+**** Summary
+*** TODO Embracing Change: Continual Learning in Deep Neural Networks [fn:cl_dnn]
+[fn:cl_dnn]
+[[file:background/clearning_DNN.pdf]]
+
+
+
+**** Summary
+
+*** TODO Continual learning for robotics: Definition,framework,learning strategies, opportunities and challenges [fn:cl_robotics]
+[fn:cl_robotics]
+[[file:background/cl_for_robotics.pdf]]
+
+
+**** Summary
+*** TODO Continual Unsupervised Representation Learning [fn:cl_repr]
+[fn:cl_repr]
+[[file:background/c_represent_learning.pdf]]
+
+
+**** Summary
 ** AE + RL:
 *** VARL: a variational autoencoder‑based reinforcement learning Framework for vehicle routing problems [fn:varl]
 [fn:varl]
@@ -1320,6 +1355,12 @@ combination with reinforcement learning (in the paper R
 
 **** Resources
 [[http://proceedings.mlr.pres
+*** TODO Explainability in deep reinforcement learning [fn:exp_drl]
+[fn:exp_drl]
+[[file:background/explainability_DRL.pdf]]
+
+
+**** Summary
 ** Old ideas
 *** Deep reinforcement learning for modeling human locomotion control in neuromechanical simulation [fn:drl_human_locomotion]
 [fn:drl_human_locomotion]
