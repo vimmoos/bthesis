@@ -1,0 +1,34 @@
+#+TITLE:  Autoencoder-based Deep Reinforcement Learning for Musculoskeletal models
+#+AUTHOR: Massimiliano Falzari (s3459101)
+#+EMAIL:     m.falzari@student.rug.nl
+#+KEYWORDS:  autoencoder,dimensionality reduction,latent space
+#+LANGUAGE:  en
+* Abstract
+* Introduction
++ Problem -> search space too large -> low sample efficiency
++ How to solve this problem
++ Possible solution -> use AE to learn a low dimensional representation
++ decrease search space -> increase sample efficiency
+* Theoretical Background
++ RL
+  + PPO+IL
++ Representation Learning
+  + AE
+  + VAE
+  + PCA
+* Methods
++ Imitation data
++ Learn to see
+  + Gather data
+  + Pre process datasets
++ Learn to act
+* Results
++ show results
+* Releated work
++ DARLA
++ ROBOT skill learning
++ on the use of DAE for efficient RL
+* Discussion and Limitation
++ Data used to train autoencoders
++ Offline vs Online  autoencoder training
++ action should also be encoded
