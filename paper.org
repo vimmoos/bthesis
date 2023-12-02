@@ -4,31 +4,1062 @@
 #+KEYWORDS:  autoencoder,dimensionality reduction,latent space
 #+LANGUAGE:  en
 * Abstract
+This paper proposes using autoencoder-based deep
+reinforcement learning (AE-DRL) architectures for ground-walking
+musculoskeletal models. It compares under-complete autoencoder (AE)and
+variational autoencoder (VAE) in the context of  physics-based
+simulations. The deep reinforcement learning (DRL) used was Proximal
+Policy optimization with Imitation Learning (PPO+IL).
+The architectures
+were trained with a two-phase approach. First, the autoencoder-based
+latent space was learned using gathered simulated data. Then, the DRL
+agent with the pre-trained encoder was trained to learn a walking
+policy. The results show that, with the same observation  space, AE-DRL
+methods are more efficient in learning  than the standard DRL in terms
+of episode
+length and only slightly better terms of episode reward. However,
+compared to a DRL with humanly selected observation space, they do not
+show any improvement. Showing that more carefully designed
+autoencoders architectures can be needed to achieve state-of-art
+results. Generally, AE performed better than VAE with respect to both
+reconstruction error and DRL performance.
 * Introduction
-+ Problem -> search space too large -> low sample efficiency
-+ How to solve this problem
-+ Possible solution -> use AE to learn a low dimensional representation
-+ decrease search space -> increase sample efficiency
+In recent years Deep Reinforcement Learning (DRL) has provided a reliable and  effective approach for learning complex policies in
+continuous state and action-space.
+Particularly, trust region policy  gradient methods
+(\cite{peters2008natural}\cite{schulman2015trust}\cite{schulman2017proximal})
+showed promising results in a large variety of robotics tasks (\cite{melo2021learning},\cite{melo2019learning},\cite{teixeira2020humanoid}).
+Nevertheless, these methods, like many others (e.g. policy iteration
+methods), struggle to learn efficiently in high-dimensional
+state-space. This phenomenon happens for a variety of reasons. One of
+which is that, in order to generalize across states effectively, the agent needs
+to learn an in-between representation (e.g. through feature
+extraction) (\cite{higgins2017darla}). This process can be quite data and time
+intensive, resulting in low sample efficiency and huge training time.
+It is especially problematic when dealing with raw pixels or multiple
+input sensors.
+
+A common approach to improve sample efficiency is to use model-based
+DRL methods. These methods learn a model of the environment
+(i.e. the environment's dynamics)  while
+acting, which can be used to sample "simulated" data (\cite{luo2022survey}). However, they
+are significantly more computational intensive then model-free
+methods. Their performance is highly dependent on the goodness
+of the learned environment model. Moreover, they still struggle in
+high-dimensional state-space.
+For these reasons, this paper will focus on a new approach which is
+recently getting more and more traction: Autoencoder-based DRL. The idea is to use an autoencoder (AE) to learn a low-dimensional representation
+of the environment, which the DRL agent will then use
+(\cite{abbasi2021autoencoder},\cite{higgins2017darla},\cite{lonvcarevic2021robot},
+\cite{wang2022varl},\cite{prakash2019use},\cite{andersen2018dreaming},
+\cite{igl2018deep}).
+
+Furthermore, this study will test the effectiveness of the aforementioned technique on an
+open-source physics-based simulation (OpenSim) of a healthy
+musculoskeletal model. In which the goal is to perform groud-level
+walking. The model consists of 22 muscles that control 14 degrees of freedom.
+The DRL algorithm of choice will be PPO with Imitation Learning
+(PPO+IL). This algorithm showed encouraging results with a different
+model (\cite{de2021deep},\cite{surana2021evaluating},\cite{adriaenssens2021testing}). The aim of the study is, therefore, to compare  PPO+IL  to the proposed autoencoder-based
+architecture (AE-PPO+IL).
+\cite{fig:arch} shows the proposed architecture. The
+main novelty with respect to standard PPO+IL is the pre-trained
+encoder. It will compress the high-dimensional observation into
+a low-dimensional representation.
+
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/AEPPO.png}
+    \caption{
+The proposed architecture. The particularity, as opposed to a standard DRL
+architecture, are two. First, the reward system has not only the usual goal reward but
+also the imitation reward. Second, the DRL agent does not get the observation directly.
+Instead, a pre-trained encoder compresses them before giving them to the agent.  }
+    \label{fig:arch}
+\end{figure}
+
+To summarise, the main objectives of this paper are:
++ Show the effectiveness of autoencoder-based architecture on non-pixel-based state-space.
++ Compare the performances of AE-PPO+IL to PPO+IL (with particular
+  focus on sample efficiency)
+
+The rest of the paper is organized as follows. Section 2 presents the
+necessary background on PPO and AE architectures and states the motivations for
+using such architectures. Section 3 dives into the methodology used
+in the study. It exposes all the technical details and implementation
+decisions with their rationale. Section 4 describes the results of
+the study. Lastly, Section 5 shows the limitation and future
+prospectives of this work.
+
 * Theoretical Background
-+ RL
-  + PPO+IL
-+ Representation Learning
-  + AE
-  + VAE
-  + PCA
+This section will dive into the mathematical details of the PPO algorithm, the autoencoder architectures used, and the motivation for using such architectures as opposed to classical statistical approaches (e.g. Principal Component Analysis)
+** Proximal Policy Optimization
+The PPO algorithm was first introduced by
+\cite{schulman2017proximal}. The primary motivation for introducing
+such an algorithm was to improve the Trust Region Policy Optimization
+(TRPO) method. TRPO was too complicated and incompatible with
+standard architectural optimization (e.g. parameter sharing between policy and value
+function).
+
+Generally, trust region/natural policy gradient methods take their
+names because they constrain the policy update to be somewhat
+near the old policy (hence the name trust region). Doing so removes potentially destructive updates, making the learning
+process safer and more stable. In TRPO, the update is constrained based on the
+Kullback–Leibler (KL) divergence between the new and old
+policy. However, this makes the learning process a constrain-satisfaction problem which is notoriously computational expensive.
+
+The method used to constrain the policy update is the main difference
+between TRPO and PPO. The clipped surrogate objective is, indeed, the core contribution made by
+\cite{schulman2017proximal}. This new objective partially removes the need to constrain the update using the KL-divergence. Resulting in a more
+efficient and simpler algorithm.
+$$L^{CLIP}(\theta)=
+\mathbb{E}\left[min(r_t(\theta)\hat{A_t},clip(r_t(\theta),1-\epsilon,1+\epsilon)\hat{A_t})
+\right]$$
+$r_t(\theta)$ is the ratio between the old and new policy at time
+$t$. $\hat{A_t}$ is the advantage estimation (i.e. the
+difference between the expected and real reward at time
+$t$). $\hat{A_t}$ is normally computed using the Generalized Advantage
+Estimation algorithm (GAE).
+
+
+
+The PPO algorithm gained much popularity thanks to its simplicity
+and effectiveness. Nevertheless, the number of interactions it needs to
+have with the environment can be significantly high. In particular, complex tasks take millions if not billions of iterations to achieve good results.
+\cite{melo2021learning} ran the algorithm for 200 million steps,
+achieving state-of-the-art results after 75 million steps. As
+stated by the authors, this result is already an improvement compared to
+\cite{abreu2019learning}. However, it is not always possible to have
+so many interactions with the environment for different reasons. It can
+be too computational intensive in highly detailed physics-based
+simulation. Moreover, gathering so many experiences outside of
+simulations (i.e. in the real world) is, at
+best, impractical and potentially risky for the agent/robot.
+
+** Autoencoders
+An autoencoder is a simple network which is trained to obtain as
+output the input \cite{Goodfellow-et-al-2016}. An
+autoencoder can be seen as two separate entities: an encoder and a
+decoder \ref{fig:aearch}. Therefore, it must have a hidden layer which represents what
+is known as =code= or =latent representation=. The encoder takes the
+input x and returns the =code= (i.e. $encode(x) = h$). The decoder, on the
+other hand, takes the =code= and returns the reconstructed input (i.e. $decode(h)= \hat{x}$).
+
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/AE.png}
+    \caption{
+Autoencoder architecture. It is composed of an encoder which, given an input $x$, extracts its information into code $h$ and a decoder which, given a code $h$, reconstructs the input $\hat{x}$
+}
+    \label{fig:aearch}
+\end{figure}
+
+At first glance, this network does not seem to be useful if
+$decode(encode(x))= x$ (which is the objective of the network). However, most
+autoencoder architectures are designed so that this objective cannot
+be reached.
+These restrictions force the network to learn valuable properties of
+the data. Properties that are represented by the code
+
+One possible restriction is to force the =code= to be significantly
+smaller than the input. Therefore making the perfect reconstruction of
+the output almost impossible. In this way, the network is forced
+to learn the essential features of the data. This type of autoencoder
+is known as =under-complete autoencoder=. For convenience, we will always refer to it as
+autoencoder.
+The loss function $L(x,decode(encode(x)))$ for an autoencoder  is usually a
+distance or divergence metric (e.g. mean squared error (MSE))
+
+A notable property of such a network is that when the loss is the MSE and the decoder is linear, the learned code has the same subspace as
+principal component analysis (PCA). As stated by \cite{Goodfellow-et-al-2016}, a nonlinear autoencoder is a better nonlinear
+generalization of PCA. Many empirical studies that compared PCA to AE
+,in a variety of different field,have also proven this theoretical finding (\cite{wang2016auto},\cite{lonvcarevic2021robot},\cite{almotiri2017comparison},\cite{siwek2017autoencoder}). Specifically,
+\cite{lonvcarevic2021robot} showed that AE-based
+latent representation outperforms PCA-based latent representation when
+used by an RL agent. AE showed a smaller reconstruction error with
+respect to PCA. The RL agent also converged faster when an AE-based representation was used instead of a PCA-based one. This result is linked to the fact that AEs
+cannot only perform dimensionality reduction but also, as
+stated by \cite{wang2016auto}, find repetitive structure. This property is
+crucial in robotics and, more generally, when aggregating multiple
+input sensors, which may or may not encode similar information.
+
+** Variational Autoencoder
+A Variational Autoencoder(VAE)(\cite{kingma2013auto}) has an almost identical
+architecture to an autoencoder \ref{vaearch}. However, its goal and learning process is significantly different. As opposed to an AE (discriminative model), a VAE is a
+generative model. It, therefore, aims to learn the joint distribution
+over the latent variables. There are many reasons why learning a
+generative model can be more useful and generalizable than
+learning a discriminative model (\cite kingma2019introduction). A
+generative model spontaneously learns causal relationships and is
+robust against nuisance variables. These properties make generative
+models more suitable for learning good representations.
+
+
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/VAE.png}
+    \caption{
+Variational Autoencoder architecture. The encoder maps an input into a mean and variance, which defines an isotropic multivariate Gaussian distribution. This distribution represents the code/latent space. The decoder samples from it and reconstructs the input.
+}
+    \label{fig:vaearch}
+\end{figure}
+
+The VAE architecture is composed of a probabilistic encoder and decoder. This
+means that the encoder, instead of mapping the input into a single
+vector (like an AE), it maps the input into a distribution over the latent
+variables. On the other hand, the decoder is the generative model
+which samples from the latent space and produces an output (as similar
+as possible to the input).
+
+Formally, given a dataset $x$ and a set of random variables $z$, that
+represent the =code= or =latent space=, we want to know the posterior
+probability distribution of the latent variables given the dataset. In
+other words, we want to find $p(z|x)$. We must assume two points to rephrase this problem within a Bayesian framework. First,
+the =code= is sampled from some prior distribution $p(z)$ (usually, in
+standard VAE, the prior is an isotropic multivariate Gaussian distribution). Second, the
+data $x$ is sampled from some conditional distribution $p(x|z)$. Note
+that these two assumptions are quite soft and natural in the context
+of generative models. We can therefore rewrite $p(z|x)$ as:
+$$p(z|x) = \frac{p(x|z)p(z)}{p(x)}$$
+
+However, calculating the evidence integral $p(x) =\int p(x,z) dz$ is
+often intractable or too expensive to compute. Therefore,
+Variational Inference (VI) can be used to approximate the posterior (for an
+extensive explanation of VI, see \cite{blei2017variational}). The core
+idea of VI is to reframe the problem into an optimization problem. Using the KL-divergence to estimate the goodness of the
+approximation. By doing so, it derives the Evidence Lower Bound
+(ELBO). Maximizing the ELBO results in a better
+approximation. Therefore it can be used as a loss function
+with an inverted sign.
+The ELBO has different forms, but the one used in the VAE is:
+$$ELBO(q_x)=\mathbb{E}_{z~q_x}[log(p(x|z))] - KL(q_x(z)||p(z))$$
+$p(x|z)$ is the probabilistic decoder, and $q_x$ is the approximated posterior distribution. $q_x$ is given by the following formula, where the probabilistic encoder approximates $g$ and $h$:
+$$q_x(z)=\mathcal{N}(g(x),h(x))$$
+
+
+
+Finally, the VAE architecture outperformed PCA and other standard techniques in different dimensionality reduction tasks
+(\cite{portillo2020dimensionality},\cite{lin2020deep}). It also had
+some promising results when used in combination with RL. \cite{prakash2019use} showed
+impressive results with respect to their baseline (which was without
+the VAE). It is important to notice that the observation space of the
+agent was an image. Which partially explains the drastic improvement
+from the baseline. However, other studies like \cite{wang2022varl}
+showed that improvement upon other methods can be achieved even if the
+observation space is not pixel-based.
 * Methods
-+ Imitation data
-+ Learn to see
-  + Gather data
-  + Pre process datasets
-+ Learn to act
+This section will present all the technical details needed to replicate the
+study. From the simulation software to the implementation details of
+the learning process.
+It concludes by explaining the hyperparameters for the different learning techniques.
+
+** Simulation
+The simulation program of choice for this study is Opensim version 4.3-2021-04-14-dbde45530. Opensim is open-source physics-based
+simulation software that allows to create and analyze the dynamics of
+complex musculoskeletal model \cite{delp2007opensim}. A variety of reasons led to choosing this system. First of all, multiple competitions such as "NeurIPS 2019: Learn to Move - Walk Around" and
+"NIPS 2017: Learning to Run" decided to use Opensim as their simulation software.
+It appears to be the primary simulation in most human locomotion studies. Showing its reliability and accuracy.
+Finally,  \cite{de2021deep} used this software. Their work highly inspired this study. In their paper, they proposed two models, a
+healthy one and a transfemoral amputee one. They used Opensim to
+simulate these models' dynamics and a PPO agent to
+learn ground-walking in both situations.
+
+One last feature of this software that has proven to be quite valuable is
+the ability to run motion files. Motion files are usually generated
+from data gathered from actual human motion. This feature was crucial in
+analyzing, processing and checking the imitation data used in the
+reward system for the DRL agent (more on the imitation data in section
+\ref{sec:reward})
+
+** Model
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/sideleg.png}
+        \includegraphics[width=7.7cm]{img/fullmodel.png}
+    \caption{
+
+Overview of the Opensim model used in the study. The red colour identifies the 22 muscles.
+}
+    \label{fig:model}
+\end{figure}
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/modelobs.png}
+    \caption{
+Overview of the different parts (taken into consideration)that compose the model.
+
+}
+    \label{fig:modelobs}
+\end{figure}
+The model used in this study is a simplified version of a
+musculoskeletal model of a human \ref{fig:model} . It was developed by (cite who).
+The model has 11 muscles per leg. For a total of 22 muscles.
+Moreover, it has 14 degrees of freedom: four at the knee and ankle
+joints (2 per leg), six at the pelvis (tilt, list, rotation,x,y,z) and four at the hip joints (flexion and
+adduction for each leg).
+A Hill-type muscle model simulates the muscles. This type of
+muscle model is not the most accurate in mimicking
+human muscles. However, its state equation is notorious for being
+fast to compute. This property makes it a perfect alternative to more realistic but
+complex systems.
+Moreover, the model gives information about different body parts, joints and the centre of mass (x,y,z) \ref{fig:modelobs}.
+It also takes into account the ground forces on the
+feet. Specifically, there are three components (x,y,z) for both the force and the
+torque applied to each foot. Resulting in a total of 12 values.
+
+
+Finally, table \ref{tab:obs} shows the exact information used by the
+AE architecture. Even though Opensim gives access to the
+accelerations, this study does not consider them. The two main reasons for
+this decision are: First, the accelerations, particularly during training, had many outliers, making learning harder. Second, the acceleration is the derivative
+of the velocity. Therefore, the amount of information lost is
+negligible. Third, the reward system (more about it in
+\ref{sec:reward}) does not explicitly model acceleration.
+
+\begin{table}[!bp]
+\caption{Number of student passes and fails per year.}
+\label{tab:obs}
+\begin{tabular}{|l|c|}
+\hline
+Components & Number\\
+\hline
+Body parts &  \multirow{2}{*}{$39 +39 + 39 + 39$} \\
+(pos,vel,pos\_rot,vel\_rot) & \\\hline
+Muscles & \multirow{2}{*}{$22 + 22 + 22 + 22$}\\
+(force,length,vel,activation) & \\ \hline
+Joints & \multirow{2}{*}{$ 17 + 17$}\\
+(pos,vel) & \\ \hline
+Centre of Mass & \multirow{2}{*}{$ 3 + 3$}\\
+(pos,vel) & \\ \hline
+Ground forces & \multirow{2}{*}{$ 6 + 6$}\\
+ (force,torque) &\\ \hline
+Total & $296$ \\ \hline
+\end{tabular}
+\end{table}
+
+
+** Reward system
+The most vital component in a reinforcement learning framework is the
+reward system. This system is responsible for giving some kind of
+feedback to the agent, which can be positive or negative. The agent,
+on the other hand, has the objective to maximize the reward intaken.
+
+Designing a good and correct reward is not, by any means, trivial.
+There are several risks when constructing it. A misspecified rewards
+system can lead to adverse side effects on the final agent
+behaviour. As explained by \cite{hadfield2017inverse}. They can also
+lead to what is known as reward hacking. The work done by \cite{rewardhacking} is an excellent example. The wanted goal was to win a racing game. However, due to poor reward specification, the agent ends up
+looping. It collects points in a circle without actually winning the
+race. Even if this was not the intended behaviour, it was the
+optimal/best behaviour found to maximize the reward intaken.
+
+In this study, the reward system is composed of two main
+components. The goal reward should encourage the agent to move
+forward without falling. And the imitation reward, which should guide
+the forward movement  to reassemble as close as possible a human-like
+movement. The designing decisions on the reward are highly based and
+influenced by \cite{de2021deep} and \cite{peng2018deepmimic}
+
+The goal reward is the MSE between the agent and the desired velocity. In particular, the velocities on the x and z
+axes are used. It is finally scaled using an exponential function.
+$$reward_{goal} = e^{-8*(diff_{vel_x} + diff_{vel_z})}$$
+\cite{surana2021evaluating} inspired the values of the scaling
+factors, which were found experimentally.
+
+
+The imitation reward, on the other hand, is slightly more complex.
+It is composed of two parts. The difference in position and
+velocity between the agent and the imitation data(more on imitation data
+here \ref{imidata}). MSE is used to calculate each difference. The
+joints and body parts considered are: knees, hip (adduction and flexion), ankles and pelvis (rotation, tilt, list).
+The total imitation reward is calculated as follows:
+$$reward_{imi} = 0.75* e^{-2*diff_{pos}} + 0.25 * e^{-0.1 *
+diff_{vel}}$$ Note that the difference in position concerning the imitation data is more important than the difference in velocity. Two main reasons motivated this imbalance. First, the position is more determinant than velocity when it
+comes to imitation. Second, the velocity is already partially modelled by the goal reward.
+
+Finally, the two rewards are weighted and summed together to form the
+final reward that the agent will use.
+$$reward_{final} = 0.6 * reward_{imi} + 0.4 * reward_{goal}$$
+The weights used are taken from \cite{de2021deep} and were found to be
+the best experimentally.
+** Imitation Data
+Human data were used in this paper to calculate part of the reward.
+Therefore, using similar imitation data to replicate the study is vital.
+In this sub-section, the pre-processing made on the data will be
+presented.
+
+First of all, the data was collected from a public database named
+Camargo Dataset. This dataset includes a variety of human data. The subject
+used in this study was AB06.
+The starting position was shifted to 12.8 seconds when the actual
+trial started. The data were trimmed when the subject
+started to walk in a circle (which was the trial objective). It was
+trimmed precisely after 3.9 seconds from the start of the trial.
+Then it was translated and transformed to comply with the OpenSim
+environment. Specifically, it was translated to start from
+the origin and rotated by -90 degrees on the Y axis.
+Finally, the Opensim software scaled the data to fit our model and
+created the inverse kinematics, which will be used in the imitation reward.
+
+** Training process
+There are two main approaches in the literature used to train this
+autoencoder plus reinforcement learning architecture.
+
+The first one can be seen as an online approach. It usually consists
+in training the AE and RL at the same time. However,
+this approach can result in training instability and bad results if done naively.
+This can happens because there is a feedback loop between the two learning
+processes. The autoencoder shapes the observation, which influences the
+RL. Meanwhile, the RL takes action based on the observation, influencing the following observation. Hence it biases the training of the AE.
+Therefore, most studies that take this approach have to design
+custom architecture. Which aims to control better the interaction
+between the two parts.
+
+For instance, the work done by \cite{yarats2021improving} is an excellent example. Their aim is similar to the one of this study: improving sample efficiency. To
+control the issues mentioned above, they create a custom
+architecture. This architecture uses three different gradients to update different system parts. For instance, the
+encoder is updated with two gradients. One coming from the
+reconstruction error (as in standard AE) and one coming from the soft
+Q-Learning. There is another gradient which is responsible for
+updating the policy.
+
+
+However, since these online methods are relatively new, this study
+decided to take a "safer" and more conventional approach. This second
+method can be seen as an offline one. It consists of two phases
+(using the terminology from \cite{higgins2017darla}): learn to see and
+learn to act. During the first phase, observations are gathered from
+the environment and used to train an AE in a classical unsupervised
+fashion. In the second phase, the pre-trained encoder compresses the observation, which the learning agent uses. This
+approach completely avoids the problems that can arise using the first
+method. However, it has a few downsides.
+
+Firstly, it needs to acquire observations from the environment. This process can be
+problematic, mainly if gathering them is not a trivial
+task (i.e. in the real world). On the other side, this can also be
+useful if data on the environment is already available. Particularly
+true for pixel-based input.
+Secondly, the gathered observations should cover as much as possible
+the entire observation landscape. This property is necessary to learn a good
+representation with the AE. VAE architectures, thanks to their probabilistic nature, can partially alleviate this problem.
+
+This study uses simulation software as the environment. Therefore
+gathering observation is not an issue. However, if this is a concern,
+some statistical approaches (e.g. Gaussian Process Regression (GPR)) can
+be used to augment the datasets (see \cite{abbasi2021autoencoder} and
+\cite{lonvcarevic2021robot}).
+
+In the literature, fixed policies are generally used to gather
+observations during the first phase. However, in this paper, creating
+such a fixed policy was not trivial due to the complexity of the
+task. Furthermore, using a random policy resulted in poor coverage of the
+observation landscape. For this reason, an RL agent was used. Once
+collected, the outliers were removed, and the dataset was normalized
+(using the z-score approach). Finally, the dataset was reduced to having
+only uncorrelated data points. All these pre-processing operations were done
+on the base of \cite{lecun2012efficient} which, as stated, should
+speed up and improve the learning process (e.g. better generalization properties).
+
+During the second phase (i.e. Learn to act), the PPO agent was trained
+on the environment using the pre-trained encoder to create the
+compressed representation. It is essential to note that no
+gradient updates will modify the encoder during this phase.
+
+** Implementations
+The PPO algorithm was not implemented from scratch. Stable-baselines3 (SB3)
+by  \cite{stable-baselines3} was used. This library offers a variety
+of functionalities which were crucial for the development of the
+study.
+
+\begin{table}[!bp]
+\caption{Number of student passes and fails per year.}
+\label{tab:ppohyper}
+\begin{tabular}{|l|l|r|}
+\hline
+Parameter & SB3 name & Value\\
+\hline
+Seed & seed & 42\\ \hline
+Parallel environments & num_envs & 20\\ \hline
+Steps per worker & n_steps & 1024\\ \hline
+Epoch per update & n_epoch & 4\\ \hline
+Minibatch size & bach_size & 512\\ \hline
+Discount factors & gamma & 0.999\\ \hline
+Bias vs variance (GAE) & gae_lambda & 0.9\\ \hline
+Clip range (\(\epsilon\)) & clip_range & 0.2\\ \hline
+Entropy coefficient & ent_coef & 0.01\\ \hline
+Learning rate & learning_rate & 0.001\\ \hline
+Optimizer & optimizer_class & AdamW \\ \hline
+\end{tabular}
+\end{table}
+
+Table \ref{tab:ppohyper} shows the hyperparameters used in the PPO algorithm.
+The values were found experimentally, based on previous studies
+(\cite{de2021deep},\cite{surana2021evaluating}). No hyperparameter
+search algorithm was applied.
+
+The PPO algorithm contains two networks. The value function network
+and the policy network (both
+implemented by a MultiLayer Perceptron (MLP)). The
+networks do not share any parameters. They are composed of
+three hidden layers of 312 neurons. The dimensionality of the selected latent representation defined the width of the input layer. The output layer
+of the policy network had 22 neurons, each corresponding to a
+different muscle in the model. Lastly, the tanh function was used to
+squash the output. (in SB3, the parameter is called
+squash_output). Squashing the output is a common practice in DRL. The
+reason is that the policy network often does not output sensible
+values for the action-space boundaries.
+
+On the other hand, the autoencoder networks were implemented
+using the library Pytorch developed by \cite{pytorch}. The implementation does
+follow the standard theory for both the autoencoder and the
+variational autoencoder.
+
+\begin{table}[!bp]
+\caption{Number of student passes and fails per year.}
+\label{tab:aehyper}
+\begin{tabular}{|l|r|}
+\hline
+Parameter & Value\\
+\hline
+Epochs & 750\\\hline
+Hidden layers & 6\\\hline
+Latent/Code dimensionality & 66\\ \hline
+Learning rate & 0.001\\\hline
+Optimizer & AdamW\\ \hline
+\end{tabular}
+\end{table}
+
+Table \ref{tab:aehyper} presents the hyperparameters used for the two
+autoencoders.
+This study also defines a custom function to decide the number of neurons per layer. The function is defined by the following system of
+equations.
+\begin{equation}
+    \begin{cases}
+      n_1 = I \\
+      n_N = Z \\
+      n_i= n_{i+1}*\lambda
+    \end{cases}\,.
+\end{equation}
+The first two equations constrain the fact that the
+dimensionality of the input layer and the output layer  is known (\(I\)
+input neurons and \(Z\) output neurons). The last equation force a
+constant shrinking of the number of neurons (assuming \(Z>>I\)).
+This system of  equations can be rewritten in a single formula:
+$$ n_i = Z * \left(\frac{I}{Z}\right)^{\frac{N-i}{N-1}} $$
+Where \(i\) is the layer index, and \(N\) is the number of layers.
+
+
 * Results
-+ show results
-* Releated work
-+ DARLA
-+ ROBOT skill learning
-+ on the use of DAE for efficient RL
-* Discussion and Limitation
-+ Data used to train autoencoders
-+ Offline vs Online  autoencoder training
-+ action should also be encoded
+
+This section will first analyze and compare the latent spaces generated by the
+autoencoders. The comparison will be based on the reconstruction
+error. Then, it will dive into the actual performance of the
+reinforcement learning algorithm. The performance of the architecture
+will be compared to the canonical PPO algorithm.
+** Latent space and Reconstruction Error
+The different latent spaces generated are 66-dimensional. Therefore,
+it is impossible to visualize them fully without losing meaningful
+information. For this reason, a 2-dimensional VAE and AE were
+trained.
+
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/density_vae.png}
+        \includegraphics[width=7.7cm]{img/density_vanilla.png}
+    \caption{Variational Autoencoder and Under-complete Autoencoder Latent spaces. The figures represent the projection of the testing data onto the latent space. The intensity of the colour represents the density. A Kernel Density Estimation (KDE) was used to represent the distribution.
+}
+    \label{fig:density}
+\end{figure}
+
+The figures \ref{fig:density} show the two latent space distributions. The most important difference between the two is their shape.
+In the VAE latent space, we can see that the overall shape is close to an
+isotropic multivariate  Gaussian distribution. Moreover, the
+distribution has an almost identical range for the two latent dimensions
+(i.e. $\theta_{VAE}^1$ and $\theta_{VAE}^2$ ). These properties  are perfectly in-line
+with the objective of the learning process. On the other hand, the AE
+latent space was not forced to comply with any prior
+distribution. Therefore, the AE found the (pseudo-)optimal distribution given its
+objective (i.e. minimize the reconstruction error). Finally, as
+opposed to the VAE latent space, the ranges of the two latent dimensions
+are significantly different.
+
+That said, by using the reconstruction error, it is possible to have a
+rough indication of the "goodness" of the learned representation. The reconstruction metric of choice was the MSE. The baseline was a fitted Principal Component Analysis.
+In table \ref{tab:rec_err} we can see the results. In general, the
+autoencoders performed slightly better than a standard PCA.
+This result shows again that autoencoders are generally better than
+PCA, thanks to their ability to perform nonlinear operations.
+The other notable outcome was that AE had a lower reconstruction error
+than VAE. It is not entirely unexpected. The VAE
+implicitly makes a tradeoff between the similarity of the latent
+distribution to the prior (i.e. by having the KL-divergence in the
+objective) and the reconstruction error. This can explain why the AE
+perform better under this metric.
+
+\begin{table}[!bp]
+\caption{Number of student passes and fails per year.}
+\label{tab:rec_err}
+\begin{tabular}{|l|c|c|}
+\hline
+Method & Reconstruction Error\\ \hline
+VAE &$  0.0013 \pm  0.0070 $\\ \hline
+AE &$ 0.0004 \pm 0.0042 $\\ \hline
+PCA &$ 0.0023 \pm 0.0065$ \\ \hline
+\end{tabular}
+\end{table}
+
+** Reinforcement Learning performance
+
+The reconstruction error does not entirely assess the "goodness" of
+the learned representation. Therefore, we can compare the
+RL result using those representations. Figures (ref fig)
+shows the learning curves of the different architectures. Since the
+aim of the study (hence of the proposed architectures) is to improve
+sample efficiency, only the first five million steps are shown.
+
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/final_length.png}
+        \includegraphics[width=7.7cm]{img/final_rew.png}
+    \caption{
+The learning curves of the three DRL architectures (AE-PPO+IL, VAE-PPO+IL, PPO+IL). The top plot shows the average episode length (in seconds). The bottom one presents the average episode rewards.
+
+}
+    \label{fig:final}
+\end{figure}
+
+\begin{figure}[!tbp]
+    \centering
+        \includegraphics[width=7.7cm]{img/finall_length.png}
+        \includegraphics[width=7.7cm]{img/finall_rew.png}
+    \caption{
+The learning curves of the two autoencoder architectures and the lowd PPO+IL. This PPO agent has the peculiarity of having only 100 dimensions as input. These dimensions were manually selected. The top plot shows the average episode length (in seconds). The bottom one presents the average episode rewards.
+}
+    \label{fig:finall}
+\end{figure}
+
+Figure \ref{fig:final} compares the two proposed architectures
+and the standard PPO. It clearly shows that the autoencoder methods
+perform significantly better regarding episode length. However, they
+perform only slightly better in terms of episode reward.
+This difference can signal reward misspecification since surviving longer
+in the environment should result in a significantly higher
+reward. Nevertheless, empirically, this difference in reward was not
+found.
+VAE-PPO+IL shows worse results in comparison with AE-PPO+IL. This outcome is in line with the relatively high reconstruction error shown
+in the previous section.
+
+To further analyze the results of the autoencoder
+architecture, we decide to implement another PPO agent. The difference
+is that we manually selected only the essential information in
+the observations. Therefore, instead of 296 input
+dimensions, this PPO agent will have only 100 dimensions.
+The results are shown in figure \ref{fig:finall}. In this case, the
+autoencoders do not perform better. In particular, the VAE-PPO+IL
+performs slightly worse than this PPO agent.
+This proved that if it is possible to select the
+observation space manually, it can be more effective. However, this is not
+always possible or doable.
+
+Lastly, the value loss during the training of the AE-PPO+IL and
+VAE-PPO+IL was relatively high. The value loss is the ability to predict
+each state's value (reward). It usually increases with the increase in
+reward and stabilizes at convergence. However, this pattern was not
+noticed with the other tested methods. It can signal a high
+exploration rate. This phenomenon can be associated with low-dimensional observations facilitating the agent's exploration. However,
+more analysis should be done concerning this phenomenon.
+
+To conclude, the proposed architectures do not significantly improve over standard implementations. However, they did show some
+differences in the training dynamics, which could be further
+investigated. The AE outperformed the VAE in both evaluation
+metrics. Remarkably, the reconstruction error was significantly lower, and the DRL
+performance was slightly higher. This imbalance in results could indicate the need for better tuning of the VAE.
+
+* Discussion
+
+This paper aims to propose and compare two different
+autoencoders with DRL architectures. The DRL of choice was the PPO+IL
+which, as shown in previous studies with similar structures, had promising
+results. The proposed autoencoders were an under-complete autoencoder
+and a variational autoencoder. They have many differences, as presented
+in section \ref{sec}. However, the core difference is the constraints
+they force on their latent space. The approach used to train the whole
+architecture was offline. This method is divided into two different
+phases. In the first one, the autoencoder is trained using
+pre-gathered data. The DRL is trained during the second phase, using
+the pre-trained encoder to compress the observations.
+This study used an RL agent to gather the data. The collected
+trajectories were normalized to make the autoencoders learn more
+efficiently. Finally, they were evaluated based on the reconstruction
+error and the DRL performance. It was shown that they improved the DRL's performance and efficiency. With the caveat that the
+compared DRL agent has the same number of dimensions as the
+autoencoder. If this is not the case, and it is possible to select the input dimension manually, the difference in performance is not
+significant. Finally, the AE performed slightly better on both fronts
+(i.e. reconstruction error and RL performance) than the VAE.
+** Future research and limitation
+This study has some significant limitations which can be improved upon.
+
+First of all, the method used to gather data is
+questionable. Mainly, if the aim is to generalize to the real
+world, using another RL agent to gather data is risky and impractical.
+A possible solution is to use some statistical methods to generate
+data starting from a few data points, as suggested by other studies
+(see \cite{abbasi2021autoencoder} and \cite{lonvcarevic2021robot}).
+In this study, we used imitation data to improve the
+DRL performance, this data can be used as a starting point for the
+data generation. \\ Another possible approach is to design a fixed policy
+to explore the state-space. However, these approaches could fail
+to cover enough of the observation landscape. This fallacy is especially
+problematic if the DRL agent is allowed to explore the state-space
+unconstrained (e.g. extremely high muscle activation can result in unrealistic
+position and acceleration). Therefore, to solve this problem, the best
+solution is to either constrain the action space or to use different
+AE architecture which are focused on learning a disentangled
+representation (e.g. \cite{higgins2017darla}). An example of
+constraining the action-space can be seen in
+\cite{lonvcarevic2021robot}. In that study, they used Dynamic movement
+Primitives (DMP) to reduce the action-space to only sensible actions.
+
+Another fallacy of this study was the lack of a complete
+hyperparameter search. DRL performance, and RL  in general, highly
+depends on sensible parameters which can change sensibly from
+environment to environment. We experimentally tried a few
+sensible configurations based on previous studies in this study. However, the
+architecture considerably changed compared to those studies. For these
+reasons, an extensive hyperparameter search should be conducted to
+determine the most appropriate hyperparameters. The same reasoning is
+valid for the hyperparameters of the autoencoders (e.g. depth, activation functions, latent dimensions).
+
+
+Finally, the vanilla PPO algorithm can be changed/improved. New, improved versions of the
+algorithm were designed. A perfect example is
+\cite{hsu2020revisiting}. In their paper, they highlight quite some
+fallacies in the PPO algorithm. The most notorious is the algorithm's dependence on the initial network weights. This relation is highly
+problematic when trying to replicate a study which did not specify the
+seed and approach used to initialize the networks. Therefore, to
+improve the study, different DRL techniques could be tested.
+
+* Citation
+
+@article{hsu2020revisiting,
+  title={Revisiting design choices in proximal policy optimization},
+  author={Hsu, Chloe Ching-Yun and Mendler-D{\"u}nner, Celestine and Hardt, Moritz},
+  journal={arXiv preprint arXiv:2009.10897},
+  year={2020}
+}
+@article{stable-baselines3,
+  author  = {Antonin Raffin and Ashley Hill and Adam Gleave and Anssi Kanervisto and Maximilian Ernestus and Noah Dormann},
+  title   = {Stable-Baselines3: Reliable Reinforcement Learning Implementations},
+  journal = {Journal of Machine Learning Research},
+  year    = {2021},
+  volume  = {22},
+  number  = {268},
+  pages   = {1-8},
+  url     = {http://jmlr.org/papers/v22/20-1364.html}
+}
+
+@incollection{pytorch,
+title = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
+author = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+booktitle = {Advances in Neural Information Processing Systems 32},
+editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett},
+pages = {8024--8035},
+year = {2019},
+publisher = {Curran Associates, Inc.},
+url = {http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf}
+}
+@inproceedings{higgins2017darla,
+  title={Darla: Improving zero-shot transfer in reinforcement learning},
+  author={Higgins, Irina and Pal, Arka and Rusu, Andrei and Matthey, Loic and Burgess, Christopher and Pritzel, Alexander and Botvinick, Matthew and Blundell, Charles and Lerchner, Alexander},
+  booktitle={International Conference on Machine Learning},
+  pages={1480--1490},
+  year={2017},
+  organization={PMLR}
+}
+@incollection{lecun2012efficient,
+  title={Efficient backprop},
+  author={LeCun, Yann A and Bottou, L{\'e}on and Orr, Genevieve B and M{\"u}ller, Klaus-Robert},
+  booktitle={Neural networks: Tricks of the trade},
+  pages={9--48},
+  year={2012},
+  publisher={Springer}
+}
+@inproceedings{yarats2021improving,
+  title={Improving sample efficiency in model-free reinforcement learning from images},
+  author={Yarats, Denis and Zhang, Amy and Kostrikov, Ilya and Amos, Brandon and Pineau, Joelle and Fergus, Rob},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={35},
+  number={12},
+  pages={10674--10681},
+  year={2021}
+}
+@article{peng2018deepmimic,
+  title={Deepmimic: Example-guided deep reinforcement learning of physics-based character skills},
+  author={Peng, Xue Bin and Abbeel, Pieter and Levine, Sergey and Van de Panne, Michiel},
+  journal={ACM Transactions On Graphics (TOG)},
+  volume={37},
+  number={4},
+  pages={1--14},
+  year={2018},
+  publisher={ACM New York, NY, USA}
+}
+
+@article{hadfield2017inverse,
+  title={Inverse reward design},
+  author={Hadfield-Menell, Dylan and Milli, Smitha and Abbeel, Pieter and Russell, Stuart J and Dragan, Anca},
+  journal={Advances in neural information processing systems},
+  volume={30},
+  year={2017}
+}
+
+@online{rewardhacking,
+  author = {Amodei, Dario and Clark, Jack},
+  title = {Faulty Reward Functions in the Wild},
+  year = 2016,
+  url = {https://blog.openai.com/faulty-reward-functions/},
+  urldate = {2022-08-30}
+}
+@article{delp2007opensim,
+  title={OpenSim: open-source software to create and analyze dynamic simulations of movement},
+  author={Delp, Scott L and Anderson, Frank C and Arnold, Allison S and Loan, Peter and Habib, Ayman and John, Chand T and Guendelman, Eran and Thelen, Darryl G},
+  journal={IEEE transactions on biomedical engineering},
+  volume={54},
+  number={11},
+  pages={1940--1950},
+  year={2007},
+  publisher={IEEE}
+}
+@inproceedings{abbasi2021autoencoder,
+  title={AutoEncoder-based Safe Reinforcement Learning for Power Augmentation in a Lower-limb Exoskeleton},
+  author={Abbasi, Mohammadreza and Karami, Mohammad and Koushki, Amirreza and Vossoughi, Gholamreza},
+  booktitle={2021 9th RSI International Conference on Robotics and Mechatronics (ICRoM)},
+  pages={138--143},
+  year={2021},
+  organization={IEEE}
+}
+
+
+@article{wang2016auto,
+  title={Auto-encoder based dimensionality reduction},
+  author={Wang, Yasi and Yao, Hongxun and Zhao, Sicheng},
+  journal={Neurocomputing},
+  volume={184},
+  pages={232--242},
+  year={2016},
+  publisher={Elsevier}
+}
+
+@book{Goodfellow-et-al-2016,
+    title={Deep Learning},
+    author={Ian Goodfellow and Yoshua Bengio and Aaron Courville},
+    publisher={MIT Press},
+    note={\url{http://www.deeplearningbook.org}},
+    year={2016}
+}
+@article{peters2008natural,
+  title={Natural actor-critic},
+  author={Peters, Jan and Schaal, Stefan},
+  journal={Neurocomputing},
+  volume={71},
+  number={7-9},
+  pages={1180--1190},
+  year={2008},
+  publisher={Elsevier}
+}
+@inproceedings{schulman2015trust,
+  title={Trust region policy optimization},
+  author={Schulman, John and Levine, Sergey and Abbeel, Pieter and Jordan, Michael and Moritz, Philipp},
+  booktitle={International conference on machine learning},
+  pages={1889--1897},
+  year={2015},
+  organization={PMLR}
+}
+@article{schulman2017proximal,
+  title={Proximal policy optimization algorithms},
+  author={Schulman, John and Wolski, Filip and Dhariwal, Prafulla and Radford, Alec and Klimov, Oleg},
+  journal={arXiv preprint arXiv:1707.06347},
+  year={2017}
+}
+@article{luo2022survey,
+  title={A Survey on Model-based Reinforcement Learning},
+  author={Luo, Fan-Ming and Xu, Tian and Lai, Hang and Chen, Xiong-Hui and Zhang, Weinan and Yu, Yang},
+  journal={arXiv preprint arXiv:2206.09328},
+  year={2022}
+}
+@article{lonvcarevic2021robot,
+  title={Robot skill learning in latent space of a deep autoencoder neural network},
+  author={Lon{\v{c}}arevi{\'c}, Zvezdan and Gams, Andrej and Ude, Ale{\v{s}} and others},
+  journal={Robotics and Autonomous Systems},
+  volume={135},
+  pages={103690},
+  year={2021},
+  publisher={Elsevier}
+}
+@article{blei2017variational,
+  title={Variational inference: A review for statisticians},
+  author={Blei, David M and Kucukelbir, Alp and McAuliffe, Jon D},
+  journal={Journal of the American statistical Association},
+  volume={112},
+  number={518},
+  pages={859--877},
+  year={2017},
+  publisher={Taylor \& Francis}
+}
+@inproceedings{almotiri2017comparison,
+  title={Comparison of autoencoder and Principal Component Analysis followed by neural network for e-learning using handwritten recognition},
+  author={Almotiri, Jasem and Elleithy, Khaled and Elleithy, Abdelrahman},
+  booktitle={2017 IEEE Long Island Systems, Applications and Technology Conference (LISAT)},
+  pages={1--5},
+  year={2017},
+  organization={IEEE}
+}
+@inproceedings{siwek2017autoencoder,
+  title={Autoencoder versus PCA in face recognition},
+  author={Siwek, Krzysztof and Osowski, Stanislaw},
+  booktitle={2017 18th International Conference on Computational Problems of Electrical Engineering (CPEE)},
+  pages={1--4},
+  year={2017},
+  organization={IEEE}
+}
+@article{kingma2013auto,
+  title={Auto-encoding variational bayes},
+  author={Kingma, Diederik P and Welling, Max},
+  journal={arXiv preprint arXiv:1312.6114},
+  year={2013}
+}
+
+@article{kingma2019introduction,
+  title={An introduction to variational autoencoders},
+  author={Kingma, Diederik P and Welling, Max and others},
+  journal={Foundations and Trends{\textregistered} in Machine Learning},
+  volume={12},
+  number={4},
+  pages={307--392},
+  year={2019},
+  publisher={Now Publishers, Inc.}
+}
+@article{portillo2020dimensionality,
+  title={Dimensionality reduction of SDSS spectra with variational autoencoders},
+  author={Portillo, Stephen KN and Parejko, John K and Vergara, Jorge R and Connolly, Andrew J},
+  journal={The Astronomical Journal},
+  volume={160},
+  number={1},
+  pages={45},
+  year={2020},
+  publisher={IOP Publishing}
+}
+@article{lin2020deep,
+  title={A deep adversarial variational autoencoder model for dimensionality reduction in single-cell RNA sequencing analysis},
+  author={Lin, Eugene and Mukherjee, Sudipto and Kannan, Sreeram},
+  journal={BMC bioinformatics},
+  volume={21},
+  number={1},
+  pages={1--11},
+  year={2020},
+  publisher={BioMed Central}
+}
+@article{wang2022varl,
+  title={VARL: a variational autoencoder-based reinforcement learning Framework for vehicle routing problems},
+  author={Wang, Qi},
+  journal={Applied Intelligence},
+  volume={52},
+  number={8},
+  pages={8910--8923},
+  year={2022},
+  publisher={Springer}
+}
+@inproceedings{prakash2019use,
+  title={On the use of deep autoencoders for efficient embedded reinforcement learning},
+  author={Prakash, Bharat and Horton, Mark and Waytowich, Nicholas R and Hairston, William David and Oates, Tim and Mohsenin, Tinoosh},
+  booktitle={Proceedings of the 2019 on Great Lakes Symposium on VLSI},
+  pages={507--512},
+  year={2019}
+}
+@article{de2021deep,
+  title={Deep reinforcement learning for physics-based musculoskeletal simulations of healthy subjects and transfemoral prostheses’ users during normal walking},
+  author={De Vree, Leanne and Carloni, Raffaella},
+  journal={IEEE Transactions on Neural Systems and Rehabilitation Engineering},
+  volume={29},
+  pages={607--618},
+  year={2021},
+  publisher={IEEE}
+}
+@phdthesis{surana2021evaluating,
+  title={Evaluating Deep Reinforcement Learning Algorithms for Physics-Based Musculoskeletal Transfemoral Model with a Prosthetic Leg Performing Ground-Level Walking},
+  author={Surana, Shikha},
+  year={2021}
+}
+@phdthesis{adriaenssens2021testing,
+  title={Testing For Generality Of A Proximal Policy Optimiser For Advanced Human Locomotion Beyond Walking},
+  author={Adriaenssens, Aur{\'e}lien},
+  year={2021}
+}
+@article{melo2021learning,
+  title={Learning humanoid robot running motions with symmetry incentive through proximal policy optimization},
+  author={Melo, Luckeciano C and Melo, Dicksiano C and Maximo, Marcos ROA},
+  journal={Journal of Intelligent \& Robotic Systems},
+  volume={102},
+  number={3},
+  pages={1--15},
+  year={2021},
+  publisher={Springer}
+}
+
+@inproceedings{abreu2019learning,
+  title={Learning to run faster in a humanoid robot soccer environment through reinforcement learning},
+  author={Abreu, Miguel and Reis, Luis Paulo and Lau, Nuno},
+  booktitle={Robot World Cup},
+  pages={3--15},
+  year={2019},
+  organization={Springer}
+}
+@inproceedings{melo2019learning,
+  title={Learning humanoid robot running skills through proximal policy optimization},
+  author={Melo, Luckeciano Carvalho and M{\'a}ximo, Marcos Ricardo Omena Albuquerque},
+  booktitle={2019 Latin american robotics symposium (LARS), 2019 Brazilian symposium on robotics (SBR) and 2019 workshop on robotics in education (WRE)},
+  pages={37--42},
+  year={2019},
+  organization={IEEE}
+}
+@inproceedings{teixeira2020humanoid,
+  title={Humanoid robot kick in motion ability for playing robotic soccer},
+  author={Teixeira, Henrique and Silva, Tiago and Abreu, Miguel and Reis, Lu{\'\i}s Paulo},
+  booktitle={2020 IEEE International Conference on Autonomous Robot Systems and Competitions (ICARSC)},
+  pages={34--39},
+  year={2020},
+  organization={IEEE}
+}
+@article{quang2020proximal,
+  title={Proximal policy optimization through a deep reinforcement learning framework for multiple autonomous vehicles at a non-signalized intersection},
+  author={Quang Tran, Duy and Bae, Sang-Hoon},
+  journal={Applied Sciences},
+  volume={10},
+  number={16},
+  pages={5722},
+  year={2020},
+  publisher={MDPI}
+}
+@inproceedings{higgins2017darla,
+  title={Darla: Improving zero-shot transfer in reinforcement learning},
+  author={Higgins, Irina and Pal, Arka and Rusu, Andrei and Matthey, Loic and Burgess, Christopher and Pritzel, Alexander and Botvinick, Matthew and Blundell, Charles and Lerchner, Alexander},
+  booktitle={International Conference on Machine Learning},
+  pages={1480--1490},
+  year={2017},
+  organization={PMLR}
+}
+@inproceedings{andersen2018dreaming,
+  title={The dreaming variational autoencoder for reinforcement learning environments},
+  author={Andersen, Per-Arne and Goodwin, Morten and Granmo, Ole-Christoffer},
+  booktitle={International Conference on Innovative Techniques and Applications of Artificial Intelligence},
+  pages={143--155},
+  year={2018},
+  organization={Springer}
+}
+@inproceedings{igl2018deep,
+  title={Deep variational reinforcement learning for POMDPs},
+  author={Igl, Maximilian and Zintgraf, Luisa and Le, Tuan Anh and Wood, Frank and Whiteson, Shimon},
+  booktitle={International Conference on Machine Learning},
+  pages={2117--2126},
+  year={2018},
+  organization={PMLR}
+}
