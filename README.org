@@ -1,7 +1,8 @@
 * Dimensionality Reduction Thesis
 ** Usage:
 Clone the repository and then open the file summary.html in your
-favorite browser
+favorite browser. 
+The documentation can also be found [[https://vimmoos.github.io/bthesis/][here]]
 ** Folder structure:
 + =background/=
   
