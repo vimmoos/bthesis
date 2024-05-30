@@ -4,34 +4,6 @@
 #+EMAIL:     m.falzari@student.rug.nl
 #+KEYWORDS:  autoencoder,dimensionality reduction,latent space
 #+LANGUAGE:  en
-* Overview
-** Project scope
-  The project aim to build an autoencoder for dimensionality
-  reduction. In particular, this will be used to hopefully enhance the
-  performance of a DRL algorithm for opensim-rl simulation and to
-  enhance the ability to generalize in different environment.
-  In this project different type of Autoencoders will be tested.
-
-** Index:
-*** [[*Lines of Thoughts][Lines of Thoughts]]
-A kinda of overview on what the thesis is about (e.i. Autoencoders and
-dimensionality reduction)
-*** [[*Papers][Papers]]
-A list of all the background literature found. For each of paper there
-is a short description of the aims and  the results.
-*** [[*Autoencoders][Autoencoders]]
-Contains a list of implemented and not autoencoders
-*** [[*Ideas for Hyperparameters][Ideas for Hyperparameters]]
-Contains some ideas for the hyperparameters fitting and some maybe
-clever ideas
-*** [[*Code][Code]]
-Contains the git repo and the link for the code documentation
-*** [[*Todos][Todos]]
-Contains a list of different type of Todo
-*** [[*Presentations][Presentations]]
-Contains all the presentations done or in progress
-*** [[*Contacts][Contacts]]
-Self explanatory
 * Lines of Thoughts
 ** Dimensionality Reduction
 The concept of dimensionality reduction is quite
@@ -803,6 +775,34 @@ $\mathcal{D}$ is chosen to be the Jensen Shannon divergence.
    Maybe this has something to do with active learning and GFlow net
    by Benjo! More investigation is needed.
 
+* Overview
+** Project scope
+  The project aim to build an autoencoder for dimensionality
+  reduction. In particular, this will be used to hopefully enhance the
+  performance of a DRL algorithm for opensim-rl simulation and to
+  enhance the ability to generalize in different environment.
+  In this project different type of Autoencoders will be tested.
+
+** Index:
+*** [[*Lines of Thoughts][Lines of Thoughts]]
+A kinda of overview on what the thesis is about (e.i. Autoencoders and
+dimensionality reduction)
+*** [[*Papers][Papers]]
+A list of all the background literature found. For each of paper there
+is a short description of the aims and  the results.
+*** [[*Autoencoders][Autoencoders]]
+Contains a list of implemented and not autoencoders
+*** [[*Ideas for Hyperparameters][Ideas for Hyperparameters]]
+Contains some ideas for the hyperparameters fitting and some maybe
+clever ideas
+*** [[*Code][Code]]
+Contains the git repo and the link for the code documentation
+*** [[*Todos][Todos]]
+Contains a list of different type of Todo
+*** [[*Presentations][Presentations]]
+Contains all the presentations done or in progress
+*** [[*Contacts][Contacts]]
+Self explanatory
 * Ideas for Hyperparameters
   Since we will have to fit quite a lot of hyperparameters we tried to come
   up with some cleaver ideas to remove some  of these
